@@ -14,10 +14,11 @@ export default function ScrollReveal({ children, className = "", delay = 0, as: 
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
-          observer.unobserve(node);
+        } else {
+          setIsVisible(false);
         }
       },
-      { threshold: 0.2 }
+      { threshold: 0.15, rootMargin: "0px 0px -50px 0px" }
     );
 
     observer.observe(node);

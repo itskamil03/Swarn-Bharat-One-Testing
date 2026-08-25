@@ -4,31 +4,65 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { heroSlides } from "@/data/homeData";
 import styles from "./Hero.module.css";
 
-const AUTOPLAY_DELAY = 3500;
+const AUTOPLAY_DELAY = 6000;
+const SLIDE_COUNT = heroSlides.length;
+const VIRTUAL_OFFSET = SLIDE_COUNT * 20; // 80, gives huge runway
 
 export default function Hero() {
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(VIRTUAL_OFFSET);
+  const [prevIndex, setPrevIndex] = useState(VIRTUAL_OFFSET - 1);
+  const [direction, setDirection] = useState("next");
   const [isPaused, setIsPaused] = useState(false);
+  
   const timerRef = useRef(null);
   const touchStartX = useRef(0);
   const touchEndX = useRef(0);
-  const slideCount = heroSlides.length;
+
+  const activeIndex = currentIndex % SLIDE_COUNT;
+  const prevActiveIndex = prevIndex % SLIDE_COUNT;
+
+  const goNext = useCallback(() => {
+    setDirection("next");
+    setCurrentIndex((c) => {
+      setPrevIndex(c);
+      return c + 1;
+    });
+  }, []);
+
+  const goPrev = useCallback(() => {
+    setDirection("prev");
+    setCurrentIndex((c) => {
+      setPrevIndex(c);
+      return c - 1;
+    });
+  }, []);
 
   const goTo = useCallback(
     (index) => {
-      setActiveIndex((index + slideCount) % slideCount);
+      const diff = (index - activeIndex + SLIDE_COUNT) % SLIDE_COUNT;
+      if (diff === 0) return;
+      if (diff > SLIDE_COUNT / 2) {
+        setDirection("prev");
+        setCurrentIndex((c) => {
+          setPrevIndex(c);
+          return c - (SLIDE_COUNT - diff);
+        });
+      } else {
+        setDirection("next");
+        setCurrentIndex((c) => {
+          setPrevIndex(c);
+          return c + diff;
+        });
+      }
     },
-    [slideCount]
+    [activeIndex]
   );
-
-  const goNext = useCallback(() => goTo(activeIndex + 1), [activeIndex, goTo]);
-  const goPrev = useCallback(() => goTo(activeIndex - 1), [activeIndex, goTo]);
 
   useEffect(() => {
     if (isPaused) return undefined;
     timerRef.current = setInterval(goNext, AUTOPLAY_DELAY);
     return () => clearInterval(timerRef.current);
-  }, [isPaused, goNext]);
+  }, [isPaused, goNext, currentIndex]); // Reset timer on interaction
 
   const handleTouchStart = (e) => {
     touchStartX.current = e.changedTouches[0].screenX;
@@ -36,43 +70,48 @@ export default function Hero() {
 
   const handleTouchEnd = (e) => {
     touchEndX.current = e.changedTouches[0].screenX;
-    if (touchStartX.current - touchEndX.current > 50) {
-      goNext();
-    }
-    if (touchEndX.current - touchStartX.current > 50) {
-      goPrev();
-    }
+    if (touchStartX.current - touchEndX.current > 50) goNext();
+    if (touchEndX.current - touchStartX.current > 50) goPrev();
   };
+
+
 
   return (
     <section
       id="top"
       className={styles.hero}
-      onMouseEnter={() => setIsPaused(true)}
-      onMouseLeave={() => setIsPaused(false)}
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
     >
-      <div className={styles.slides}>
-        {heroSlides.map((slide, index) => (
-          <div
-            key={slide.id}
-            className={`${styles.slide} ${index === activeIndex ? styles.slideActive : ""}`}
-            aria-hidden={index !== activeIndex}
-          >
+      <div className={styles.slides} data-direction={direction}>
+        {heroSlides.map((slide, index) => {
+          const isActive = index === activeIndex;
+          const isPrev = index === prevActiveIndex;
+          
+          let slideClass = styles.slideInactive;
+          if (isActive) slideClass = styles.slideActive;
+          else if (isPrev) slideClass = styles.slidePrev;
+
+          return (
             <div
-              className={styles.slideImage}
-              style={{ backgroundImage: `url(${slide.image})` }}
-            />
-            <div className={styles.overlay} />
-          </div>
-        ))}
+              key={slide.id}
+              className={`${styles.slide} ${slideClass}`}
+              aria-hidden={!isActive}
+            >
+              <div
+                className={styles.slideImage}
+                style={{ backgroundImage: `url(${slide.image})` }}
+              />
+              <div className={styles.overlay} />
+            </div>
+          );
+        })}
       </div>
 
       <div className={`container ${styles.content}`}>
         {heroSlides.map((slide, index) => (
           <div
-            key={slide.id}
+            key={`content-${slide.id}`}
             className={`${styles.textBlock} ${index === activeIndex ? styles.textBlockActive : ""}`}
             aria-hidden={index !== activeIndex}
           >
@@ -99,13 +138,19 @@ export default function Hero() {
           </div>
         ))}
 
-        <div className={styles.navContainerCenter}>
+
+
+        <div 
+          className={styles.navContainerCenter} 
+          onMouseEnter={() => setIsPaused(true)} 
+          onMouseLeave={() => setIsPaused(false)}
+        >
           <div className={styles.indicatorsDash}>
             {heroSlides.map((slide, index) => {
               const isActive = index === activeIndex;
               return (
                 <button
-                  key={slide.id}
+                  key={`nav-${slide.id}`}
                   type="button"
                   className={styles.dashButton}
                   onClick={() => goTo(index)}
@@ -115,9 +160,9 @@ export default function Hero() {
                   <div className={styles.dashTrack}>
                     {isActive && (
                       <div
-                        key={`progress-${activeIndex}`}
+                        key={`progress-${currentIndex}`}
                         className={styles.progressFill}
-                        style={{ animationPlayState: isPaused ? "paused" : "running" }}
+                        style={{ animationPlayState: isPaused ? "paused" : "running", animationDuration: `${AUTOPLAY_DELAY}ms` }}
                       />
                     )}
                   </div>
@@ -128,10 +173,24 @@ export default function Hero() {
         </div>
       </div>
 
-      <button type="button" className={`${styles.arrowButton} ${styles.arrowPrev}`} onClick={goPrev} aria-label="Previous slide">
+      <button 
+        type="button" 
+        className={`${styles.arrowButton} ${styles.arrowPrev}`} 
+        onClick={goPrev} 
+        aria-label="Previous slide"
+        onMouseEnter={() => setIsPaused(true)} 
+        onMouseLeave={() => setIsPaused(false)}
+      >
         <NavArrowIcon direction="left" />
       </button>
-      <button type="button" className={`${styles.arrowButton} ${styles.arrowNext}`} onClick={goNext} aria-label="Next slide">
+      <button 
+        type="button" 
+        className={`${styles.arrowButton} ${styles.arrowNext}`} 
+        onClick={goNext} 
+        aria-label="Next slide"
+        onMouseEnter={() => setIsPaused(true)} 
+        onMouseLeave={() => setIsPaused(false)}
+      >
         <NavArrowIcon direction="right" />
       </button>
 
