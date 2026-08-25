@@ -1,0 +1,266 @@
+.section {
+  padding: 6rem 0;
+  background-color: var(--off-white);
+  overflow: hidden;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1px 1fr;
+  gap: 3.5rem;
+}
+
+.divider {
+  background-color: rgba(6, 19, 36, 0.08);
+  width: 1px;
+  height: 100%;
+}
+
+@media (max-width: 900px) {
+  .container {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+  .divider {
+    width: 100%;
+    height: 1px;
+    margin: 1rem 0;
+  }
+}
+
+.columnHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 2.5rem;
+}
+
+.eyebrow {
+  color: var(--gold);
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 0.12em;
+  font-weight: 600;
+  margin: 0;
+}
+
+.viewAll {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.85rem;
+  color: var(--navy-deep);
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.viewAll:hover {
+  color: var(--gold);
+}
+
+.viewAll svg {
+  transition: transform 0.3s ease;
+}
+
+.viewAll:hover svg {
+  transform: translateX(4px);
+}
+
+.newsList, .eventsList {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.newsItem {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1rem;
+  border-radius: 6px;
+  transition: background-color 0.4s ease;
+  position: relative;
+}
+
+.newsItem:hover {
+  background-color: rgba(6, 19, 36, 0.03);
+}
+
+.newsItem::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%) scaleY(0);
+  width: 3px;
+  height: 60%;
+  background-color: var(--gold);
+  transition: transform 0.4s ease;
+  border-radius: 0 4px 4px 0;
+}
+
+.newsItem:hover::before {
+  transform: translateY(-50%) scaleY(1);
+}
+
+.newsImageWrap {
+  width: 120px;
+  height: 80px;
+  border-radius: 6px;
+  overflow: hidden;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.newsImage {
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.newsItem:hover .newsImage {
+  transform: scale(1.05);
+}
+
+.newsContent {
+  flex-grow: 1;
+}
+
+.newsMeta {
+  display: flex;
+  gap: 0.75rem;
+  font-size: 0.75rem;
+  color: var(--muted-gray);
+  margin-bottom: 0.4rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.newsCategory {
+  color: var(--gold);
+}
+
+.newsTitle {
+  font-size: 1.1rem;
+  color: var(--navy-deep);
+  font-weight: 600;
+  line-height: 1.4;
+  margin: 0;
+  transition: color 0.3s ease;
+}
+
+.newsItem:hover .newsTitle {
+  color: var(--ink);
+}
+
+.arrow {
+  color: var(--gold);
+  flex-shrink: 0;
+  transition: transform 0.4s ease;
+}
+
+.newsItem:hover .arrow, .eventItem:hover .arrow {
+  transform: translateX(6px);
+}
+
+.eventItem {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1rem;
+  border-radius: 6px;
+  transition: background-color 0.4s ease;
+}
+
+.eventItem:hover {
+  background-color: rgba(6, 19, 36, 0.03);
+}
+
+.dateBlock {
+  width: 70px;
+  height: 85px;
+  border: 1px solid rgba(6, 19, 36, 0.1);
+  background: var(--white);
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.eventItem:hover .dateBlock {
+  border-color: rgba(201, 155, 61, 0.4);
+  box-shadow: 0 4px 12px rgba(201, 155, 61, 0.1);
+}
+
+.eventDay {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--navy-deep);
+  line-height: 1;
+}
+
+.eventMonth {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--gold);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-top: 0.2rem;
+}
+
+.eventYear {
+  font-size: 0.65rem;
+  color: var(--muted-gray);
+  margin-top: 0.1rem;
+}
+
+.eventContent {
+  flex-grow: 1;
+}
+
+.eventTitle {
+  font-size: 1.15rem;
+  color: var(--navy-deep);
+  font-weight: 600;
+  line-height: 1.4;
+  margin-bottom: 0.4rem;
+  transition: color 0.3s ease;
+}
+
+.eventItem:hover .eventTitle {
+  color: var(--ink);
+}
+
+.eventLocation {
+  font-size: 0.9rem;
+  color: rgba(6, 19, 36, 0.6);
+  margin-bottom: 0.6rem;
+}
+
+.registerCta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--navy-deep);
+  transition: color 0.3s ease;
+}
+
+.eventItem:hover .registerCta {
+  color: var(--gold);
+}
+
+.registerCta svg {
+  color: var(--gold);
+  transition: transform 0.4s ease;
+}
+
+.eventItem:hover .registerCta svg {
+  transform: translateX(4px);
+}
