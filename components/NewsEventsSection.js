@@ -7,7 +7,7 @@ export default function NewsEventsSection() {
   return (
     <section id="news" className={`section section-off-white ${styles.section}`}>
       <div className={`container ${styles.container}`}>
-        
+
         {/* LATEST NEWS COLUMN */}
         <div>
           <ScrollReveal className={styles.columnHeader}>

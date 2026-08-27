@@ -1,0 +1,362 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;1,500;1,600&family=Poppins:wght@400;500;600&display=swap');
+
+.blogSection {
+  --bg: #0A0D16;
+  --card: #11151F;
+  --line: rgba(255, 255, 255, 0.07);
+  --gold: #C9A24B;
+  --gold-dim: #9C8140;
+  --ink: #F3F1EA;
+  --ink-dim: #A8AEBB;
+  --muted: #6E7484;
+  --serif: 'Playfair Display', Georgia, serif;
+  --sans: 'Poppins', -apple-system, sans-serif;
+  
+  background: var(--bg);
+  padding: 92px 40px 100px;
+  border-top: 1px solid var(--line);
+  font-family: var(--sans);
+}
+
+.container {
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+.sectionHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 24px;
+  margin-bottom: 48px;
+  flex-wrap: wrap;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 36px;
+}
+
+.headingBlock {
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+.visible .headingBlock {
+  animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 16px;
+}
+
+.eyebrow::before {
+  content: '';
+  width: 22px;
+  height: 1px;
+  background: var(--gold);
+}
+
+.headline {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(26px, 3vw, 36px);
+  line-height: 1.25;
+  color: var(--ink);
+  margin: 0;
+}
+
+.headline em {
+  font-style: italic;
+  font-weight: 500;
+  color: var(--gold);
+}
+
+.viewAll {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: #16130A;
+  background: var(--gold);
+  padding: 13px 24px;
+  border-radius: 4px;
+  text-decoration: none;
+  white-space: nowrap;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  opacity: 0;
+}
+
+.visible .viewAll {
+  animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: 0.15s;
+}
+
+.viewAll:hover {
+  background: #DBB35C;
+  transform: translateY(-2px);
+}
+
+.viewAll svg {
+  width: 13px;
+  height: 13px;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.viewAll:hover svg {
+  transform: translateX(3px);
+}
+
+.viewAll:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+}
+
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.blogGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+@media (max-width: 940px) {
+  .blogGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 620px) {
+  .blogGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.blogCard {
+  text-decoration: none;
+  display: block;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.visible .blogCard {
+  animation: cardIn 0.75s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.visible .blogCard:nth-child(1) {
+  animation-delay: 0.25s;
+}
+
+.visible .blogCard:nth-child(2) {
+  animation-delay: 0.35s;
+}
+
+.visible .blogCard:nth-child(3) {
+  animation-delay: 0.45s;
+}
+
+@keyframes cardIn {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.cardFrame {
+  position: relative;
+  border-radius: 10px;
+  overflow: hidden;
+  height: 230px;
+  margin-bottom: 22px;
+}
+
+.cardMedia {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.blogCard:hover .cardMedia {
+  transform: scale(1.06);
+}
+
+.categoryIcon {
+  position: absolute;
+  top: 18px;
+  right: 20px;
+  width: 18px;
+  height: 18px;
+  color: var(--gold);
+  z-index: 3;
+  opacity: 0.7;
+}
+
+.cardFrame::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(10, 13, 22, 0) 45%, rgba(8, 10, 17, 0.86) 100%);
+}
+
+.cardFrame::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: inherit;
+  z-index: 2;
+  transition: border-color 0.4s ease;
+}
+
+.blogCard:hover .cardFrame::before {
+  border-color: rgba(201, 162, 75, 0.45);
+}
+
+.cardLabel {
+  position: absolute;
+  left: 20px;
+  bottom: 18px;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.cardLabel::before {
+  content: '';
+  width: 14px;
+  height: 1px;
+  background: var(--gold);
+}
+
+.postTitle {
+  font-family: var(--sans);
+  font-size: 16.5px;
+  font-weight: 600;
+  line-height: 1.45;
+  color: var(--ink);
+  margin: 0 0 10px;
+}
+
+.postMeta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 14px;
+}
+
+.postMeta .sep {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--muted);
+}
+
+.readMore {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--ink-dim);
+  position: relative;
+  padding-bottom: 3px;
+  transition: color 0.3s ease;
+  opacity: 0;
+  transform: translateY(4px);
+}
+
+/* User asked for readMore to only appear on hover in card! */
+.blogCard:hover .readMore {
+  color: var(--gold);
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.readMore::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1px;
+  background: var(--line);
+}
+
+.readMore::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0%;
+  height: 1px;
+  background: var(--gold);
+  transition: width 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 1;
+}
+
+.blogCard:hover .readMore::before {
+  width: 100%;
+}
+
+.readMore svg {
+  width: 12px;
+  height: 12px;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.blogCard:hover .readMore svg {
+  transform: translateX(4px);
+}
+
+.blogCard:focus-visible .cardFrame::before {
+  border-color: var(--gold);
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .blogSection * {
+    animation: none !important;
+    transition: none !important;
+  }
+  .headingBlock,
+  .viewAll,
+  .blogCard {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (max-width: 560px) {
+  .blogSection {
+    padding: 64px 20px 72px;
+  }
+  .sectionHead {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

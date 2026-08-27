@@ -4,6 +4,7 @@
 export const navLinks = [
   { label: "About", href: "#about" },
   { label: "Businesses", href: "#businesses" },
+  { label: "Foundation", href: "#foundation" },
   { label: "Impact", href: "#impact" },
   { label: "Investors", href: "#investors" },
   { label: "News", href: "#news" },
@@ -86,39 +87,45 @@ export const swarnBharatCards = [
 export const businesses = [
   {
     number: "01",
-    title: "Infrastructure",
-    description: "Building the systems and assets that connect communities and accelerate growth.",
-    iconPath: "M3 21h18M5 21V7l5-4 5 4v14M15 21V11l4-3 2 3v10M9 9h2v2H9z"
+    title: "E-Commerce",
+    description: "Discover products, compare choices, and shop conveniently online.",
+    iconPath: "M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
   },
   {
     number: "02",
-    title: "Energy",
-    description: "Developing reliable and future-ready energy solutions.",
-    iconPath: "M13 10V3L4 14h7v8l9-11h-7z"
+    title: "Services",
+    description: "Find trusted professionals and reliable services for everyday needs.",
+    iconPath: "M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"
   },
   {
     number: "03",
-    title: "Resources",
-    description: "Creating responsible value from essential natural resources.",
-    iconPath: "M12 2c0 0-7.5 5.5-7.5 13.5 0 2 1.5 4.5 4.5 4.5 3 0 3-2 3-2s0 2 3 2c3 0 4.5-2.5 4.5-4.5C19.5 7.5 12 2 12 2zm0 18v-8"
+    title: "Matrimonial",
+    description: "Connect with compatible profiles and discover meaningful relationships.",
+    iconPath: "M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
   },
   {
     number: "04",
-    title: "Agri Business",
-    description: "Strengthening agriculture through modern, scalable solutions.",
-    iconPath: "M12 22V10M8 14l4-4 4 4M9 10l3-3 3 3M10 6l2-2 2 2"
+    title: "Jobs",
+    description: "Explore career opportunities and connect with the right employers.",
+    iconPath: "M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
   },
   {
     number: "05",
-    title: "Defence & Aerospace",
-    description: "Supporting strategic capabilities through technology and innovation.",
-    iconPath: "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"
+    title: "Students Portal",
+    description: "Access education resources, opportunities, and student-focused services.",
+    iconPath: "M12 14l9-5-9-5-9 5 9 5z M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"
   },
   {
     number: "06",
-    title: "Emerging Businesses",
-    description: "Exploring new opportunities that shape tomorrow's industries.",
-    iconPath: "M18 6a2 2 0 11-4 0 2 2 0 014 0zM8 6a2 2 0 11-4 0 2 2 0 014 0zM13 18a2 2 0 11-4 0 2 2 0 014 0zM6 8l5 8m5-8l-5 8"
+    title: "Construction",
+    description: "Discover construction solutions, professionals, projects, and resources.",
+    iconPath: "M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1v1H9V7zm5 0h1v1h-1V7zm-5 4h1v1H9v-1zm5 0h1v1h-1v-1zm-5 4h1v1H9v-1zm5 0h1v1h-1v-1z"
+  },
+  {
+    number: "07",
+    title: "Real Estate",
+    description: "Explore properties, homes, commercial spaces, and real estate opportunities.",
+    iconPath: "M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
   }
 ];
 
@@ -239,3 +246,31 @@ export const footerLinks = {
     { label: "Terms & Conditions", href: "#" },
   ],
 };
+
+export const latestBlogPosts = [
+  {
+    category: "Energy",
+    date: "12 Aug 2024",
+    readTime: "6 min read",
+    title: "Inside our largest solar rollout yet",
+    image: "/images/h4.2.png",
+    href: "#"
+  },
+  {
+    category: "Infrastructure",
+    date: "05 Aug 2024",
+    readTime: "4 min read",
+    title: "How urban infrastructure shapes community trust",
+    image: "/images/slide-03.jpg",
+    href: "#"
+  },
+  {
+    category: "Manufacturing",
+    date: "28 Jul 2024",
+    readTime: "5 min read",
+    title: "Building manufacturing capacity for a self-reliant Bharat",
+    image: "/images/h4.4.png",
+    href: "#"
+  }
+];
+

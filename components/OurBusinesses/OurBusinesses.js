@@ -63,17 +63,19 @@ export default function OurBusinesses() {
               onMouseEnter={() => setActiveIndex(index)}
               onFocus={() => setActiveIndex(index)}
             >
-              <svg className={styles.icon} viewBox="0 0 24 24">
-                <path d={bus.iconPath} />
-              </svg>
-              <div className={styles.num}>{bus.number}</div>
-              <h3>{bus.title}</h3>
-              <p>{bus.description}</p>
-              <div className={styles.go}>
-                <svg viewBox="0 0 24 24">
-                  <line x1="5" y1="19" x2="19" y2="5" />
-                  <polyline points="8 5 19 5 19 16" />
+              <div className={styles.inner}>
+                <svg className={styles.icon} viewBox="0 0 24 24">
+                  <path d={bus.iconPath} />
                 </svg>
+                <div className={styles.num}>{bus.number}</div>
+                <h3>{bus.title}</h3>
+                <p>{bus.description}</p>
+                <div className={styles.go}>
+                  <svg viewBox="0 0 24 24">
+                    <line x1="5" y1="19" x2="19" y2="5" />
+                    <polyline points="8 5 19 5 19 16" />
+                  </svg>
+                </div>
               </div>
               <div className={styles.accent}></div>
             </div>

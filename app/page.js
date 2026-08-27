@@ -4,6 +4,7 @@ import WhoWeAreSection from "@/components/WhoWeAreSection";
 import OurBusinesses from "@/components/OurBusinesses/OurBusinesses";
 import OurProjectsSection from "@/components/OurProjectsSection/OurProjectsSection";
 import NewsEventsSection from "@/components/NewsEventsSection";
+import LatestBlog from "@/components/LatestBlog/LatestBlog";
 import CareersBanner from "@/components/CareersBanner";
 import Footer from "@/components/Footer";
 
@@ -17,6 +18,7 @@ export default function HomePage() {
         <OurBusinesses />
         <OurProjectsSection />
         <NewsEventsSection />
+        <LatestBlog />
         <CareersBanner />
       </main>
       <Footer />
