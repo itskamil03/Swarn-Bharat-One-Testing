@@ -66,19 +66,19 @@ export const swarnBharatCards = [
   {
     title: "Vision",
     description: "To build an empowered, self-reliant and developed India.",
-    image: "/images/vision.jpg",
+    image: "/images/ah1.png",
     iconPath: "M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"
   },
   {
     title: "Mission",
     description: "Create sustainable businesses and positive impact at scale.",
-    image: "/images/mission.jpg",
+    image: "/images/ah2.png",
     iconPath: "M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm3-8c0 1.66-1.34 3-3 3s-3-1.34-3-3 1.34-3 3-3 3 1.34 3 3z"
   },
   {
     title: "Values",
     description: "Integrity, Excellence, Sustainability and Nation First.",
-    image: "/images/values.jpg",
+    image: "/images/ah3.png",
     iconPath: "M12.16 2.01l7.7 7.7-7.7 7.7-7.7-7.7 7.7-7.7m0-2l-9.1 9.1 9.1 9.1 9.1-9.1-9.1-9.1z"
   },
 ];
@@ -130,7 +130,7 @@ export const projects = [
     title: "National Highway Project",
     description: "Building connectivity, powering progress.",
     image:
-      "/images/slide-03.jpg",
+      "/images/h4.1.png",
   },
   {
     id: "renewable-energy-park",
@@ -139,7 +139,7 @@ export const projects = [
     title: "Renewable Energy Park",
     description: "Harnessing clean energy for a sustainable future.",
     image:
-      "/images/project-02.jpg",
+      "/images/h4.2.png",
   },
   {
     id: "smart-city-development",
@@ -148,7 +148,7 @@ export const projects = [
     title: "Smart City Development",
     description: "Redefining urban living with modern solutions.",
     image:
-      "/images/project-03.jpg",
+      "/images/h4.3.png",
   },
   {
     id: "industrial-manufacturing",
@@ -157,7 +157,7 @@ export const projects = [
     title: "Industrial & Manufacturing",
     description: "Driving growth through innovation and excellence.",
     image:
-      "/images/project-04.jpg",
+      "/images/h4.4.png",
   },
 ];
 

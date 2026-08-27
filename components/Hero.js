@@ -13,7 +13,7 @@ export default function Hero() {
   const [prevIndex, setPrevIndex] = useState(VIRTUAL_OFFSET - 1);
   const [direction, setDirection] = useState("next");
   const [isPaused, setIsPaused] = useState(false);
-  
+
   const timerRef = useRef(null);
   const touchStartX = useRef(0);
   const touchEndX = useRef(0);
@@ -87,7 +87,7 @@ export default function Hero() {
         {heroSlides.map((slide, index) => {
           const isActive = index === activeIndex;
           const isPrev = index === prevActiveIndex;
-          
+
           let slideClass = styles.slideInactive;
           if (isActive) slideClass = styles.slideActive;
           else if (isPrev) slideClass = styles.slidePrev;
@@ -140,9 +140,9 @@ export default function Hero() {
 
 
 
-        <div 
-          className={styles.navContainerCenter} 
-          onMouseEnter={() => setIsPaused(true)} 
+        <div
+          className={styles.navContainerCenter}
+          onMouseEnter={() => setIsPaused(true)}
           onMouseLeave={() => setIsPaused(false)}
         >
           <div className={styles.indicatorsDash}>
@@ -173,22 +173,22 @@ export default function Hero() {
         </div>
       </div>
 
-      <button 
-        type="button" 
-        className={`${styles.arrowButton} ${styles.arrowPrev}`} 
-        onClick={goPrev} 
+      <button
+        type="button"
+        className={`${styles.arrowButton} ${styles.arrowPrev}`}
+        onClick={goPrev}
         aria-label="Previous slide"
-        onMouseEnter={() => setIsPaused(true)} 
+        onMouseEnter={() => setIsPaused(true)}
         onMouseLeave={() => setIsPaused(false)}
       >
         <NavArrowIcon direction="left" />
       </button>
-      <button 
-        type="button" 
-        className={`${styles.arrowButton} ${styles.arrowNext}`} 
-        onClick={goNext} 
+      <button
+        type="button"
+        className={`${styles.arrowButton} ${styles.arrowNext}`}
+        onClick={goNext}
         aria-label="Next slide"
-        onMouseEnter={() => setIsPaused(true)} 
+        onMouseEnter={() => setIsPaused(true)}
         onMouseLeave={() => setIsPaused(false)}
       >
         <NavArrowIcon direction="right" />
