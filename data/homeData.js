@@ -3,12 +3,11 @@
 
 export const navLinks = [
   { label: "About", href: "#about" },
-  { label: "Businesses", href: "#businesses" },
+  { label: "Services", href: "#services" },
   { label: "Foundation", href: "#foundation" },
-  { label: "Impact", href: "#impact" },
-  { label: "Investors", href: "#investors" },
-  { label: "News", href: "#news" },
+  { label: "Rewards", href: "#rewards" },
   { label: "Careers", href: "#careers" },
+  { label: "Offers", href: "#offers" },
   { label: "Contact", href: "#contact" },
 ];
 
@@ -21,44 +20,68 @@ export const heroSlides = [
     description:
       "Creating businesses, building infrastructure, empowering communities and driving sustainable growth for a better tomorrow.",
     image:
-      "/images/slide-01.jpg",
+      "/images/h2.png",
     primaryCta: { label: "Explore Our Businesses", href: "#businesses" },
     secondaryCta: { label: "Our Impact", href: "#impact" },
   },
   {
     id: "slide-02",
-    eyebrow: "Energy & Sustainability",
-    headlineLead: "Powering a",
-    headlineHighlight: "Cleaner Tomorrow.",
+    eyebrow: "Education & Growth",
+    headlineLead: "Empowering",
+    headlineHighlight: "Students.",
     description:
-      "Investing in renewable infrastructure that reduces our footprint while fuelling the ambitions of a growing nation.",
+      "Providing platforms and resources that nurture the next generation of leaders and innovators.",
     image:
-      "/images/hh1.png",
-    primaryCta: { label: "Explore Energy", href: "#businesses" },
+      "/images/std.png",
+    primaryCta: { label: "Students Portal", href: "#businesses" },
     secondaryCta: { label: "Our Impact", href: "#impact" },
   },
   {
     id: "slide-03",
-    eyebrow: "Infrastructure",
-    headlineLead: "Engineering",
-    headlineHighlight: "Progress at Scale.",
+    eyebrow: "Digital Platforms",
+    headlineLead: "Innovating",
+    headlineHighlight: "E-Commerce.",
     description:
-      "From highways to smart cities, our projects are shaping the physical backbone of a modern, connected India.",
+      "Delivering seamless digital shopping experiences and connecting consumers with quality products across the nation.",
     image:
-      "/images/slide-03.jpg",
-    primaryCta: { label: "View Our Projects", href: "#projects" },
+      "/images/ecm.png",
+    primaryCta: { label: "Explore E-Commerce", href: "#businesses" },
     secondaryCta: { label: "Our Impact", href: "#impact" },
   },
   {
     id: "slide-04",
-    eyebrow: "People & Impact",
-    headlineLead: "Building Careers.",
-    headlineHighlight: "Building Bharat.",
+    eyebrow: "Connections",
+    headlineLead: "Meaningful",
+    headlineHighlight: "Relationships.",
     description:
-      "A team driven by purpose and passion, working together to create lasting impact across every community we touch.",
+      "Dedicated matrimonial services that bring families together and build lasting bonds.",
     image:
-      "/images/slide-04.jpg",
-    primaryCta: { label: "Explore Careers", href: "#careers" },
+      "/images/mtm.png",
+    primaryCta: { label: "Matrimonial Services", href: "#businesses" },
+    secondaryCta: { label: "Our Impact", href: "#impact" },
+  },
+  {
+    id: "slide-05",
+    eyebrow: "Urban Development",
+    headlineLead: "Redefining",
+    headlineHighlight: "Real Estate.",
+    description:
+      "Creating modern, sustainable, and thriving communities through innovative real estate development.",
+    image:
+      "/images/real.png",
+    primaryCta: { label: "Explore Real Estate", href: "#businesses" },
+    secondaryCta: { label: "Our Impact", href: "#impact" },
+  },
+  {
+    id: "slide-06",
+    eyebrow: "Infrastructure",
+    headlineLead: "Excellence in",
+    headlineHighlight: "Construction.",
+    description:
+      "Engineering robust infrastructure and executing world-class construction projects at scale.",
+    image:
+      "/images/constt.png",
+    primaryCta: { label: "View Our Projects", href: "#projects" },
     secondaryCta: { label: "Our Impact", href: "#impact" },
   },
 ];
@@ -126,6 +149,12 @@ export const businesses = [
     title: "Real Estate",
     description: "Explore properties, homes, commercial spaces, and real estate opportunities.",
     iconPath: "M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+  },
+  {
+    number: "08",
+    title: "Technology",
+    description: "Delivering innovative digital solutions and advanced software platforms.",
+    iconPath: "M12 2v20m10-10H2"
   }
 ];
 

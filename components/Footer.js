@@ -71,7 +71,7 @@ export default function Footer() {
       </div>
 
       <div className={`container ${styles.bottom}`}>
-        <p>&copy; {new Date().getFullYear()} Khetan Group. All Rights Reserved.</p>
+        <p>&copy; {new Date().getFullYear()} Swarn Bharat Group. All Rights Reserved.</p>
         <div className={styles.legalLinks}>
           {footerLinks.legal.map((link) => (
             <a key={link.label} href={link.href}>

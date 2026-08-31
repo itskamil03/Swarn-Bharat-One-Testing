@@ -1,97 +1,121 @@
 "use client";
 
+import { useState, useEffect, useRef } from "react";
 import { businesses } from "@/data/homeData";
 import styles from "./OurBusinesses.module.css";
-import { useEffect, useRef, useState } from "react";
-import Link from "next/link";
+
+const bizImages = [
+  '/images/ecommerce.jpg',
+  '/images/services.jpg',
+  '/images/matrimonial.png',
+  '/images/jobs.png',
+  '/images/student.png',
+  '/images/const.png',
+  '/images/realestate.jpg',
+  '/images/technology.jpg'
+];
 
 export default function OurBusinesses() {
-  const [activeIndex, setActiveIndex] = useState(3);
-  const sectionRef = useRef(null);
-  const boardRef = useRef(null);
-  const defaultIndex = 3;
+  const cardsRef = useRef([]);
+  const ctaRef = useRef(null);
+  const [showAll, setShowAll] = useState(false);
+  const visibleBusinesses = showAll ? businesses : businesses.slice(0, 6);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add(styles.visible);
-          }
-        });
-      },
-      { threshold: 0.15 }
-    );
+    const cardObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const el = entry.target;
+          const index = Number(el.dataset.index) || 0;
+          const delay = Math.min(index * 80, 560);
+          setTimeout(() => el.classList.add(styles.isVisible), delay);
+          cardObserver.unobserve(el);
+        }
+      });
+    }, { threshold: 0.15 });
 
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
+    cardsRef.current.forEach(c => {
+      if (c) cardObserver.observe(c);
+    });
+
+    const ctaObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add(styles.isVisible);
+          ctaObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.3 });
+
+    if (ctaRef.current) {
+      ctaObserver.observe(ctaRef.current);
     }
 
     return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current);
-      }
+      cardObserver.disconnect();
+      ctaObserver.disconnect();
     };
-  }, []);
-
-  const handleBlur = (e) => {
-    if (boardRef.current && !boardRef.current.contains(e.relatedTarget)) {
-      setActiveIndex(defaultIndex);
-    }
-  };
+  }, [visibleBusinesses.length]);
 
   return (
-    <section className={styles.section} ref={sectionRef} id="businesses">
-      <div className={styles.wrap}>
-        <div className={styles.header}>
-          <div className={styles.eyebrow}><span className={styles.dash}></span> Our Businesses</div>
-          <h2 className={styles.title}>Building across sectors.<br/>Creating lasting impact.</h2>
-          <p className={styles.sub}>Our diversified businesses operate across critical sectors, creating platforms that contribute to India&apos;s growth and long-term development.</p>
-        </div>
-
-        <div 
-          className={styles.board} 
-          ref={boardRef}
-          onMouseLeave={() => setActiveIndex(defaultIndex)}
-          onBlur={handleBlur}
-        >
-          {businesses.map((bus, index) => (
-            <div 
-              key={bus.title} 
-              className={`${styles.seg} ${activeIndex === index ? styles.active : ''}`}
-              tabIndex="0"
-              onMouseEnter={() => setActiveIndex(index)}
-              onFocus={() => setActiveIndex(index)}
-            >
-              <div className={styles.inner}>
-                <svg className={styles.icon} viewBox="0 0 24 24">
-                  <path d={bus.iconPath} />
-                </svg>
-                <div className={styles.num}>{bus.number}</div>
-                <h3>{bus.title}</h3>
-                <p>{bus.description}</p>
-                <div className={styles.go}>
-                  <svg viewBox="0 0 24 24">
-                    <line x1="5" y1="19" x2="19" y2="5" />
-                    <polyline points="8 5 19 5 19 16" />
-                  </svg>
-                </div>
-              </div>
-              <div className={styles.accent}></div>
-            </div>
-          ))}
-        </div>
-
-        <div className={styles.ctaWrap}>
-          <Link href="#businesses" className={styles.cta}>
-            <span>Explore all businesses</span>
-            <svg viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round">
-              <line x1="5" y1="12" x2="19" y2="12"></line>
-              <polyline points="12 5 19 12 12 19"></polyline>
-            </svg>
-          </Link>
-        </div>
+    <section id="businesses" className={styles.cardsSection}>
+      <div className={styles.cardsHeader}>
+        <span className={styles.cardsEyebrow}>Our Portfolio</span>
+        <h2 className={styles.cardsTitle}>
+          Building across sectors.<br />
+          Creating <em>lasting impact.</em>
+        </h2>
+        <p className={styles.cardsSub}>
+          Our diversified businesses operate across critical sectors, creating platforms that contribute to India&apos;s growth and long-term development.
+        </p>
       </div>
+
+      <div className={styles.cardsGrid} id="cardsGrid">
+        {visibleBusinesses.map((b, i) => {
+          const num = String(i + 1).padStart(2, '0');
+          return (
+            <article 
+              key={b.title} 
+              className={styles.bizCard} 
+              data-index={i}
+              ref={el => cardsRef.current[i] = el}
+            >
+              <div className={styles.cardMedia}>
+                <img src={bizImages[i % bizImages.length]} alt={b.title} loading="lazy" />
+              </div>
+              <div className={styles.cardScrim}></div>
+              <div className={styles.cardFrame}>
+                <span className={styles.tl}></span>
+                <span className={styles.tr}></span>
+                <span className={styles.bl}></span>
+                <span className={styles.br}></span>
+              </div>
+              <div className={styles.cardContent}>
+                <span className={styles.cardNum}>{num}</span>
+                <h3 className={styles.cardTitle}>{b.title}</h3>
+                <span className={styles.cardUnderline}></span>
+                <p className={styles.cardDesc}>{b.description}</p>
+                <span className={styles.cardArrow}>Explore vertical
+                  <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                </span>
+              </div>
+            </article>
+          );
+        })}
+      </div>
+
+      {!showAll && businesses.length > 6 && (
+        <div className={styles.cardsCtaWrap} ref={ctaRef}>
+          <button 
+            type="button" 
+            className={styles.cardsCta} 
+            onClick={() => setShowAll(true)}
+          >
+            Explore All Businesses
+            <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </button>
+        </div>
+      )}
     </section>
   );
 }
