@@ -1,101 +1,11 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import Link from "next/link";
-import styles from "./RewardsPromoSection.module.css";
+import styles from "./RewardsHowItWorksSection.module.css";
 
-const services = [
-  {name: "E-Commerce", icon: <><path d="M6 8h12l-1 11H7z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></>},
-  {name: "Real Estate", icon: <><path d="M4 21V9l8-5 8 5v12"/><path d="M9 21v-6h6v6"/></>},
-  {name: "Education", icon: <><path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11v5c0 1.4 2.7 2.5 6 2.5s6-1.1 6-2.5v-5"/></>},
-  {name: "Healthcare", icon: <><path d="M12 3l7 3v6c0 4.6-3 8.3-7 9-4-.7-7-4.4-7-9V6z"/><path d="M12 8v6M9 11h6"/></>},
-  {name: "Travel", icon: <><path d="M2 16l20-7-7 20-3-8-8-3z"/></>},
-  {name: "Finance", icon: <><path d="M4 4v16h16"/><path d="M7 15l4-5 3 3 5-7"/></>},
-  {name: "Matrimonial", icon: <><path d="M12 20s-7-4.4-9.3-8.8C1.3 8 3 5 6.2 5c1.9 0 3.2 1 3.8 2 .6-1 1.9-2 3.8-2 3.2 0 4.9 3 3.5 6.2C19 15.6 12 20 12 20z"/></>},
-  {name: "And more", icon: <><circle cx="6" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="6" cy="18" r="2"/><circle cx="18" cy="18" r="2"/></>}
-];
-
-export default function RewardsPromoSection() {
-  const heroRef = useRef(null);
-  const revealsRef = useRef([]);
+export default function RewardsHowItWorksSection() {
   const stepsRef = useRef(null);
-  const [sparks, setSparks] = useState([]);
-  const [mousePos, setMousePos] = useState({ x: '74%', y: '10%' });
-
-  useEffect(() => {
-    const handleMouseMove = (e) => {
-      if (!heroRef.current) return;
-      const r = heroRef.current.getBoundingClientRect();
-      setMousePos({
-        x: `${((e.clientX - r.left) / r.width * 100)}%`,
-        y: `${((e.clientY - r.top) / r.height * 100)}%`
-      });
-    };
-    
-    const heroEl = heroRef.current;
-    if (heroEl) {
-      heroEl.addEventListener('mousemove', handleMouseMove);
-    }
-    return () => {
-      if (heroEl) {
-        heroEl.removeEventListener('mousemove', handleMouseMove);
-      }
-    };
-  }, []);
-
-  useEffect(() => {
-    if ('IntersectionObserver' in window) {
-      const io = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add(styles.in);
-            io.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.2 });
-      
-      revealsRef.current.forEach(el => {
-        if (el) io.observe(el);
-      });
-
-      return () => io.disconnect();
-    } else {
-      revealsRef.current.forEach(el => {
-        if (el) el.classList.add(styles.in);
-      });
-    }
-  }, []);
-
-  useEffect(() => {
-    const RADIUS_PCT = 40;
-    const nodePositions = services.map((s, i) => {
-      const angle = -90 + (360 / services.length) * i;
-      const rad = angle * Math.PI / 180;
-      return {
-        x: 50 + RADIUS_PCT * Math.cos(rad),
-        y: 50 + RADIUS_PCT * Math.sin(rad)
-      };
-    });
-
-    const launchSparks = () => {
-      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-      
-      nodePositions.forEach((p, i) => {
-        setTimeout(() => {
-          const id = Date.now() + '-' + i;
-          setSparks(prev => [...prev, { id, p, startTime: performance.now() }]);
-        }, i * 150);
-      });
-    };
-
-    const initialTimeout = setTimeout(launchSparks, 500);
-    const interval = setInterval(launchSparks, 7000);
-
-    return () => {
-      clearTimeout(initialTimeout);
-      clearInterval(interval);
-    };
-  }, []);
 
   useEffect(() => {
     if ('IntersectionObserver' in window) {
@@ -123,101 +33,10 @@ export default function RewardsPromoSection() {
   }, []);
 
   return (
-    <section 
-      className={styles.hero} 
-      id="heroSection" 
-      ref={heroRef}
-      style={{ '--mx': mousePos.x, '--my': mousePos.y }}
-    >
+    <section className={styles.how}>
       <div className={styles.wrap}>
-        <h2 className={styles.rewardsHeading}>Score High with Swarn Rewards</h2>
-        <div className={styles.heroGrid}>
 
-          <div className={`${styles.heroCopy} ${styles.reveal}`} ref={el => revealsRef.current[0] = el}>
-            <div className={styles.badge}><span className={styles.dot}></span>Swarn Bharat Ecosystem</div>
-            <h1>One ecosystem.<br />Infinite <span className={styles.shimmer}>rewards.</span></h1>
-            <p className={styles.lede}>Every action across the Swarn Bharat ecosystem earns you Swarn Points &mdash; <b>one ID</b>, boundless benefits, across every platform you already use.</p>
-
-            <div className={styles.heroCtas}>
-              <Link href="/rewards" className={styles.btnPrimary}>
-                <span>Become a member</span>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-              </Link>
-              <Link href="#businesses" className={styles.btnSecondary}>
-                <span className={styles.icCircle}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-                Explore the ecosystem
-              </Link>
-            </div>
-
-            <div className={styles.valueGrid}>
-              <div className={styles.valueCell}>
-                <div className={styles.ic}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6"><circle cx="12" cy="8" r="3.4"/><path d="M5 20c0-3.9 3.1-6.5 7-6.5s7 2.6 7 6.5"/></svg></div>
-                <strong>One ID</strong><span>Access every platform</span>
-              </div>
-              <div className={styles.valueCell}>
-                <div className={styles.ic}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6"><ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v12c0 1.7 3.1 3 7 3s7-1.3 7-3V6"/><path d="M5 12c0 1.7 3.1 3 7 3s7-1.3 7-3"/></svg></div>
-                <strong>Earn points</strong><span>On every transaction</span>
-              </div>
-              <div className={styles.valueCell}>
-                <div className={styles.ic}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6"><path d="M3 8h18v4H3z"/><path d="M5 12h14v9H5z"/><path d="M12 8V4M9 4h6"/></svg></div>
-                <strong>Redeem anywhere</strong><span>Across the ecosystem</span>
-              </div>
-              <div className={styles.valueCell}>
-                <div className={styles.ic}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6"><path d="M3 8l4 3 5-7 5 7 4-3-2 10H5z"/></svg></div>
-                <strong>Exclusive benefits</strong><span>More privileges, more value</span>
-              </div>
-            </div>
-          </div>
-
-          <div className={`${styles.hubSide} ${styles.reveal}`} ref={el => revealsRef.current[1] = el}>
-            <div className={styles.hubOuter} id="hub">
-              <div className={`${styles.ring} ${styles.r1}`}></div>
-              <div className={`${styles.ring} ${styles.r2}`}></div>
-              
-              <svg className={styles.rays} viewBox="0 0 100 100" preserveAspectRatio="none">
-                {services.map((s, i) => {
-                  const angle = -90 + (360 / services.length) * i;
-                  const rad = angle * Math.PI / 180;
-                  const x = 50 + 40 * Math.cos(rad);
-                  const y = 50 + 40 * Math.sin(rad);
-                  return <path key={i} className={styles.rayLine} d={`M50,50 L${x},${y}`} />;
-                })}
-              </svg>
-              
-              <div className={styles.coinGlow}></div>
-              <div className={styles.coinCenter}><span className={styles.glyph}>S</span></div>
-              <div className={styles.hubLabel}><strong>Swarn Rewards</strong><span>Earn on every transaction</span></div>
-              
-              {services.map((s, i) => {
-                const angle = -90 + (360 / services.length) * i;
-                const rad = angle * Math.PI / 180;
-                const x = 50 + 40 * Math.cos(rad);
-                const y = 50 + 40 * Math.sin(rad);
-                return (
-                  <div 
-                    key={i} 
-                    className={styles.node} 
-                    style={{ left: `${x}%`, top: `${y}%`, transform: 'translate(-50%, -50%)' }}
-                  >
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-                      {s.icon}
-                    </svg>
-                    <span className={styles.nodeName}>{s.name}</span>
-                  </div>
-                );
-              })}
-
-              {sparks.map(spark => (
-                <SparkAnimation key={spark.id} spark={spark} onComplete={() => {
-                  setSparks(prev => prev.filter(s => s.id !== spark.id));
-                }} />
-              ))}
-            </div>
-          </div>
-
-        </div>
-
-        <div className={styles.howHead} style={{ marginTop: '100px' }}>
+        <div className={styles.howHead}>
           <div className={styles.eyebrow}>
             <span className={styles.rule}></span>
             <span className={styles.spark}>&#10022;</span>
@@ -370,39 +189,5 @@ export default function RewardsPromoSection() {
 
       </div>
     </section>
-  );
-}
-
-function SparkAnimation({ spark, onComplete }) {
-  const [style, setStyle] = useState({ opacity: 0, left: '50%', top: '50%' });
-
-  useEffect(() => {
-    let animationFrame;
-    const dur = 900;
-    
-    const frame = () => {
-      const t = performance.now();
-      const prog = Math.min((t - spark.startTime) / dur, 1);
-      const ease = 1 - Math.pow(1 - prog, 3);
-      
-      setStyle({
-        left: `${50 + (spark.p.x - 50) * ease}%`,
-        top: `${50 + (spark.p.y - 50) * ease}%`,
-        opacity: prog < 0.08 ? prog / 0.08 : (prog > 0.85 ? (1 - prog) / 0.15 : 1)
-      });
-
-      if (prog < 1) {
-        animationFrame = requestAnimationFrame(frame);
-      } else {
-        onComplete();
-      }
-    };
-    
-    animationFrame = requestAnimationFrame(frame);
-    return () => cancelAnimationFrame(animationFrame);
-  }, [spark, onComplete]);
-
-  return (
-    <div className={styles.spark} style={style} />
   );
 }

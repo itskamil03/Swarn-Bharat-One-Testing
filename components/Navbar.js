@@ -88,7 +88,7 @@ export default function Navbar() {
             </svg>
           </button>
           <a href="#top" className={styles.brand} aria-label="Swarn Bharat Group home">
-            <img src="/images/swarn logo (2).png" alt="Swarn Bharat Group" className={styles.brandLogo} />
+            <img src="/images/logoch.png" alt="Swarn Bharat Group" className={styles.brandLogo} />
           </a>
         </div>
 

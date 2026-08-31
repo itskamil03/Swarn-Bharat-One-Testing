@@ -31,7 +31,7 @@ export default function RegisterPage() {
 
         <div className={styles.brandWrapper}>
           <img 
-            src="/images/swarn logo (2).png" 
+            src="/images/logoch.png" 
             alt="Swarn Bharat Group" 
             className={styles.logo} 
           />

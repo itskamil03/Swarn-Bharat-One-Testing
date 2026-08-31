@@ -16,7 +16,7 @@ export default function Footer() {
       <div className={`container ${styles.top}`}>
         <div className={styles.brandCol}>
           <div className={styles.brand}>
-            <img src="/images/swarn logo (2).png" alt="Swarn Bharat Group" className={styles.brandLogo} />
+            <img src="/images/logoch.png" alt="Swarn Bharat Group" className={styles.brandLogo} />
           </div>
           <p className={styles.tagline}>
             Building businesses. Empowering people. Enriching lives. For a stronger Bharat and a

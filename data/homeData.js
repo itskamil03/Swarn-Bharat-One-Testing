@@ -4,7 +4,7 @@
 export const navLinks = [
   { label: "About", href: "#about" },
   { label: "Services", href: "#services" },
-  { label: "Foundation", href: "#foundation" },
+  { label: "Foundation", href: "http://187.52.122.33:3000/" },
   { label: "Rewards", href: "/rewards" },
   { label: "Careers", href: "#careers" },
   { label: "Offers", href: "#offers" },
