@@ -16,9 +16,9 @@ const inter = Inter({
 });
 
 export const metadata = {
-  title: "Khetan Group | Building a Stronger Bharat",
+  title: "Swarn Bharat One",
   description:
-    "Khetan Group is a diversified organisation building infrastructure, energy and businesses that power a stronger, self-reliant Bharat.",
+    "Swarn Bharat One is a diversified organisation building infrastructure, energy and businesses that power a stronger, self-reliant Bharat.",
 };
 
 export default function RootLayout({ children }) {
