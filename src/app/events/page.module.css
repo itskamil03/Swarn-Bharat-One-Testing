@@ -1,0 +1,798 @@
+/* ================= EVENTS PAGE CSS ================= */
+
+.eventsPage {
+  --navy: #0B1B33;
+  --navy-deep: #061324;
+  --navy-2: #0F2340;
+  --gold: #A9812E;
+  --gold-light: #D3AE5C;
+  --gold-bright: #F5D382;
+  --cream: #FBF9F5;
+  --paper: #F5F2EA;
+  --ink: #141E30;
+  --slate: #5A6A80;
+  --slate-light: #7E8C9F;
+  --line: #E2DDD2;
+  --line-dark: rgba(255, 255, 255, 0.12);
+  --white: #FFFFFF;
+
+  background: var(--cream);
+  color: var(--ink);
+  font-family: var(--font-body-family, 'Inter', sans-serif);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+.eventsPage h1,
+.eventsPage h2,
+.eventsPage h3 {
+  font-family: var(--font-display-family, 'Playfair Display', serif);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 20px;
+  }
+}
+
+.section {
+  padding: 90px 0;
+}
+
+.bgPaper {
+  background: var(--paper);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+/* ================= 1. HERO SECTION ================= */
+.heroSection {
+  position: relative;
+  background: linear-gradient(180deg, #F2EFE8 0%, #FBF9F5 100%);
+  padding-top: 140px;
+  padding-bottom: 50px;
+  border-bottom: 1px solid var(--line);
+  overflow: hidden;
+}
+
+.heroGlow {
+  position: absolute;
+  top: -120px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 800px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(211, 174, 92, 0.16) 0%, transparent 70%);
+}
+
+.heroContent {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+.heroBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 18px;
+  border-radius: 999px;
+  background: var(--white);
+  border: 1px solid rgba(169, 129, 46, 0.35);
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--gold);
+  margin-bottom: 20px;
+  box-shadow: 0 4px 14px rgba(11, 27, 51, 0.05);
+}
+
+.sparkle {
+  color: var(--gold);
+}
+
+.heroTitle {
+  font-size: clamp(34px, 4.4vw, 52px);
+  font-weight: 700;
+  line-height: 1.18;
+  color: var(--navy);
+  margin-bottom: 18px;
+}
+
+.goldText {
+  color: var(--gold);
+}
+
+.heroDescription {
+  font-size: 16px;
+  line-height: 1.75;
+  color: var(--slate);
+  max-width: 660px;
+  margin: 0 auto;
+}
+
+/* ================= 2. FLAGSHIP EVENT CARD ================= */
+.flagshipSection {
+  padding: 60px 0 30px;
+}
+
+.flagshipCard {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 1.15fr 1.25fr;
+  box-shadow: 0 16px 36px -10px rgba(11, 27, 51, 0.08);
+}
+
+@media (max-width: 960px) {
+  .flagshipCard {
+    grid-template-columns: 1fr;
+  }
+}
+
+.flagshipImgCol {
+  position: relative;
+  min-height: 400px;
+}
+
+.flagshipImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.flagshipBadge {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background: rgba(11, 27, 51, 0.9);
+  color: var(--gold-light);
+  padding: 6px 14px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  backdrop-filter: blur(6px);
+}
+
+.flagshipContentCol {
+  padding: 40px 36px;
+  display: flex;
+  flex-direction: column;
+}
+
+@media (max-width: 600px) {
+  .flagshipContentCol {
+    padding: 26px 20px;
+  }
+}
+
+.dateLocationRow {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.datePill {
+  background: var(--paper);
+  color: var(--navy);
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 12.5px;
+  border: 1px solid var(--line);
+}
+
+.locationPill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12.5px;
+  color: var(--slate);
+}
+
+.locationPill svg {
+  color: var(--gold);
+}
+
+.flagshipHeading {
+  font-size: clamp(22px, 2.6vw, 32px);
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--navy);
+  margin-bottom: 8px;
+}
+
+.flagshipTheme {
+  font-size: 14.5px;
+  font-weight: 600;
+  color: var(--gold);
+  margin-bottom: 14px;
+}
+
+.flagshipDesc {
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--slate);
+  margin-bottom: 22px;
+}
+
+.speakersList {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 28px;
+  padding: 14px;
+  background: var(--paper);
+  border-radius: 10px;
+}
+
+.speakersLabel {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--navy);
+  text-transform: uppercase;
+  margin-right: 4px;
+}
+
+.speakerChip {
+  font-size: 12px;
+  color: var(--slate);
+  font-weight: 500;
+}
+
+.flagshipActionRow {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-top: auto;
+}
+
+.registerFlagshipBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #D3AE5C 0%, #A9812E 100%);
+  color: #061324;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.registerFlagshipBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 22px rgba(169, 129, 46, 0.45);
+}
+
+.spotsCount {
+  font-size: 12.5px;
+  color: #2FA95C;
+  font-weight: 600;
+}
+
+/* ================= 3. UPCOMING EVENTS GRID ================= */
+.eventsGridSection {
+  padding: 60px 0 80px;
+}
+
+.secHeaderRow {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 10px;
+}
+
+.eyebrow::before {
+  content: '✦';
+  font-size: 11px;
+}
+
+.secTitle {
+  font-size: clamp(26px, 3.2vw, 36px);
+  font-weight: 700;
+  color: var(--navy);
+}
+
+.tabsRow {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.tabBtn {
+  background: var(--white);
+  border: 1px solid var(--line);
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--slate);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.tabBtn:hover {
+  border-color: var(--gold);
+  color: var(--navy);
+}
+
+.tabBtnActive {
+  background: var(--navy);
+  color: var(--white);
+  border-color: var(--navy);
+}
+
+.eventsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+
+@media (max-width: 960px) {
+  .eventsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .eventsGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.eventCard {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 16px rgba(11, 27, 51, 0.04);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.eventCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 32px -10px rgba(11, 27, 51, 0.12);
+  border-color: var(--gold);
+}
+
+.eventCardImgWrap {
+  position: relative;
+  height: 180px;
+  overflow: hidden;
+}
+
+.eventCardImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.eventCard:hover .eventCardImg {
+  transform: scale(1.06);
+}
+
+.eventCategoryTag {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  background: rgba(11, 27, 51, 0.85);
+  color: var(--gold-light);
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 700;
+  backdrop-filter: blur(6px);
+}
+
+.eventCardBody {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.eventDateBlock {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+.dateBox {
+  width: 48px;
+  height: 48px;
+  border-radius: 8px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.dateDay {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--navy);
+  line-height: 1;
+}
+
+.dateMonth {
+  font-size: 9.5px;
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 0.05em;
+}
+
+.eventTimeLocation {
+  display: flex;
+  flex-direction: column;
+  font-size: 12px;
+  color: var(--slate);
+}
+
+.eventLoc {
+  font-weight: 600;
+  color: var(--navy);
+}
+
+.eventTitle {
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--navy);
+  margin-bottom: 8px;
+}
+
+.eventSummary {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--slate);
+  margin: 0 0 20px;
+  flex: 1;
+}
+
+.eventCardFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+}
+
+.seatsBadge {
+  font-size: 12px;
+  font-weight: 600;
+  color: #2FA95C;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.seatsPulse {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #2FA95C;
+}
+
+.registerEventBtn {
+  background: transparent;
+  border: none;
+  color: var(--gold);
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.registerEventBtn:hover {
+  color: var(--navy);
+}
+
+/* ================= 4. ARCHIVE ================= */
+.secHeaderCenter {
+  text-align: center;
+  margin-bottom: 44px;
+}
+
+.secSub {
+  margin-top: 10px;
+  color: var(--slate);
+  font-size: 15px;
+}
+
+.archiveGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+@media (max-width: 900px) {
+  .archiveGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.archiveCard {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.archiveImgWrap {
+  position: relative;
+  height: 160px;
+}
+
+.archiveImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.archiveCityTag {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: rgba(11, 27, 51, 0.85);
+  color: #fff;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.archiveBody {
+  padding: 20px;
+}
+
+.archiveBody h3 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 6px;
+}
+
+.archiveMeta {
+  font-size: 12px;
+  color: var(--gold);
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.archiveKeynote {
+  font-size: 13px;
+  color: var(--slate);
+  font-style: italic;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* ================= 5. MODAL ================= */
+.modalBackdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(6, 19, 36, 0.75);
+  backdrop-filter: blur(8px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.modalCard {
+  position: relative;
+  background: var(--white);
+  border-radius: 20px;
+  width: 100%;
+  max-width: 540px;
+  padding: 32px;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+  animation: modalPop 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes modalPop {
+  from { opacity: 0; transform: scale(0.92); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.modalCloseBtn {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  background: var(--paper);
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  color: var(--slate);
+}
+
+.modalCategoryTag {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--gold);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 4px;
+  display: inline-block;
+}
+
+.regFormContent h2 {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 4px;
+}
+
+.modalEventLoc {
+  font-size: 13px;
+  color: var(--slate);
+  margin-bottom: 20px;
+}
+
+.modalForm {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.formGroup label {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--navy);
+}
+
+.formGroup input,
+.formGroup select {
+  padding: 10px 12px;
+  border-radius: 6px;
+  border: 1px solid var(--line);
+  background: var(--paper);
+  font-size: 13.5px;
+  outline: none;
+  font-family: inherit;
+}
+
+.formGroup input:focus,
+.formGroup select:focus {
+  border-color: var(--gold);
+  background: #fff;
+}
+
+.formRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.primaryGoldBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #D3AE5C 0%, #A9812E 100%);
+  color: #061324;
+  padding: 12px 24px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 8px 18px rgba(169, 129, 46, 0.4);
+}
+
+/* Success Modal */
+.regSuccessContent {
+  text-align: center;
+  padding: 20px 10px;
+}
+
+.regSuccessIcon {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: rgba(47, 169, 92, 0.15);
+  color: #2FA95C;
+  font-size: 28px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px;
+}
+
+.regSuccessContent h3 {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 8px;
+}
+
+.passCodeBox {
+  background: var(--paper);
+  border: 1px dashed var(--gold);
+  border-radius: 12px;
+  padding: 16px;
+  margin: 18px 0;
+}
+
+.passCodeBox span {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--slate-light);
+  letter-spacing: 0.08em;
+}
+
+.passCodeBox strong {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--gold);
+  letter-spacing: 0.15em;
+  margin: 4px 0 8px;
+  display: block;
+}
+
+.passDetails {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px !important;
+  color: var(--navy) !important;
+  font-weight: 600;
+  padding-top: 8px;
+  border-top: 1px solid var(--line);
+}
+
+.passSubNote {
+  font-size: 12px;
+  color: var(--slate);
+  margin-bottom: 22px;
+}

@@ -1,0 +1,1478 @@
+/* ==========================================================================
+   SWARN BHARAT — EXECUTIVE USER PROFILE & CITIZEN DASHBOARD
+   Seamless Executive Header + Clean Light Theme Dashboard Suite
+   ========================================================================== */
+
+.profilePage {
+  min-height: 100vh;
+  background-color: #F8FAFC;
+  color: #0F172A;
+  font-family: var(--font-sans, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Container */
+.container {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 24px;
+  position: relative;
+  z-index: 2;
+}
+
+/* ==========================================================================
+   1. TOP EXECUTIVE HERO BANNER (Matches Navbar Seamlessly)
+   ========================================================================== */
+
+.heroHeaderSection {
+  position: relative;
+  padding: 140px 0 50px 0;
+  background: linear-gradient(180deg, #061121 0%, #0B1930 60%, #0F2344 100%);
+  color: #FFFFFF;
+  overflow: hidden;
+  border-bottom: 1px solid rgba(201, 154, 62, 0.25);
+}
+
+.heroGlowTop {
+  position: absolute;
+  top: -80px;
+  right: -80px;
+  width: 550px;
+  height: 550px;
+  background: radial-gradient(circle, rgba(201, 154, 62, 0.18) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.heroGlowLeft {
+  position: absolute;
+  bottom: -60px;
+  left: -60px;
+  width: 450px;
+  height: 450px;
+  background: radial-gradient(circle, rgba(37, 99, 235, 0.12) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+/* Breadcrumbs */
+.breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #94A3B8;
+  margin-bottom: 24px;
+}
+
+.breadcrumbs a {
+  color: #CBD5E1;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.breadcrumbs a:hover {
+  color: #D4A748;
+}
+
+.breadcrumbActive {
+  color: #D4A748;
+  font-weight: 700;
+}
+
+/* Hero Profile Card */
+.profileHeroCard {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(201, 154, 62, 0.35);
+  border-radius: 22px;
+  padding: 32px 36px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+  position: relative;
+  overflow: hidden;
+}
+
+.profileHeroCard::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #D4A748, #F8E7BE, #38BDF8, #D4A748);
+  background-size: 200% 100%;
+  animation: shimmerBorder 6s linear infinite;
+}
+
+@keyframes shimmerBorder {
+  0% { background-position: 0% 0%; }
+  100% { background-position: 200% 0%; }
+}
+
+.heroMainGrid {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 32px;
+  align-items: center;
+}
+
+/* Avatar Section */
+.avatarSection {
+  position: relative;
+}
+
+.avatarWrapper {
+  width: 104px;
+  height: 104px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #07101E 0%, #172554 100%);
+  border: 3px solid #D4A748;
+  box-shadow: 0 0 24px rgba(201, 154, 62, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 34px;
+  font-weight: 800;
+  color: #F8E7BE;
+  letter-spacing: 1px;
+  user-select: none;
+}
+
+.avatarEditBadge {
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #C99A3E;
+  color: #07101E;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #07101E;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s ease, background 0.2s;
+}
+
+.avatarEditBadge:hover {
+  transform: scale(1.1);
+  background: #DDAF4D;
+}
+
+/* Details Section */
+.profileDetailsCol {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.nameRow {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.userName {
+  font-size: 26px;
+  font-weight: 800;
+  color: #FFFFFF;
+  margin: 0;
+  letter-spacing: -0.4px;
+}
+
+.tierBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: rgba(201, 154, 62, 0.18);
+  border: 1px solid rgba(201, 154, 62, 0.45);
+  color: #F8E7BE;
+  font-size: 11.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+
+.kycVerifiedBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 11px;
+  border-radius: 999px;
+  background: rgba(16, 185, 129, 0.15);
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  color: #34D399;
+  font-size: 11.5px;
+  font-weight: 600;
+}
+
+.citizenMetaRow {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 18px;
+  font-size: 13.5px;
+  color: #CBD5E1;
+}
+
+.metaItem {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.metaItem svg {
+  color: #D4A748;
+  flex-shrink: 0;
+}
+
+.citizenIdPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 3px 10px;
+  border-radius: 8px;
+  font-family: monospace;
+  font-size: 13px;
+  font-weight: 600;
+  color: #F8E7BE;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.citizenIdPill:hover {
+  border-color: #D4A748;
+  background: rgba(201, 154, 62, 0.2);
+}
+
+.copyIcon {
+  color: #94A3B8;
+}
+
+/* Profile Actions (Buttons) */
+.profileActionsCol {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 190px;
+}
+
+.btnPrimaryGold {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 11px 20px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #D4A748 0%, #B3822A 100%);
+  color: #0B1220;
+  font-size: 13.5px;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(201, 154, 62, 0.35);
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.btnPrimaryGold:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(201, 154, 62, 0.5);
+  background: linear-gradient(135deg, #F0C466 0%, #C99A3E 100%);
+}
+
+.btnSecondaryOutline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #FFFFFF;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.btnSecondaryOutline:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: #D4A748;
+  color: #F8E7BE;
+}
+
+.btnGhostDanger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 7px 14px;
+  border-radius: 8px;
+  background: transparent;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: #F87171;
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btnGhostDanger:hover {
+  background: rgba(239, 68, 68, 0.15);
+  border-color: #EF4444;
+}
+
+/* ==========================================================================
+   2. MAIN DASHBOARD CONTENT AREA (LIGHT THEME)
+   ========================================================================== */
+
+.dashboardMainSection {
+  padding: 36px 0 90px 0;
+  background-color: #F8FAFC;
+}
+
+/* Metrics Bar */
+.metricsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  margin-bottom: 32px;
+}
+
+.metricCard {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 18px;
+  padding: 22px 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 14px;
+  box-shadow: 0 4px 16px rgba(15, 27, 48, 0.03);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.metricCard:hover {
+  transform: translateY(-3px);
+  border-color: rgba(201, 154, 62, 0.4);
+  box-shadow: 0 8px 24px rgba(201, 154, 62, 0.08);
+}
+
+.metricCardGold {
+  background: linear-gradient(180deg, #FFFFFF 0%, #FEFBF5 100%);
+  border: 1px solid rgba(201, 154, 62, 0.35);
+  box-shadow: 0 6px 20px rgba(201, 154, 62, 0.08);
+}
+
+.metricHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.metricLabel {
+  font-size: 12px;
+  font-weight: 700;
+  color: #64748B;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.metricIconCircle {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: #FEF8EE;
+  color: #B3822A;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 17px;
+  border: 1px solid rgba(201, 154, 62, 0.25);
+}
+
+.metricValRow {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.metricNumber {
+  font-size: 26px;
+  font-weight: 800;
+  color: #0F172A;
+  letter-spacing: -0.5px;
+}
+
+.metricUnit {
+  font-size: 14px;
+  font-weight: 700;
+  color: #B3822A;
+}
+
+.metricSubtext {
+  font-size: 12.5px;
+  color: #64748B;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.metricPositive {
+  color: #059669;
+  font-weight: 600;
+}
+
+.metricActionLink {
+  margin-top: 2px;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #B3822A;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+.metricActionLink:hover {
+  color: #8C5E10;
+  text-decoration: underline;
+}
+
+/* ==========================================================================
+   3. NAVIGATION TABS (LIGHT THEME)
+   ========================================================================== */
+
+.tabsNavWrapper {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border-bottom: 2px solid #E2E8F0;
+  margin-bottom: 26px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.tabsNavWrapper::-webkit-scrollbar {
+  display: none;
+}
+
+.tabBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 20px;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  color: #64748B;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+
+.tabBtn:hover {
+  color: #0F172A;
+  background: #F1F5F9;
+  border-radius: 8px 8px 0 0;
+}
+
+.tabBtnActive {
+  color: #B3822A;
+  border-bottom-color: #B3822A;
+  font-weight: 700;
+  background: #FFFFFF;
+}
+
+.tabBadge {
+  background: #FEF8EE;
+  border: 1px solid rgba(201, 154, 62, 0.3);
+  color: #A06F18;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+/* ==========================================================================
+   4. TAB 1: OVERVIEW & RECENT ACTIVITY
+   ========================================================================== */
+
+.overviewGrid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 26px;
+}
+
+/* Section Card Box */
+.cardBox {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 20px;
+  padding: 26px;
+  box-shadow: 0 4px 16px rgba(15, 27, 48, 0.03);
+}
+
+.cardBoxHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid #F1F5F9;
+}
+
+.cardBoxTitle {
+  font-size: 17px;
+  font-weight: 800;
+  color: #0F172A;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cardBoxAction {
+  font-size: 13px;
+  font-weight: 700;
+  color: #B3822A;
+  text-decoration: none;
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
+.cardBoxAction:hover {
+  text-decoration: underline;
+}
+
+/* Activity Feed */
+.activityList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.activityItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 13px 15px;
+  border-radius: 12px;
+  background: #F8FAFC;
+  border: 1px solid #F1F5F9;
+  transition: all 0.2s ease;
+}
+
+.activityItem:hover {
+  background: #F1F5F9;
+  border-color: #E2E8F0;
+}
+
+.actIconBadge {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: #FEF8EE;
+  border: 1px solid rgba(201, 154, 62, 0.25);
+  color: #B3822A;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.actBody {
+  flex: 1;
+}
+
+.actTitleRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 3px;
+}
+
+.actTitle {
+  font-size: 14px;
+  font-weight: 700;
+  color: #0F172A;
+  margin: 0;
+}
+
+.actDate {
+  font-size: 11.5px;
+  color: #94A3B8;
+}
+
+.actDesc {
+  font-size: 12.5px;
+  color: #64748B;
+  margin: 0 0 5px 0;
+}
+
+.actFooter {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.actSectorPill {
+  font-size: 11px;
+  padding: 2px 7px;
+  border-radius: 5px;
+  background: #E2E8F0;
+  color: #334155;
+  font-weight: 600;
+}
+
+.actCoinsEarned {
+  font-size: 12px;
+  color: #059669;
+  font-weight: 700;
+}
+
+.actCoinsSpent {
+  font-size: 12px;
+  color: #DC2626;
+  font-weight: 700;
+}
+
+/* Right Side: Quick Services & Streak */
+.sideWidgetsCol {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+/* Daily Streak Card */
+.streakCard {
+  background: linear-gradient(135deg, #0B1220 0%, #152442 100%);
+  border: 1px solid rgba(201, 154, 62, 0.3);
+  border-radius: 18px;
+  padding: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  color: #FFFFFF;
+}
+
+.streakInfo h4 {
+  margin: 0 0 4px 0;
+  font-size: 16px;
+  color: #FFFFFF;
+}
+
+.streakInfo p {
+  margin: 0;
+  font-size: 12.5px;
+  color: #CBD5E1;
+}
+
+.streakBtn {
+  padding: 9px 16px;
+  border-radius: 9px;
+  background: linear-gradient(135deg, #D4A748, #C99A3E);
+  color: #0B1220;
+  font-size: 12.5px;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: transform 0.2s;
+}
+
+.streakBtn:hover {
+  transform: scale(1.04);
+}
+
+.streakClaimed {
+  background: rgba(16, 185, 129, 0.2);
+  border: 1px solid rgba(16, 185, 129, 0.4);
+  color: #34D399;
+  cursor: default;
+  transform: none !important;
+}
+
+/* Verticals Quick Matrix */
+.verticalsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.verticalItem {
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: 12px;
+  padding: 14px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 6px;
+  text-decoration: none;
+  color: #1E293B;
+  transition: all 0.2s ease;
+}
+
+.verticalItem:hover {
+  background: #FEF8EE;
+  border-color: rgba(201, 154, 62, 0.4);
+  transform: translateY(-2px);
+}
+
+.verticalIcon {
+  font-size: 22px;
+}
+
+.verticalTitle {
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.verticalStatus {
+  font-size: 10px;
+  color: #059669;
+  font-weight: 700;
+}
+
+/* ==========================================================================
+   DIGITAL CITIZEN IDENTITY CARD (WITH LIVE QR CODE)
+   ========================================================================== */
+
+.digitalCardContainer {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 0 4px 16px rgba(15, 27, 48, 0.03);
+}
+
+.digitalCardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.digitalCardTitle {
+  font-size: 16px;
+  font-weight: 800;
+  color: #0F172A;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* The 3D Digital Card Element */
+.executiveCitizenCard {
+  background: linear-gradient(135deg, #07101E 0%, #0F1C33 50%, #081120 100%);
+  border: 2px solid #D4A748;
+  border-radius: 20px;
+  padding: 22px 24px;
+  color: #FFFFFF;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 16px 36px rgba(8, 17, 32, 0.35), 0 0 25px rgba(201, 154, 62, 0.12);
+  transition: all 0.3s ease;
+}
+
+.cardTopRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  position: relative;
+  z-index: 1;
+}
+
+.cardBrandBadge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cardEmblem {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #D4A748, #C99A3E);
+  color: #07101E;
+  font-size: 12px;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cardBrandText {
+  font-size: 12px;
+  font-weight: 800;
+  color: #F8E7BE;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+}
+
+.cardChipGraphic {
+  width: 36px;
+  height: 26px;
+  background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+  border-radius: 5px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.cardMainBody {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 16px;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+  margin-bottom: 14px;
+}
+
+.cardPhotoBox {
+  width: 64px;
+  height: 64px;
+  border-radius: 12px;
+  background: #152238;
+  border: 2px solid #D4A748;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  font-weight: 800;
+  color: #F8E7BE;
+}
+
+.cardInfoCol h4 {
+  margin: 0 0 3px 0;
+  font-size: 16px;
+  font-weight: 800;
+  color: #FFFFFF;
+  letter-spacing: -0.2px;
+}
+
+.cardIdText {
+  font-family: monospace;
+  font-size: 12.5px;
+  color: #F8E7BE;
+  margin: 0 0 4px 0;
+  font-weight: 700;
+}
+
+.cardTierPill {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #D4A748;
+  background: rgba(201, 154, 62, 0.15);
+  padding: 2px 7px;
+  border-radius: 5px;
+  border: 1px solid rgba(201, 154, 62, 0.3);
+}
+
+/* Authentic Scannable QR Code Box */
+.cardQrBox {
+  background: #FFFFFF;
+  padding: 5px;
+  border-radius: 9px;
+  border: 1px solid #D4A748;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.qrSvg {
+  width: 62px;
+  height: 62px;
+}
+
+.qrLabel {
+  font-size: 8px;
+  font-weight: 800;
+  color: #07101E;
+  margin-top: 1px;
+  letter-spacing: 0.5px;
+}
+
+.cardBottomStrip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  padding-top: 10px;
+  font-size: 10.5px;
+  color: #CBD5E1;
+  position: relative;
+  z-index: 1;
+}
+
+.cardLiveStatus {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: #34D399;
+  font-weight: 700;
+}
+
+.cardLiveDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #34D399;
+  box-shadow: 0 0 6px #34D399;
+}
+
+/* Card Actions */
+.cardActionBtnsRow {
+  display: flex;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.btnCardAction {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 9px 12px;
+  border-radius: 9px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+}
+
+.btnDownloadCard {
+  background: linear-gradient(135deg, #D4A748 0%, #B3822A 100%);
+  color: #0B1220;
+}
+
+.btnDownloadCard:hover {
+  background: linear-gradient(135deg, #F0C466 0%, #C99A3E 100%);
+  transform: translateY(-1px);
+}
+
+.btnShareCard {
+  background: #F1F5F9;
+  border: 1px solid #CBD5E1;
+  color: #334155;
+}
+
+.btnShareCard:hover {
+  background: #E2E8F0;
+  color: #0F172A;
+}
+
+/* ==========================================================================
+   5. TAB 2: SWARN POINTS & WALLET (LIGHT THEME)
+   ========================================================================== */
+
+.walletHeroCard {
+  background: linear-gradient(135deg, #0B1220 0%, #172554 100%);
+  border: 1px solid rgba(201, 154, 62, 0.35);
+  border-radius: 22px;
+  padding: 34px;
+  margin-bottom: 28px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  align-items: center;
+  color: #FFFFFF;
+}
+
+.walletBalanceBlock h2 {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #D4A748;
+  margin: 0 0 8px 0;
+}
+
+.walletBigAmount {
+  font-size: 42px;
+  font-weight: 900;
+  color: #FFFFFF;
+  letter-spacing: -1px;
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.walletBigAmount span {
+  font-size: 20px;
+  color: #D4A748;
+}
+
+.walletRupeeEquivalent {
+  font-size: 15px;
+  color: #CBD5E1;
+  margin: 6px 0 18px 0;
+}
+
+.walletRupeeEquivalent strong {
+  color: #34D399;
+  font-weight: 700;
+}
+
+.walletActionRow {
+  display: flex;
+  gap: 12px;
+}
+
+.walletStatsBreakdown {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 22px;
+  border-radius: 16px;
+}
+
+.statMiniItem {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.statMiniLabel {
+  font-size: 11.5px;
+  color: #94A3B8;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.statMiniVal {
+  font-size: 19px;
+  font-weight: 800;
+  color: #FFFFFF;
+}
+
+/* Ledger Table */
+.ledgerTableWrapper {
+  overflow-x: auto;
+}
+
+.ledgerTable {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.ledgerTable th {
+  font-size: 11.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: #64748B;
+  padding: 13px 16px;
+  background: #F8FAFC;
+  border-bottom: 1px solid #E2E8F0;
+  font-weight: 700;
+}
+
+.ledgerTable td {
+  padding: 14px 16px;
+  font-size: 13px;
+  color: #1E293B;
+  border-bottom: 1px solid #F1F5F9;
+}
+
+.ledgerTable tr:hover td {
+  background: #F8FAFC;
+}
+
+/* ==========================================================================
+   6. TAB 3: CONNECTED SERVICES & APPLICATIONS (LIGHT THEME)
+   ========================================================================== */
+
+.servicesGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px;
+}
+
+.serviceCard {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 18px;
+  padding: 24px;
+  box-shadow: 0 4px 16px rgba(15, 27, 48, 0.03);
+}
+
+.serviceCardHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.serviceTitleBadge {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.serviceIcon {
+  font-size: 22px;
+}
+
+.serviceTitleBadge h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 800;
+  color: #0F172A;
+}
+
+.serviceStatusPill {
+  font-size: 11px;
+  padding: 3px 9px;
+  border-radius: 999px;
+  font-weight: 700;
+}
+
+.pillActive {
+  background: #ECFDF5;
+  color: #059669;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.serviceItemList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.serviceItemRow {
+  background: #F8FAFC;
+  border: 1px solid #F1F5F9;
+  border-radius: 10px;
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.serviceItemInfo h5 {
+  margin: 0 0 3px 0;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #0F172A;
+}
+
+.serviceItemInfo p {
+  margin: 0;
+  font-size: 11.5px;
+  color: #64748B;
+}
+
+.serviceItemAction {
+  font-size: 12px;
+  color: #B3822A;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.serviceItemAction:hover {
+  text-decoration: underline;
+}
+
+/* ==========================================================================
+   7. TAB 4: REFER & EARN PASSPORT (LIGHT THEME)
+   ========================================================================== */
+
+.referralHubGrid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 26px;
+}
+
+.referralCodeBox {
+  background: #FEF9EE;
+  border: 1px dashed #D4A748;
+  border-radius: 14px;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 18px 0;
+}
+
+.refCodeText {
+  font-family: monospace;
+  font-size: 20px;
+  font-weight: 800;
+  color: #A06F18;
+  letter-spacing: 1px;
+}
+
+.refCopyBtn {
+  padding: 9px 16px;
+  border-radius: 8px;
+  background: #C99A3E;
+  color: #FFFFFF;
+  font-size: 12.5px;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.refCopyBtn:hover {
+  background: #B3822A;
+}
+
+.shareSocialGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.socialShareBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px 12px;
+  border-radius: 9px;
+  font-size: 12.5px;
+  font-weight: 700;
+  text-decoration: none;
+  color: #FFFFFF;
+  transition: opacity 0.2s;
+}
+
+.socialShareBtn:hover {
+  opacity: 0.9;
+}
+
+/* ==========================================================================
+   8. TAB 5: PERSONAL DETAILS & KYC (LIGHT THEME)
+   ========================================================================== */
+
+.settingsGrid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 26px;
+}
+
+.formGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 14px;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.formGroupFull {
+  grid-column: span 2;
+}
+
+.formLabel {
+  font-size: 12px;
+  font-weight: 700;
+  color: #475467;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.formInput {
+  background: #F8FAFC;
+  border: 1px solid #CBD5E1;
+  border-radius: 9px;
+  padding: 11px 14px;
+  font-size: 13.5px;
+  color: #0F172A;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.formInput:focus {
+  border-color: #B3822A;
+  background: #FFFFFF;
+  box-shadow: 0 0 0 3px rgba(201, 154, 62, 0.15);
+}
+
+.kycBox {
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: 12px;
+  padding: 16px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.kycInfo h4 {
+  margin: 0 0 3px 0;
+  font-size: 14px;
+  font-weight: 700;
+  color: #0F172A;
+}
+
+.kycInfo p {
+  margin: 0;
+  font-size: 12px;
+  color: #64748B;
+}
+
+/* ==========================================================================
+   9. MODALS (LIGHT THEME)
+   ========================================================================== */
+
+.modalBackdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.65);
+  backdrop-filter: blur(6px);
+  z-index: 1100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.modalCard {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 22px;
+  width: 100%;
+  max-width: 560px;
+  padding: 30px;
+  box-shadow: 0 20px 50px rgba(15, 23, 42, 0.2);
+  position: relative;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.modalHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 22px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid #F1F5F9;
+}
+
+.modalHeader h3 {
+  margin: 0;
+  font-size: 19px;
+  font-weight: 800;
+  color: #0F172A;
+}
+
+.modalCloseBtn {
+  background: none;
+  border: none;
+  color: #94A3B8;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 4px 6px;
+}
+
+.modalCloseBtn:hover {
+  color: #0F172A;
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN
+   ========================================================================== */
+
+@media (max-width: 1024px) {
+  .heroMainGrid {
+    grid-template-columns: auto 1fr;
+  }
+  .profileActionsCol {
+    grid-column: span 2;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  .metricsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .overviewGrid,
+  .walletHeroCard,
+  .servicesGrid,
+  .referralHubGrid,
+  .settingsGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .heroHeaderSection {
+    padding: 120px 0 40px 0;
+  }
+  .heroMainGrid {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  .avatarSection {
+    margin: 0 auto;
+  }
+  .nameRow, .citizenMetaRow {
+    justify-content: center;
+  }
+  .profileActionsCol {
+    flex-direction: column;
+  }
+  .metricsGrid {
+    grid-template-columns: 1fr;
+  }
+  .cardMainBody {
+    grid-template-columns: 1fr;
+    text-align: center;
+    justify-items: center;
+  }
+  .verticalsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .formGrid {
+    grid-template-columns: 1fr;
+  }
+  .formGroupFull {
+    grid-column: span 1;
+  }
+  .shareSocialGrid {
+    grid-template-columns: 1fr;
+  }
+}

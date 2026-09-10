@@ -1,0 +1,433 @@
+.referralSection {
+  position: relative;
+  padding: 100px 0;
+  background: linear-gradient(180deg, #ffffff 0%, #f7f9fc 50%, #f0f4f9 100%);
+  color: #0f1b30;
+  overflow: hidden;
+}
+
+.bgAmbientGlow {
+  position: absolute;
+  top: -80px;
+  right: -80px;
+  width: 550px;
+  height: 550px;
+  background: radial-gradient(circle, rgba(201, 154, 62, 0.12) 0%, rgba(201, 154, 62, 0) 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.bgAmbientGlowLeft {
+  position: absolute;
+  bottom: -100px;
+  left: -100px;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(37, 99, 235, 0.06) 0%, rgba(37, 99, 235, 0) 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.container {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 24px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Header */
+.sectionHeader {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto 56px auto;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  background: #fdf6e7;
+  border: 1px solid rgba(201, 154, 62, 0.35);
+  border-radius: 100px;
+  color: #9c6c15;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.sparkle {
+  color: #c99a3e;
+}
+
+.mainTitle {
+  font-size: 42px;
+  font-weight: 800;
+  line-height: 1.2;
+  color: #0b1220;
+  letter-spacing: -0.8px;
+  margin: 0 0 16px 0;
+}
+
+.goldGradientText {
+  background: linear-gradient(135deg, #b3822a 0%, #d4a748 50%, #946414 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
+
+.subtitle {
+  font-size: 17px;
+  line-height: 1.6;
+  color: #475467;
+  margin: 0;
+}
+
+/* Steps Grid */
+.stepsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+  margin-bottom: 50px;
+}
+
+.stepCard {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 20px;
+  padding: 36px 28px;
+  position: relative;
+  box-shadow: 0 4px 20px rgba(15, 27, 48, 0.04), 0 1px 3px rgba(15, 27, 48, 0.02);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+}
+
+.stepCard:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 36px rgba(201, 154, 62, 0.12), 0 4px 12px rgba(15, 27, 48, 0.06);
+  border-color: rgba(201, 154, 62, 0.45);
+}
+
+.stepTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.iconWrap {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #fef8ee 0%, #fcf0d8 100%);
+  border: 1px solid rgba(201, 154, 62, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #b3822a;
+  box-shadow: 0 2px 8px rgba(201, 154, 62, 0.15);
+}
+
+.stepBadge {
+  font-size: 13px;
+  font-weight: 800;
+  color: #946414;
+  background: #fdf5e2;
+  padding: 4px 12px;
+  border-radius: 100px;
+  border: 1px solid rgba(201, 154, 62, 0.2);
+}
+
+.stepCardTitle {
+  font-size: 20px;
+  font-weight: 700;
+  color: #0b1220;
+  margin: 0 0 10px 0;
+  line-height: 1.3;
+}
+
+.stepCardDesc {
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: #475467;
+  margin: 0;
+  flex: 1;
+}
+
+.stepRewardHighlight {
+  margin-top: 20px;
+  padding: 10px 14px;
+  background: #f8fafc;
+  border-left: 3px solid #c99a3e;
+  border-radius: 0 8px 8px 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: #1e293b;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Feature Showcase Box */
+.showcaseCard {
+  background: #ffffff;
+  border: 1px solid rgba(201, 154, 62, 0.25);
+  border-radius: 24px;
+  padding: 40px;
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 40px;
+  align-items: center;
+  box-shadow: 0 10px 30px rgba(15, 27, 48, 0.05);
+  margin-bottom: 50px;
+  position: relative;
+  overflow: hidden;
+}
+
+.showcaseCard::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #c99a3e 0%, #e2b456 50%, #2563eb 100%);
+}
+
+.showcaseContent h3 {
+  font-size: 26px;
+  font-weight: 800;
+  color: #0b1220;
+  margin: 0 0 12px 0;
+}
+
+.showcaseContent p {
+  font-size: 15px;
+  line-height: 1.6;
+  color: #475467;
+  margin: 0 0 24px 0;
+}
+
+.perksList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.perkItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14.5px;
+  color: #1e293b;
+  font-weight: 500;
+}
+
+.checkIcon {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #ecfdf3;
+  color: #027a48;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  flex-shrink: 0;
+}
+
+/* Share Simulation Box */
+.shareSimBox {
+  background: linear-gradient(145deg, #0b1220 0%, #14233d 100%);
+  border-radius: 20px;
+  padding: 28px;
+  color: #ffffff;
+  box-shadow: 0 12px 30px rgba(11, 18, 32, 0.25);
+  border: 1px solid rgba(201, 154, 62, 0.3);
+}
+
+.shareSimHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.shareSimTitle {
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #d4a748;
+  font-weight: 700;
+}
+
+.coinPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(201, 154, 62, 0.2);
+  border: 1px solid rgba(201, 154, 62, 0.4);
+  padding: 4px 10px;
+  border-radius: 100px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #f7ecd3;
+}
+
+.codeBoxWrapper {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px dashed rgba(201, 154, 62, 0.5);
+  border-radius: 12px;
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.codeText {
+  font-family: monospace;
+  font-size: 18px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 1px;
+}
+
+.copyBtn {
+  background: #c99a3e;
+  color: #0b1220;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.copyBtn:hover {
+  background: #e2b456;
+  transform: scale(1.02);
+}
+
+.simStatsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 16px;
+}
+
+.simStatItem {
+  display: flex;
+  flex-direction: column;
+}
+
+.simStatLabel {
+  font-size: 11px;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.simStatVal {
+  font-size: 17px;
+  font-weight: 700;
+  color: #f8fafc;
+  margin-top: 2px;
+}
+
+/* Footer CTAs */
+.sectionFooter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 10px;
+}
+
+.primaryCta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(135deg, #c99a3e 0%, #b3822a 100%);
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 15px;
+  padding: 14px 32px;
+  border-radius: 12px;
+  text-decoration: none;
+  box-shadow: 0 4px 16px rgba(201, 154, 62, 0.35);
+  transition: all 0.25s ease;
+}
+
+.primaryCta:hover {
+  background: linear-gradient(135deg, #d4a748 0%, #c99a3e 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(201, 154, 62, 0.45);
+}
+
+.secondaryCta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #ffffff;
+  color: #0b1220;
+  font-weight: 700;
+  font-size: 15px;
+  padding: 14px 28px;
+  border-radius: 12px;
+  border: 1px solid #cbd5e1;
+  text-decoration: none;
+  transition: all 0.25s ease;
+}
+
+.secondaryCta:hover {
+  background: #f8fafc;
+  border-color: #94a3b8;
+  transform: translateY(-2px);
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .stepsGrid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .showcaseCard {
+    grid-template-columns: 1fr;
+    padding: 28px;
+    gap: 28px;
+  }
+
+  .mainTitle {
+    font-size: 32px;
+  }
+}
+
+@media (max-width: 640px) {
+  .referralSection {
+    padding: 60px 0;
+  }
+
+  .mainTitle {
+    font-size: 28px;
+  }
+
+  .sectionFooter {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .primaryCta, .secondaryCta {
+    width: 100%;
+    justify-content: center;
+  }
+}

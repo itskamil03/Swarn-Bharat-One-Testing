@@ -1,0 +1,476 @@
+/* ==========================================================================
+   ENTERPRISE FOOTER STYLES - SWARN BHARAT GROUP
+   ========================================================================== */
+
+.footer {
+  position: relative;
+  background: #050d1a;
+  color: #ffffff;
+  padding-top: 5rem;
+  overflow: hidden;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.footerGlow {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 900px;
+  height: 350px;
+  background: radial-gradient(circle, rgba(200, 150, 62, 0.09) 0%, rgba(26, 75, 140, 0.06) 50%, transparent 70%);
+  filter: blur(90px);
+  pointer-events: none;
+}
+
+.footerGrid {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 40px 40px;
+  mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, #000 40%, transparent 100%);
+  pointer-events: none;
+}
+
+/* PRE-FOOTER CALLOUT BANNER */
+.preFooter {
+  position: relative;
+  z-index: 2;
+  margin-bottom: 4.5rem;
+}
+
+.preFooterCard {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: 1.8rem 2.5rem;
+  background: linear-gradient(135deg, rgba(16, 32, 58, 0.7) 0%, rgba(10, 22, 42, 0.8) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 18px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25);
+}
+
+.preFooterLeft {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.preFooterIcon {
+  font-size: 2.2rem;
+}
+
+.preFooterTitle {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 0.2rem;
+  letter-spacing: -0.01em;
+}
+
+.preFooterDesc {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.65);
+  margin: 0;
+}
+
+.appPills {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+}
+
+.appPill {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.55rem 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.appPill:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(246, 206, 114, 0.4);
+  transform: translateY(-2px);
+}
+
+.appPill span {
+  font-size: 1.15rem;
+}
+
+.appPill div {
+  display: flex;
+  flex-direction: column;
+}
+
+.appPill small {
+  font-size: 0.6rem;
+  color: rgba(255, 255, 255, 0.55);
+  text-transform: uppercase;
+}
+
+.appPill strong {
+  font-size: 0.78rem;
+  color: #ffffff;
+  font-weight: 700;
+}
+
+/* MAIN CONTENT GRID */
+.mainContent {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 1.35fr 1fr 1fr 1.3fr;
+  gap: 3.5rem;
+  padding-bottom: 4rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* BRAND COLUMN */
+.brandCol {
+  display: flex;
+  flex-direction: column;
+}
+
+.brandLink {
+  display: inline-flex;
+  align-items: center;
+  margin-bottom: 1.25rem;
+  width: fit-content;
+}
+
+.brandLogo {
+  height: 60px;
+  width: auto;
+  object-fit: contain;
+  mix-blend-mode: screen;
+}
+
+.brandTagline {
+  font-size: 0.85rem;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.65);
+  margin-bottom: 1.4rem;
+}
+
+.contactDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1.6rem;
+}
+
+.contactItem {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.contactIcon {
+  font-size: 0.95rem;
+}
+
+.socials {
+  display: flex;
+  gap: 0.65rem;
+}
+
+.socialIcon {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.25s ease;
+  text-decoration: none;
+}
+
+.socialIcon:hover {
+  background: rgba(246, 206, 114, 0.12);
+  border-color: rgba(246, 206, 114, 0.4);
+  color: #f6ce72;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+}
+
+/* LINK COLUMNS */
+.linkCol {
+  display: flex;
+  flex-direction: column;
+}
+
+.colTitle {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #f6ce72;
+  margin-bottom: 1.4rem;
+}
+
+.linkList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.footerNavLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.bullet {
+  font-size: 1rem;
+  color: #d49e3d;
+  opacity: 0.6;
+  transition: transform 0.2s ease;
+}
+
+.footerNavLink:hover {
+  color: #ffffff;
+  transform: translateX(4px);
+}
+
+.footerNavLink:hover .bullet {
+  opacity: 1;
+  color: #f6ce72;
+}
+
+/* NEWSLETTER COLUMN */
+.newsletterCol {
+  display: flex;
+  flex-direction: column;
+}
+
+.newsletterCopy {
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.65);
+  margin-bottom: 1.25rem;
+}
+
+.newsletterForm {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.inputWrapper {
+  display: flex;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: border-color 0.25s ease;
+}
+
+.inputWrapper:focus-within {
+  border-color: #f6ce72;
+  box-shadow: 0 0 14px rgba(246, 206, 114, 0.2);
+}
+
+.newsletterInput {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  padding: 0.75rem 1rem;
+  color: #ffffff;
+  font-size: 0.85rem;
+}
+
+.newsletterInput::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.newsletterBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0 1.2rem;
+  background: linear-gradient(135deg, #d49e3d 0%, #f6ce72 100%);
+  color: #081426;
+  border: none;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.newsletterBtn:hover {
+  background: linear-gradient(135deg, #e0aa47 0%, #fae090 100%);
+  box-shadow: 0 4px 14px rgba(212, 158, 61, 0.35);
+}
+
+.successMsg {
+  font-size: 0.78rem;
+  color: #22c55e;
+  font-weight: 600;
+  margin: 0;
+  animation: fadeIn 0.3s ease;
+}
+
+.certBadge {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.75rem 1rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+}
+
+.badgeShield {
+  font-size: 1.4rem;
+}
+
+.certBadge div {
+  display: flex;
+  flex-direction: column;
+}
+
+.certBadge strong {
+  font-size: 0.8rem;
+  color: #f6ce72;
+}
+
+.certBadge small {
+  font-size: 0.68rem;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* BOTTOM LEGAL BAR */
+.bottomBar {
+  background: #030811;
+  padding: 1.5rem 0;
+  position: relative;
+  z-index: 2;
+}
+
+.bottomInner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.copyText {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.copyText p {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0;
+}
+
+.cinText {
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.legalLinks {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.legalLinks a {
+  font-size: 0.76rem;
+  color: rgba(255, 255, 255, 0.55);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.legalLinks a:hover {
+  color: #f6ce72;
+}
+
+.legalDot {
+  font-size: 0.6rem;
+  color: rgba(255, 255, 255, 0.25);
+}
+
+.scrollTopBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.8);
+  padding: 0.45rem 0.9rem;
+  border-radius: 8px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.scrollTopBtn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #f6ce72;
+  border-color: rgba(246, 206, 114, 0.4);
+  transform: translateY(-2px);
+}
+
+/* RESPONSIVE BREAKPOINTS */
+@media (max-width: 1024px) {
+  .mainContent {
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+  }
+  .preFooterCard {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .footer {
+    padding-top: 3.5rem;
+  }
+  .mainContent {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+  .preFooterCard {
+    padding: 1.4rem;
+  }
+  .bottomInner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.2rem;
+  }
+  .legalLinks {
+    flex-wrap: wrap;
+    gap: 0.5rem 0.8rem;
+  }
+}

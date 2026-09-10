@@ -1,0 +1,69 @@
+.banner {
+  position: relative;
+  min-height: 560px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.imageWrap {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.image {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  animation: slowZoom 22s ease-in-out infinite alternate;
+}
+
+@keyframes slowZoom {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.12);
+  }
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(6, 19, 36, 0.82) 0%,
+    rgba(6, 19, 36, 0.52) 45%,
+    rgba(6, 19, 36, 0.88) 100%
+  );
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 5.5rem 2rem;
+}
+
+.heading {
+  font-size: clamp(2.1rem, 4.2vw, 3.2rem);
+  color: var(--white, #ffffff);
+  margin: 1.2rem 0 1.4rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.gold {
+  color: var(--gold-light, #d49e3d);
+}
+
+.description {
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 1.05rem;
+  line-height: 1.7;
+  margin-bottom: 2.2rem;
+}
