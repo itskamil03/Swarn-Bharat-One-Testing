@@ -6,5 +6,6 @@ export const metadata = {
 };
 
 export default function RegisterPage() {
-  return <AuthModal isPage={true} initialView="personal" />;
+  return <AuthModal isPage={true} initialView="reg_identifier" />;
 }
+

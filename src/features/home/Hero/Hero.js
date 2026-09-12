@@ -1,16 +1,19 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { heroSlides } from "@/data/homeData";
+import { heroSlides as defaultHeroSlides } from "@/data/homeData";
 import styles from "./Hero.module.css";
 
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api";
 const AUTOPLAY_DELAY = 6000;
-const SLIDE_COUNT = heroSlides.length;
-const VIRTUAL_OFFSET = SLIDE_COUNT * 20; // 80, gives huge runway
 
 export default function Hero() {
-  const [currentIndex, setCurrentIndex] = useState(VIRTUAL_OFFSET);
-  const [prevIndex, setPrevIndex] = useState(VIRTUAL_OFFSET - 1);
+  const [slides, setSlides] = useState(defaultHeroSlides);
+  const slideCount = slides.length || 1;
+  const virtualOffset = slideCount * 20;
+
+  const [currentIndex, setCurrentIndex] = useState(virtualOffset);
+  const [prevIndex, setPrevIndex] = useState(virtualOffset - 1);
   const [direction, setDirection] = useState("next");
   const [isPaused, setIsPaused] = useState(false);
 
@@ -18,8 +21,26 @@ export default function Hero() {
   const touchStartX = useRef(0);
   const touchEndX = useRef(0);
 
-  const activeIndex = currentIndex % SLIDE_COUNT;
-  const prevActiveIndex = prevIndex % SLIDE_COUNT;
+  // Fetch live active slides from Central Backend API
+  useEffect(() => {
+    const fetchLiveSlides = async () => {
+      try {
+        const res = await fetch(`${API_BASE}/hero`);
+        if (res.ok) {
+          const json = await res.json();
+          if (json.success && Array.isArray(json.data) && json.data.length > 0) {
+            setSlides(json.data);
+          }
+        }
+      } catch (e) {
+        console.warn("Backend Hero API not reachable, using default slides:", e.message);
+      }
+    };
+    fetchLiveSlides();
+  }, []);
+
+  const activeIndex = currentIndex % slideCount;
+  const prevActiveIndex = prevIndex % slideCount;
 
   const goNext = useCallback(() => {
     setDirection("next");
@@ -39,13 +60,13 @@ export default function Hero() {
 
   const goTo = useCallback(
     (index) => {
-      const diff = (index - activeIndex + SLIDE_COUNT) % SLIDE_COUNT;
+      const diff = (index - activeIndex + slideCount) % slideCount;
       if (diff === 0) return;
-      if (diff > SLIDE_COUNT / 2) {
+      if (diff > slideCount / 2) {
         setDirection("prev");
         setCurrentIndex((c) => {
           setPrevIndex(c);
-          return c - (SLIDE_COUNT - diff);
+          return c - (slideCount - diff);
         });
       } else {
         setDirection("next");
@@ -55,7 +76,7 @@ export default function Hero() {
         });
       }
     },
-    [activeIndex]
+    [activeIndex, slideCount]
   );
 
   useEffect(() => {
@@ -74,8 +95,6 @@ export default function Hero() {
     if (touchEndX.current - touchStartX.current > 50) goPrev();
   };
 
-
-
   return (
     <section
       id="top"
@@ -84,7 +103,7 @@ export default function Hero() {
       onTouchEnd={handleTouchEnd}
     >
       <div className={styles.slides} data-direction={direction}>
-        {heroSlides.map((slide, index) => {
+        {slides.map((slide, index) => {
           const isActive = index === activeIndex;
           const isPrev = index === prevActiveIndex;
 
@@ -92,9 +111,11 @@ export default function Hero() {
           if (isActive) slideClass = styles.slideActive;
           else if (isPrev) slideClass = styles.slidePrev;
 
+          const slideKey = slide._id || slide.id || index;
+
           return (
             <div
-              key={slide.id}
+              key={slideKey}
               className={`${styles.slide} ${slideClass}`}
               aria-hidden={!isActive}
             >
@@ -109,34 +130,40 @@ export default function Hero() {
       </div>
 
       <div className={`container ${styles.content}`}>
-        {heroSlides.map((slide, index) => (
-          <div
-            key={`content-${slide.id}`}
-            className={`${styles.textBlock} ${index === activeIndex ? styles.textBlockActive : ""}`}
-            aria-hidden={index !== activeIndex}
-          >
-            <p className={styles.eyebrow}>
-              <span className={styles.eyebrowLine} />
-              {slide.eyebrow}
-            </p>
-            <h1 className={styles.headline}>
-              {slide.headlineLead}
-              <br />
-              <span className={styles.headlineGold}>{slide.headlineHighlight}</span>
-            </h1>
-            <p className={styles.description}>{slide.description}</p>
-            <div className={styles.ctaRow}>
-              <a href={slide.primaryCta.href} className="btn btn-gold">
-                {slide.primaryCta.label}
-                <CtaArrowIcon />
-              </a>
-              <a href={slide.secondaryCta.href} className="btn btn-outline">
-                {slide.secondaryCta.label}
-                <CtaArrowIcon />
-              </a>
+        {slides.map((slide, index) => {
+          const slideKey = slide._id || slide.id || index;
+          const primaryCta = slide.primaryCta || { label: "Explore Our Businesses", href: "#businesses" };
+          const secondaryCta = slide.secondaryCta || { label: "Our Impact", href: "#impact" };
+
+          return (
+            <div
+              key={`content-${slideKey}`}
+              className={`${styles.textBlock} ${index === activeIndex ? styles.textBlockActive : ""}`}
+              aria-hidden={index !== activeIndex}
+            >
+              <p className={styles.eyebrow}>
+                <span className={styles.eyebrowLine} />
+                {slide.eyebrow}
+              </p>
+              <h1 className={styles.headline}>
+                {slide.headlineLead}
+                <br />
+                <span className={styles.headlineGold}>{slide.headlineHighlight}</span>
+              </h1>
+              <p className={styles.description}>{slide.description}</p>
+              <div className={styles.ctaRow}>
+                <a href={primaryCta.href || "#businesses"} className="btn btn-gold">
+                  {primaryCta.label || "Explore Our Businesses"}
+                  <CtaArrowIcon />
+                </a>
+                <a href={secondaryCta.href || "#impact"} className="btn btn-outline">
+                  {secondaryCta.label || "Our Impact"}
+                  <CtaArrowIcon />
+                </a>
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
 
 
 
@@ -146,11 +173,12 @@ export default function Hero() {
           onMouseLeave={() => setIsPaused(false)}
         >
           <div className={styles.indicatorsDash}>
-            {heroSlides.map((slide, index) => {
+            {slides.map((slide, index) => {
               const isActive = index === activeIndex;
+              const slideKey = slide._id || slide.id || index;
               return (
                 <button
-                  key={`nav-${slide.id}`}
+                  key={`nav-${slideKey}`}
                   type="button"
                   className={styles.dashButton}
                   onClick={() => goTo(index)}

@@ -2,15 +2,21 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { useAuth, generateUserReferralCode } from "@/context/AuthContext";
 import styles from "./ReferralEarnSection.module.css";
 
 export default function ReferralEarnSection() {
+  const { user } = useAuth();
   const [copied, setCopied] = useState(false);
-  const sampleCode = "SB-BHARAT2026";
+
+  const isLoggedIn = !!user;
+  const userReferralCode = user ? (user.referralCode || generateUserReferralCode(user)) : "SB-BHARAT2026";
+  const userTier = user?.tier || "Gold Advocate";
+  const shareLink = `https://swarnbharat.in/register?ref=${userReferralCode}`;
 
   const handleCopyCode = () => {
     if (typeof navigator !== "undefined" && navigator.clipboard) {
-      navigator.clipboard.writeText(`https://swarnbharat.in/register?ref=${sampleCode}`);
+      navigator.clipboard.writeText(shareLink);
     }
     setCopied(true);
     setTimeout(() => setCopied(false), 2500);
@@ -66,7 +72,7 @@ export default function ReferralEarnSection() {
               </div>
               <span className={styles.stepBadge}>Step 02</span>
             </div>
-            <h3 className={styles.stepCardTitle}>Friend Joins & Explores</h3>
+            <h3 className={styles.stepCardTitle}>Friend Joins &amp; Explores</h3>
             <p className={styles.stepCardDesc}>
               Your friend signs up on Swarn Bharat and receives <strong>200 Swarn Coins</strong> instant welcome credit to spend across any platform.
             </p>
@@ -85,7 +91,7 @@ export default function ReferralEarnSection() {
               </div>
               <span className={styles.stepBadge}>Step 03</span>
             </div>
-            <h3 className={styles.stepCardTitle}>Earn & Redeem Universally</h3>
+            <h3 className={styles.stepCardTitle}>Earn &amp; Redeem Universally</h3>
             <p className={styles.stepCardDesc}>
               You receive <strong>250 to 350 Swarn Coins</strong> directly into your central wallet. Redeem them for discounts on shopping, courses, property booking, and gifts.
             </p>
@@ -119,23 +125,72 @@ export default function ReferralEarnSection() {
             </div>
           </div>
 
-          {/* Share Box Mockup */}
+          {/* Share Box Mockup / Live Citizen Pass */}
           <div className={styles.shareSimBox}>
             <div className={styles.shareSimHeader}>
-              <span className={styles.shareSimTitle}>Citizen Referral Pass</span>
+              <div className={styles.passTitleGroup}>
+                <span className={styles.shareSimTitle}>Citizen Referral Pass</span>
+                {isLoggedIn ? (
+                  <span className={styles.passActivePill}>
+                    <span className={styles.activeDot}></span> Active • {user.name}
+                  </span>
+                ) : (
+                  <span className={styles.passLockedPill}>
+                    🔒 Login Required
+                  </span>
+                )}
+              </div>
               <span className={styles.coinPill}>🪙 250 Coins / Invite</span>
             </div>
 
-            <div className={styles.codeBoxWrapper}>
-              <span className={styles.codeText}>{sampleCode}</span>
-              <button
-                type="button"
-                className={styles.copyBtn}
-                onClick={handleCopyCode}
-              >
-                {copied ? "✓ Copied!" : "Copy Link"}
-              </button>
+            <div className={`${styles.codeBoxWrapper} ${!isLoggedIn ? styles.codeBoxLocked : ""}`}>
+              {isLoggedIn ? (
+                <>
+                  <span className={styles.codeText}>{userReferralCode}</span>
+                  <button
+                    type="button"
+                    className={styles.copyBtn}
+                    onClick={handleCopyCode}
+                  >
+                    {copied ? "✓ Copied!" : "Copy Link"}
+                  </button>
+                </>
+              ) : (
+                <>
+                  <div className={styles.blurredCodeWrap}>
+                    <span className={styles.codeTextMasked}>SB-••••••••</span>
+                    <span className={styles.codeLockHint}>Sign in to reveal unique code</span>
+                  </div>
+                  <Link href="/login" className={styles.unlockBtn}>
+                    Sign In
+                  </Link>
+                </>
+              )}
             </div>
+
+            {/* Quick Share Buttons for Logged In User */}
+            {isLoggedIn && (
+              <div className={styles.quickShareRow}>
+                <a
+                  href={`https://api.whatsapp.com/send?text=${encodeURIComponent(`Join Swarn Bharat using my unique citizen invite code ${userReferralCode} and claim 200 Welcome Swarn Coins! ${shareLink}`)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={styles.quickShareBtn}
+                  style={{ background: "#25D366" }}
+                >
+                  WhatsApp
+                </a>
+                <a
+                  href={`https://t.me/share/url?url=${encodeURIComponent(shareLink)}&text=${encodeURIComponent(`Join Swarn Bharat with code ${userReferralCode} and get 200 Welcome Coins!`)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={styles.quickShareBtn}
+                  style={{ background: "#0088cc" }}
+                >
+                  Telegram
+                </a>
+              </div>
+            )}
 
             <div className={styles.simStatsGrid}>
               <div className={styles.simStatItem}>
@@ -144,7 +199,7 @@ export default function ReferralEarnSection() {
               </div>
               <div className={styles.simStatItem}>
                 <span className={styles.simStatLabel}>Ambassador Tier</span>
-                <span className={styles.simStatVal} style={{ color: "#d4a748" }}>Gold Advocate</span>
+                <span className={styles.simStatVal} style={{ color: "#d4a748" }}>{userTier}</span>
               </div>
             </div>
           </div>
@@ -153,16 +208,23 @@ export default function ReferralEarnSection() {
         {/* Action Footer */}
         <div className={styles.sectionFooter}>
           <Link href="/referral" className={styles.primaryCta}>
-            <span>Explore How Referral Works</span>
+            <span>{isLoggedIn ? "Open Referral Dashboard" : "Explore How Referral Works"}</span>
             <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
             </svg>
           </Link>
-          <Link href="/register" className={styles.secondaryCta}>
-            <span>Join & Get Invite Code</span>
-          </Link>
+          {!isLoggedIn ? (
+            <Link href="/register" className={styles.secondaryCta}>
+              <span>Join &amp; Get Invite Code</span>
+            </Link>
+          ) : (
+            <Link href="/profile" className={styles.secondaryCta}>
+              <span>Manage Citizen Identity</span>
+            </Link>
+          )}
         </div>
       </div>
     </section>
   );
 }
+

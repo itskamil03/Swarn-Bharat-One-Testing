@@ -132,7 +132,7 @@ export default function EventsPage() {
   };
 
   return (
-    <>
+    <div className={styles.eventsPageWrapper}>
       <Navbar />
 
       <main className={styles.eventsPage}>
@@ -299,11 +299,11 @@ export default function EventsPage() {
                     <span className={styles.archiveCityTag}>{ph.city}</span>
                   </div>
                   <div className={styles.archiveBody}>
-                    <h3>{ph.title}</h3>
                     <div className={styles.archiveMeta}>
-                      <span>👥 {ph.delegates}</span>
+                      <span>{ph.delegates}</span>
                     </div>
-                    <p className={styles.archiveKeynote}>&ldquo;{ph.keynote}&rdquo;</p>
+                    <h4>{ph.title}</h4>
+                    <p>{ph.keynote}</p>
                   </div>
                 </div>
               ))}
@@ -317,103 +317,83 @@ export default function EventsPage() {
             <div className={styles.modalCard} onClick={(e) => e.stopPropagation()}>
               <button type="button" className={styles.modalCloseBtn} onClick={() => setSelectedEvent(null)}>✕</button>
 
-              {isRegistered ? (
-                <div className={styles.regSuccessContent}>
-                  <div className={styles.regSuccessIcon}>✓</div>
-                  <h3>Delegate Registration Confirmed!</h3>
-                  <p>You are officially registered for <strong>{selectedEvent.title}</strong>.</p>
-                  
-                  <div className={styles.passCodeBox}>
-                    <span>OFFICIAL DELEGATE ENTRY PASS</span>
-                    <strong>PASS-SB-{Math.floor(100000 + Math.random() * 900000)}</strong>
-                    <div className={styles.passDetails}>
-                      <span>{selectedEvent.location}</span>
-                      <span>{selectedEvent.day ? `${selectedEvent.day} ${selectedEvent.month} ${selectedEvent.year}` : selectedEvent.date?.full}</span>
-                    </div>
-                  </div>
-
-                  <p className={styles.passSubNote}>A confirmation pass with QR entry has been emailed to {regForm.email}.</p>
-                  <button type="button" onClick={() => setSelectedEvent(null)} className={styles.primaryGoldBtn} style={{ width: "100%", justifyContent: "center" }}>
-                    Done
-                  </button>
+              <div className={styles.modalHeader}>
+                <span className={styles.modalTag}>Delegate Registration</span>
+                <h2>{selectedEvent.title}</h2>
+                <div className={styles.modalEventMeta}>
+                  <span>📍 {selectedEvent.location}</span>
+                  <span>🗓️ {selectedEvent.date?.full || `${selectedEvent.day} ${selectedEvent.month}`}</span>
                 </div>
-              ) : (
-                <div className={styles.regFormContent}>
-                  <span className={styles.modalCategoryTag}>{selectedEvent.categoryName || "Flagship Conclave"}</span>
-                  <h2>{selectedEvent.title}</h2>
-                  <p className={styles.modalEventLoc}>{selectedEvent.location}</p>
+              </div>
 
+              <div className={styles.modalBody}>
+                {isRegistered ? (
+                  <div className={styles.successState}>
+                    <div className={styles.successIcon}>🎉</div>
+                    <h3>Registration Confirmed!</h3>
+                    <p>Thank you, {regForm.name || "Delegate"}. Your pass confirmation has been sent to <strong>{regForm.email || "your email"}</strong>.</p>
+                    <button type="button" onClick={() => setSelectedEvent(null)} className={styles.modalDoneBtn}>Done</button>
+                  </div>
+                ) : (
                   <form onSubmit={handleRegisterSubmit} className={styles.modalForm}>
-                    <div className={styles.formGroup}>
-                      <label>Full Name *</label>
-                      <input 
-                        type="text" 
-                        required 
-                        placeholder="e.g. Vikramaditya Singh" 
-                        value={regForm.name} 
-                        onChange={(e) => setRegForm({ ...regForm, name: e.target.value })} 
-                      />
-                    </div>
-
                     <div className={styles.formRow}>
                       <div className={styles.formGroup}>
-                        <label>Official Email *</label>
-                        <input 
-                          type="email" 
-                          required 
-                          placeholder="name@company.com" 
-                          value={regForm.email} 
-                          onChange={(e) => setRegForm({ ...regForm, email: e.target.value })} 
+                        <label>Full Name</label>
+                        <input
+                          type="text"
+                          required
+                          placeholder="e.g. Dr. Aryan Sharma"
+                          value={regForm.name}
+                          onChange={(e) => setRegForm({ ...regForm, name: e.target.value })}
                         />
                       </div>
                       <div className={styles.formGroup}>
-                        <label>Phone Number *</label>
-                        <input 
-                          type="tel" 
-                          required 
-                          placeholder="+91 98765 43210" 
-                          value={regForm.phone} 
-                          onChange={(e) => setRegForm({ ...regForm, phone: e.target.value })} 
+                        <label>Corporate / Official Email</label>
+                        <input
+                          type="email"
+                          required
+                          placeholder="name@company.com"
+                          value={regForm.email}
+                          onChange={(e) => setRegForm({ ...regForm, email: e.target.value })}
                         />
                       </div>
                     </div>
 
                     <div className={styles.formRow}>
                       <div className={styles.formGroup}>
-                        <label>Designation / Organization</label>
-                        <input 
-                          type="text" 
-                          placeholder="e.g. Managing Director" 
-                          value={regForm.designation} 
-                          onChange={(e) => setRegForm({ ...regForm, designation: e.target.value })} 
+                        <label>Phone Number</label>
+                        <input
+                          type="tel"
+                          required
+                          placeholder="+91 98765 43210"
+                          value={regForm.phone}
+                          onChange={(e) => setRegForm({ ...regForm, phone: e.target.value })}
                         />
                       </div>
                       <div className={styles.formGroup}>
-                        <label>Number of Delegates</label>
-                        <select 
-                          value={regForm.attendees} 
-                          onChange={(e) => setRegForm({ ...regForm, attendees: e.target.value })}
-                        >
-                          <option value="1">1 Delegate</option>
-                          <option value="2">2 Delegates</option>
-                          <option value="3">3 Delegates</option>
-                          <option value="5">Corporate Delegation (5+)</option>
-                        </select>
+                        <label>Organization / Designation</label>
+                        <input
+                          type="text"
+                          required
+                          placeholder="e.g. VP Strategy, Apex Corp"
+                          value={regForm.designation}
+                          onChange={(e) => setRegForm({ ...regForm, designation: e.target.value })}
+                        />
                       </div>
                     </div>
 
-                    <button type="submit" className={styles.primaryGoldBtn} style={{ width: "100%", justifyContent: "center", marginTop: "12px" }}>
-                      Confirm Delegate Pass (Free)
+                    <button type="submit" className={styles.submitRegistrationBtn}>
+                      Confirm Delegate Registration
                     </button>
                   </form>
-                </div>
-              )}
+                )}
+              </div>
             </div>
           </div>
         )}
       </main>
 
       <Footer />
-    </>
+    </div>
   );
 }

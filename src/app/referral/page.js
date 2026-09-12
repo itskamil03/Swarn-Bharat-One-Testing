@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import Navbar from "@/components/layout/Navbar/Navbar";
 import Footer from "@/components/layout/Footer/Footer";
+import { useAuth, generateUserReferralCode } from "@/context/AuthContext";
 import styles from "./page.module.css";
 
 const tiersData = [
@@ -118,16 +119,18 @@ const faqData = [
 ];
 
 export default function ReferralPage() {
+  const { user } = useAuth();
   const [friendsCount, setFriendsCount] = useState(10);
   const [copied, setCopied] = useState(false);
   const [openFaq, setOpenFaq] = useState(null);
 
-  const sampleCode = "SB-BHARAT2026";
-  const sampleLink = `https://swarnbharat.in/register?ref=${sampleCode}`;
+  const isLoggedIn = !!user;
+  const userReferralCode = user ? (user.referralCode || generateUserReferralCode(user)) : "SB-BHARAT2026";
+  const userLink = `https://swarnbharat.in/register?ref=${userReferralCode}`;
 
   const handleCopyLink = () => {
     if (typeof navigator !== "undefined" && navigator.clipboard) {
-      navigator.clipboard.writeText(sampleLink);
+      navigator.clipboard.writeText(userLink);
     }
     setCopied(true);
     setTimeout(() => setCopied(false), 2500);
@@ -173,7 +176,7 @@ export default function ReferralPage() {
             <div className={styles.breadcrumbs}>
               <Link href="/">Home</Link>
               <span>/</span>
-              <span style={{ color: "#d4a748" }}>Refer & Earn</span>
+              <span style={{ color: "#d4a748" }}>Refer &amp; Earn</span>
             </div>
 
             <div className={styles.heroGrid}>
@@ -208,48 +211,76 @@ export default function ReferralPage() {
               {/* Interactive Pass Card */}
               <div className={styles.heroCard}>
                 <div className={styles.heroCardHeader}>
-                  <span className={styles.heroCardTitle}>Your Personal Invite Link</span>
-                  <span className={styles.liveBadge}>
-                    <span className={styles.pulseDot}></span> Live Program
+                  <span className={styles.heroCardTitle}>
+                    {isLoggedIn ? "Your Citizen Referral Pass" : "Citizen Referral Pass"}
                   </span>
+                  {isLoggedIn ? (
+                    <span className={styles.liveBadge}>
+                      <span className={styles.pulseDot}></span> Active • {user.name}
+                    </span>
+                  ) : (
+                    <span className={styles.lockedBadge}>
+                      🔒 Login to Unlock
+                    </span>
+                  )}
                 </div>
 
-                <div className={styles.linkBox}>
-                  <span className={styles.linkCodeText}>{sampleCode}</span>
-                  <button type="button" className={styles.copyCodeBtn} onClick={handleCopyLink}>
-                    {copied ? "✓ Copied!" : "Copy Link"}
-                  </button>
+                <div className={`${styles.linkBox} ${!isLoggedIn ? styles.linkBoxLocked : ""}`}>
+                  {isLoggedIn ? (
+                    <>
+                      <span className={styles.linkCodeText}>{userReferralCode}</span>
+                      <button type="button" className={styles.copyCodeBtn} onClick={handleCopyLink}>
+                        {copied ? "✓ Copied!" : "Copy Link"}
+                      </button>
+                    </>
+                  ) : (
+                    <>
+                      <div className={styles.maskedCodeBox}>
+                        <span className={styles.maskedText}>SB-••••••••</span>
+                        <span className={styles.maskedSub}>Sign in to view personal code</span>
+                      </div>
+                      <Link href="/login" className={styles.unlockPassBtn}>
+                        Sign In
+                      </Link>
+                    </>
+                  )}
                 </div>
 
-                <div className={styles.shareSocialsRow}>
-                  <a
-                    href={`https://api.whatsapp.com/send?text=${encodeURIComponent(`Join Swarn Bharat using my invite code ${sampleCode} and unlock 200 Welcome Swarn Coins! ${sampleLink}`)}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={styles.shareSocialBtn}
-                    style={{ background: "#25D366", borderColor: "#25D366" }}
-                  >
-                    <span>💬 WhatsApp</span>
-                  </a>
-                  <a
-                    href={`https://t.me/share/url?url=${encodeURIComponent(sampleLink)}&text=${encodeURIComponent(`Join Swarn Bharat and get 200 Swarn Coins!`)}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={styles.shareSocialBtn}
-                    style={{ background: "#0088cc", borderColor: "#0088cc" }}
-                  >
-                    <span>✈️ Telegram</span>
-                  </a>
-                  <a
-                    href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`Join India's unified ecosystem Swarn Bharat! Use code ${sampleCode} to get 200 bonus coins. ${sampleLink}`)}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={styles.shareSocialBtn}
-                    style={{ background: "#000000", borderColor: "#333333" }}
-                  >
-                    <span>✖️ Post</span>
-                  </a>
-                </div>
+                {isLoggedIn ? (
+                  <div className={styles.shareSocialsRow}>
+                    <a
+                      href={`https://api.whatsapp.com/send?text=${encodeURIComponent(`Join Swarn Bharat using my citizen referral code ${userReferralCode} and unlock 200 Welcome Swarn Coins! ${userLink}`)}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={styles.shareSocialBtn}
+                      style={{ background: "#25D366", borderColor: "#25D366" }}
+                    >
+                      <span>💬 WhatsApp</span>
+                    </a>
+                    <a
+                      href={`https://t.me/share/url?url=${encodeURIComponent(userLink)}&text=${encodeURIComponent(`Join Swarn Bharat with code ${userReferralCode} and get 200 Swarn Coins!`)}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={styles.shareSocialBtn}
+                      style={{ background: "#0088cc", borderColor: "#0088cc" }}
+                    >
+                      <span>✈️ Telegram</span>
+                    </a>
+                    <a
+                      href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`Join India's unified ecosystem Swarn Bharat! Use code ${userReferralCode} to get 200 bonus coins. ${userLink}`)}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={styles.shareSocialBtn}
+                      style={{ background: "#000000", borderColor: "#333333" }}
+                    >
+                      <span>✖️ Post</span>
+                    </a>
+                  </div>
+                ) : (
+                  <div className={styles.guestNoticeBox}>
+                    <span>💡 Every verified citizen receives a permanent referral pass. Rewards credit directly to your Central Wallet.</span>
+                  </div>
+                )}
 
                 <div className={styles.heroCardNotice}>
                   🔒 Coins are credited immediately upon verified mobile sign-up. 100% fair and automated.

@@ -8,7 +8,9 @@ import { LoginModal, RegisterModal } from "@/components/ui/AuthModals/AuthModals
 import { useAuth } from "@/context/AuthContext";
 import styles from "./Navbar.module.css";
 
-const servicesMegaMenu = [
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api";
+
+const defaultServicesMegaMenu = [
   {
     title: "Digital & Commerce",
     links: [
@@ -22,6 +24,7 @@ const servicesMegaMenu = [
     links: [
       { label: "Real Estate", desc: "Townships & prime commercial spaces", href: "/#businesses" },
       { label: "Matrimonial", desc: "Trusted relationships & family bonds", href: "/#businesses" },
+      { label: "Construction", desc: "Civil engineering & green energy", href: "/#businesses" },
     ]
   },
   {
@@ -29,6 +32,7 @@ const servicesMegaMenu = [
     links: [
       { label: "Students Portal", desc: "Education & student accelerators", href: "/#businesses" },
       { label: "Foundation", desc: "Grassroots empowerment & healthcare", href: "http://187.52.122.33:3000", external: true },
+      { label: "Services", desc: "Verified utility & expert services", href: "/#businesses" },
     ]
   }
 ];
@@ -44,11 +48,62 @@ export default function Navbar() {
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
   const [isMobileServicesOpen, setIsMobileServicesOpen] = useState(false);
+  const [servicesMegaMenu, setServicesMegaMenu] = useState(defaultServicesMegaMenu);
   
   const { user, logout } = useAuth();
   const profileDropdownRef = useRef(null);
   const appDropdownRef = useRef(null);
   const searchInputRef = useRef(null);
+
+  // Fetch live active business verticals for mega-menu
+  useEffect(() => {
+    let isMounted = true;
+    async function fetchNavBusinesses() {
+      try {
+        const res = await fetch(`${API_BASE}/businesses?status=Active`);
+        if (res.ok) {
+          const json = await res.json();
+          if (isMounted && json.success && Array.isArray(json.data) && json.data.length > 0) {
+            // Group into 3 clean columns
+            const col1 = { title: "Digital & Commerce", links: [] };
+            const col2 = { title: "Infrastructure & Living", links: [] };
+            const col3 = { title: "Education & Society", links: [] };
+
+            json.data.forEach((b) => {
+              const isExt = b.platformUrl && b.platformUrl.startsWith("http");
+              const linkObj = {
+                label: b.title,
+                desc: b.description ? (b.description.length > 40 ? b.description.slice(0, 38) + "..." : b.description) : "Ecosystem platform",
+                href: b.platformUrl || "/#businesses",
+                external: isExt,
+              };
+
+              const cat = (b.category || "").toLowerCase();
+              if (cat.includes("digital") || cat.includes("tech") || cat.includes("recruitment") || cat.includes("commerce")) {
+                col1.links.push(linkObj);
+              } else if (cat.includes("urban") || cat.includes("civil") || cat.includes("infrastructure") || cat.includes("community")) {
+                col2.links.push(linkObj);
+              } else {
+                col3.links.push(linkObj);
+              }
+            });
+
+            // Ensure balanced distribution if any column is empty
+            const dynamicCols = [col1, col2, col3].filter(c => c.links.length > 0);
+            if (dynamicCols.length > 0) {
+              setServicesMegaMenu(dynamicCols);
+            }
+          }
+        }
+      } catch (e) {
+        console.warn("Backend Businesses API not reachable for Navbar:", e.message);
+      }
+    }
+    fetchNavBusinesses();
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 30);
@@ -334,14 +389,18 @@ export default function Navbar() {
                 aria-haspopup="true"
                 aria-expanded={isProfileDropdownOpen}
               >
-                {(() => {
-                  const n = user.name || user.email || "User";
-                  const parts = n.trim().split(/[\s@._-]+/);
-                  if (parts.length >= 2 && parts[0] && parts[1]) {
-                    return (parts[0][0] + parts[1][0]).toUpperCase();
-                  }
-                  return n.slice(0, 2).toUpperCase();
-                })()}
+                {user.profileImage ? (
+                  <img src={user.profileImage} alt={user.name || "User"} style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "50%" }} />
+                ) : (
+                  (() => {
+                    const n = user.name || user.email || "User";
+                    const parts = n.trim().split(/[\s@._-]+/);
+                    if (parts.length >= 2 && parts[0] && parts[1]) {
+                      return (parts[0][0] + parts[1][0]).toUpperCase();
+                    }
+                    return n.slice(0, 2).toUpperCase();
+                  })()
+                )}
               </button>
             ) : (
               <Link 
@@ -360,14 +419,18 @@ export default function Navbar() {
               <div className={`${styles.menu} ${isProfileDropdownOpen ? styles.menuOpen : ''}`} role="menu">
                 <div className={styles.menuHead}>
                   <div className={styles.menuAvatar}>
-                    {(() => {
-                      const n = user.name || user.email || "User";
-                      const parts = n.trim().split(/[\s@._-]+/);
-                      if (parts.length >= 2 && parts[0] && parts[1]) {
-                        return (parts[0][0] + parts[1][0]).toUpperCase();
-                      }
-                      return n.slice(0, 2).toUpperCase();
-                    })()}
+                    {user.profileImage ? (
+                      <img src={user.profileImage} alt={user.name || "User"} style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "50%" }} />
+                    ) : (
+                      (() => {
+                        const n = user.name || user.email || "User";
+                        const parts = n.trim().split(/[\s@._-]+/);
+                        if (parts.length >= 2 && parts[0] && parts[1]) {
+                          return (parts[0][0] + parts[1][0]).toUpperCase();
+                        }
+                        return n.slice(0, 2).toUpperCase();
+                      })()
+                    )}
                   </div>
                   <div>
                     <h3>Hello, {user.name || "User"}</h3>

@@ -23,14 +23,19 @@ const initialJobs = [
   { title: "Logistics Coordinator", category: "E-Commerce", location: "Bengaluru", type: "Full-time", desc: "Coordinate warehouse and last-mile delivery operations for marketplace orders.", posted: "6 days ago" }
 ];
 
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api";
+
 export default function CareersPage() {
   const [filter, setFilter] = useState("all");
   const [formData, setFormData] = useState({ category: "", position: "" });
   const [fileName, setFileName] = useState("");
   const [isDragOver, setIsDragOver] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
+  const [submittedAppId, setSubmittedAppId] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   const [isAutoPlayPaused, setIsAutoPlayPaused] = useState(false);
   const [counts, setCounts] = useState({ verticals: 7, positions: 120, members: 2400, cities: 18 });
+  const [jobsList, setJobsList] = useState(initialJobs);
   const fileInputRef = useRef(null);
   const applyFormRef = useRef(null);
   const carouselRef = useRef(null);
@@ -98,7 +103,25 @@ export default function CareersPage() {
     return () => clearInterval(interval);
   }, [isAutoPlayPaused]);
 
-  const filteredJobs = initialJobs.filter(j => filter === "all" || j.category === filter);
+  useEffect(() => {
+    const fetchLiveJobs = async () => {
+      try {
+        const res = await fetch(`${API_BASE}/jobs?status=Active`);
+        if (res.ok) {
+          const json = await res.json();
+          const liveData = json.data || json.jobs;
+          if (Array.isArray(liveData) && liveData.length > 0) {
+            setJobsList(liveData);
+          }
+        }
+      } catch (err) {
+        console.log("Using initial job postings dataset:", err.message);
+      }
+    };
+    fetchLiveJobs();
+  }, []);
+
+  const filteredJobs = jobsList.filter(j => filter === "all" || j.category === filter);
 
   const handleFilterClick = (cat) => setFilter(cat);
 
@@ -129,6 +152,7 @@ export default function CareersPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setErrorMessage("");
     
     const formEl = e.target;
     const submissionData = {
@@ -142,29 +166,27 @@ export default function CareersPage() {
     };
 
     try {
-      const res = await fetch("/api/careers/apply", {
+      const res = await fetch(`${API_BASE}/jobs/apply`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(submissionData),
       });
       const data = await res.json();
-      if (data.success) {
+      if (res.ok && data.success) {
+        setSubmittedAppId(data.data?.applicationId || "");
         setShowSuccess(true);
         formEl.reset();
         setFileName("");
         setFormData({ category: "", position: "" });
-        setTimeout(() => setShowSuccess(false), 6000);
+        setTimeout(() => setShowSuccess(false), 8000);
+      } else if (res.status === 409 || data.isDuplicate) {
+        setErrorMessage(data.message || "An application for this role was already submitted recently.");
       } else {
-        alert(data.error || "Failed to submit application. Please try again.");
+        setErrorMessage(data.message || data.error || "Failed to submit application. Please try again.");
       }
     } catch (err) {
       console.error("Submission failed:", err);
-      // Fallback success for offline/client mode
-      setShowSuccess(true);
-      formEl.reset();
-      setFileName("");
-      setFormData({ category: "", position: "" });
-      setTimeout(() => setShowSuccess(false), 6000);
+      setErrorMessage("Network connection error. Please verify backend server is running.");
     } finally {
       setIsSubmitting(false);
     }
@@ -572,7 +594,15 @@ export default function CareersPage() {
                   id="category"
                   required
                   value={formData.category}
-                  onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+                  onChange={(e) => {
+                    const newCat = e.target.value;
+                    const matchingJob = initialJobs.find(j => j.category === newCat && j.title === formData.position);
+                    setFormData(prev => ({
+                      ...prev,
+                      category: newCat,
+                      position: matchingJob ? prev.position : ""
+                    }));
+                  }}
                 >
                   <option value="" disabled>Select a vertical</option>
                   <option value="Technology">Technology</option>
@@ -587,13 +617,50 @@ export default function CareersPage() {
               </div>
               <div className={styles.joinField}>
                 <label htmlFor="position">Position Applying For</label>
-                <input
-                  type="text"
+                <select
                   id="position"
-                  placeholder="e.g. Frontend Developer"
+                  required
                   value={formData.position}
-                  onChange={(e) => setFormData({ ...formData, position: e.target.value })}
-                />
+                  onChange={(e) => {
+                    const newPos = e.target.value;
+                    const matchedJob = initialJobs.find(j => j.title === newPos);
+                    setFormData(prev => ({
+                      ...prev,
+                      position: newPos,
+                      category: (!prev.category || prev.category === "Not Sure / General") && matchedJob ? matchedJob.category : prev.category
+                    }));
+                  }}
+                >
+                  <option value="" disabled>Select a position</option>
+                  {formData.category && formData.category !== "Not Sure / General" ? (
+                    <>
+                      {initialJobs
+                        .filter(j => j.category === formData.category)
+                        .map(j => (
+                          <option key={j.title} value={j.title}>{j.title}</option>
+                        ))}
+                      <option value="Other / General Application">Other / General Application</option>
+                    </>
+                  ) : (
+                    <>
+                      {["Technology", "Real Estate", "Students Portal", "Jobs", "Matrimonial", "Foundation", "E-Commerce"].map(cat => (
+                        <optgroup key={cat} label={cat}>
+                          {initialJobs
+                            .filter(j => j.category === cat)
+                            .map(j => (
+                              <option key={j.title} value={j.title}>{j.title}</option>
+                            ))}
+                        </optgroup>
+                      ))}
+                      <option value="Other / General Application">Other / General Application</option>
+                    </>
+                  )}
+                  {formData.position &&
+                    !initialJobs.some(j => j.title === formData.position) &&
+                    formData.position !== "Other / General Application" && (
+                      <option value={formData.position}>{formData.position}</option>
+                    )}
+                </select>
               </div>
             </div>
 
@@ -629,11 +696,18 @@ export default function CareersPage() {
               />
             </div>
 
-            <button type="submit" className={styles.joinSubmitBtn}>Submit Application</button>
+            <button type="submit" className={styles.joinSubmitBtn} disabled={isSubmitting}>
+              {isSubmitting ? "Submitting Application..." : "Submit Application"}
+            </button>
             <p className={styles.joinLegal}>By submitting, you agree to let SwarnBharat Group retain your resume for future openings.</p>
             {showSuccess && (
               <div className={styles.successMsg}>
-                Thank you — your application has been received. Our talent team will be in touch within 5 working days.
+                🎉 Thank you — your application has been received! Your Application Reference ID is <strong>{submittedAppId}</strong>. Our talent team will be in touch within 5 working days.
+              </div>
+            )}
+            {errorMessage && (
+              <div style={{ color: "#b91c1c", background: "#fef2f2", padding: "12px 16px", borderRadius: "10px", fontSize: "13.5px", marginTop: "14px", border: "1px solid #fecaca", fontWeight: 500 }}>
+                ⚠️ {errorMessage}
               </div>
             )}
           </form>

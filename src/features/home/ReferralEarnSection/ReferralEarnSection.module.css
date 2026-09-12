@@ -259,12 +259,41 @@
   margin-bottom: 16px;
 }
 
+.passTitleGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
 .shareSimTitle {
   font-size: 13px;
   text-transform: uppercase;
   letter-spacing: 0.8px;
   color: #d4a748;
   font-weight: 700;
+}
+
+.passActivePill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #34d399;
+}
+
+.activeDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 8px #10b981;
+}
+
+.passLockedPill {
+  font-size: 11px;
+  color: #94a3b8;
+  font-weight: 600;
 }
 
 .coinPill {
@@ -288,7 +317,48 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
+}
+
+.codeBoxLocked {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px dashed rgba(255, 255, 255, 0.2);
+}
+
+.blurredCodeWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.codeTextMasked {
+  font-family: monospace;
+  font-size: 17px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.5);
+  letter-spacing: 2px;
+}
+
+.codeLockHint {
+  font-size: 10px;
+  color: #94a3b8;
+}
+
+.unlockBtn {
+  background: linear-gradient(135deg, #c99a3e 0%, #b3822a 100%);
+  color: #ffffff;
+  padding: 7px 16px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(201, 154, 62, 0.3);
+}
+
+.unlockBtn:hover {
+  background: linear-gradient(135deg, #d4a748 0%, #c99a3e 100%);
+  transform: translateY(-1px);
 }
 
 .codeText {
@@ -314,6 +384,29 @@
 .copyBtn:hover {
   background: #e2b456;
   transform: scale(1.02);
+}
+
+.quickShareRow {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.quickShareBtn {
+  flex: 1;
+  text-align: center;
+  padding: 7px 10px;
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #ffffff;
+  text-decoration: none;
+  transition: opacity 0.2s ease, transform 0.15s ease;
+}
+
+.quickShareBtn:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
 }
 
 .simStatsGrid {

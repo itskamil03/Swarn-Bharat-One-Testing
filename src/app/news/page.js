@@ -109,7 +109,7 @@ export default function NewsPage() {
   });
 
   return (
-    <>
+    <div className={styles.newsPageWrapper}>
       <Navbar />
 
       <main className={styles.newsPage}>
@@ -368,6 +368,6 @@ export default function NewsPage() {
       </main>
 
       <Footer />
-    </>
+    </div>
   );
 }

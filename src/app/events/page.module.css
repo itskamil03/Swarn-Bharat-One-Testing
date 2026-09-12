@@ -1,6 +1,6 @@
 /* ================= EVENTS PAGE CSS ================= */
 
-.eventsPage {
+.eventsPageWrapper {
   --navy: #0B1B33;
   --navy-deep: #061324;
   --navy-2: #0F2340;
@@ -21,6 +21,18 @@
   font-family: var(--font-body-family, 'Inter', sans-serif);
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
+}
+
+/* ================= ISOLATE NAVBAR BOUNDS (EVENTS PAGE) =================
+   Replaces fading gradient with a clean, solid dark navy navbar
+   contained strictly within its own boundary to prevent dark bleed into Hero.
+============================================================================= */
+.eventsPageWrapper :global(header) {
+  background: #061121 !important;
+  backdrop-filter: blur(16px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(180%) !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
 }
 
 .eventsPage h1,
@@ -63,35 +75,38 @@
 
 .heroGlow {
   position: absolute;
-  top: -120px;
+  top: -20%;
   left: 50%;
   transform: translateX(-50%);
-  width: 800px;
-  height: 400px;
-  background: radial-gradient(circle, rgba(211, 174, 92, 0.16) 0%, transparent 70%);
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(169, 129, 46, 0.08) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
 }
 
 .heroContent {
   position: relative;
   z-index: 2;
-  text-align: center;
-  max-width: 860px;
+  max-width: 800px;
   margin: 0 auto;
+  text-align: center;
 }
 
 .heroBadge {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 6px 18px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  padding: 6px 16px;
   border-radius: 999px;
-  background: var(--white);
-  border: 1px solid rgba(169, 129, 46, 0.35);
-  font-size: 12.5px;
+  font-size: 12px;
   font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
   color: var(--gold);
   margin-bottom: 20px;
-  box-shadow: 0 4px 14px rgba(11, 27, 51, 0.05);
 }
 
 .sparkle {
@@ -99,28 +114,31 @@
 }
 
 .heroTitle {
-  font-size: clamp(34px, 4.4vw, 52px);
+  font-size: clamp(34px, 4.5vw, 54px);
+  line-height: 1.15;
   font-weight: 700;
-  line-height: 1.18;
-  color: var(--navy);
-  margin-bottom: 18px;
+  color: var(--ink);
+  margin-bottom: 20px;
 }
 
 .goldText {
-  color: var(--gold);
+  background: linear-gradient(135deg, var(--gold) 0%, #7A5B18 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
 }
 
 .heroDescription {
-  font-size: 16px;
-  line-height: 1.75;
+  font-size: 17px;
+  line-height: 1.65;
   color: var(--slate);
-  max-width: 660px;
+  max-width: 680px;
   margin: 0 auto;
 }
 
-/* ================= 2. FLAGSHIP EVENT CARD ================= */
+/* ================= 2. FLAGSHIP SECTION ================= */
 .flagshipSection {
-  padding: 60px 0 30px;
+  padding: 40px 0 20px;
 }
 
 .flagshipCard {
@@ -129,8 +147,8 @@
   border-radius: 20px;
   overflow: hidden;
   display: grid;
-  grid-template-columns: 1.15fr 1.25fr;
-  box-shadow: 0 16px 36px -10px rgba(11, 27, 51, 0.08);
+  grid-template-columns: 1.1fr 1fr;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.05);
 }
 
 @media (max-width: 960px) {
@@ -141,7 +159,8 @@
 
 .flagshipImgCol {
   position: relative;
-  min-height: 400px;
+  min-height: 380px;
+  background: var(--navy-deep);
 }
 
 .flagshipImg {
@@ -152,53 +171,53 @@
 
 .flagshipBadge {
   position: absolute;
-  top: 20px;
-  left: 20px;
-  background: rgba(11, 27, 51, 0.9);
-  color: var(--gold-light);
-  padding: 6px 14px;
-  border-radius: 4px;
+  top: 24px;
+  left: 24px;
+  background: var(--gold);
+  color: var(--white);
   font-size: 11px;
-  font-weight: 800;
-  letter-spacing: 0.1em;
-  backdrop-filter: blur(6px);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 6px 14px;
+  border-radius: 999px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .flagshipContentCol {
-  padding: 40px 36px;
+  padding: 44px;
   display: flex;
   flex-direction: column;
+  justify-content: center;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
   .flagshipContentCol {
-    padding: 26px 20px;
+    padding: 24px;
   }
 }
 
 .dateLocationRow {
   display: flex;
-  gap: 14px;
   align-items: center;
-  flex-wrap: wrap;
+  gap: 12px;
   margin-bottom: 16px;
+  flex-wrap: wrap;
 }
 
 .datePill {
-  background: var(--paper);
-  color: var(--navy);
-  padding: 6px 14px;
-  border-radius: 999px;
-  font-size: 12.5px;
-  border: 1px solid var(--line);
+  background: rgba(169, 129, 46, 0.12);
+  color: var(--gold);
+  padding: 4px 12px;
+  border-radius: 6px;
+  font-size: 13px;
 }
 
 .locationPill {
   display: flex;
   align-items: center;
   gap: 6px;
-  font-size: 12.5px;
   color: var(--slate);
+  font-size: 13px;
 }
 
 .locationPill svg {
@@ -206,25 +225,24 @@
 }
 
 .flagshipHeading {
-  font-size: clamp(22px, 2.6vw, 32px);
-  font-weight: 700;
+  font-size: clamp(22px, 2.5vw, 30px);
   line-height: 1.25;
-  color: var(--navy);
-  margin-bottom: 8px;
+  color: var(--ink);
+  margin-bottom: 10px;
 }
 
 .flagshipTheme {
   font-size: 14.5px;
   font-weight: 600;
   color: var(--gold);
-  margin-bottom: 14px;
+  margin-bottom: 12px;
 }
 
 .flagshipDesc {
   font-size: 14px;
-  line-height: 1.65;
+  line-height: 1.6;
   color: var(--slate);
-  margin-bottom: 22px;
+  margin-bottom: 20px;
 }
 
 .speakersList {
@@ -233,94 +251,86 @@
   gap: 8px;
   flex-wrap: wrap;
   margin-bottom: 28px;
-  padding: 14px;
-  background: var(--paper);
-  border-radius: 10px;
+  border-top: 1px solid var(--line);
+  padding-top: 18px;
 }
 
 .speakersLabel {
   font-size: 12px;
-  font-weight: 700;
-  color: var(--navy);
-  text-transform: uppercase;
-  margin-right: 4px;
+  font-weight: 600;
+  color: var(--slate);
 }
 
 .speakerChip {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  padding: 4px 10px;
+  border-radius: 6px;
   font-size: 12px;
-  color: var(--slate);
-  font-weight: 500;
+  color: var(--ink);
 }
 
 .flagshipActionRow {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 18px;
   flex-wrap: wrap;
-  margin-top: auto;
 }
 
 .registerFlagshipBtn {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: linear-gradient(135deg, #D3AE5C 0%, #A9812E 100%);
-  color: #061324;
+  background: var(--navy);
+  color: var(--white);
   border: none;
   padding: 12px 24px;
-  border-radius: 6px;
+  border-radius: 8px;
   font-size: 14px;
-  font-weight: 700;
+  font-weight: 600;
   cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: all 0.2s ease;
 }
 
 .registerFlagshipBtn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 22px rgba(169, 129, 46, 0.45);
+  background: var(--gold);
+  transform: translateY(-1px);
 }
 
 .spotsCount {
-  font-size: 12.5px;
-  color: #2FA95C;
+  font-size: 13px;
+  color: #D9534F;
   font-weight: 600;
 }
 
-/* ================= 3. UPCOMING EVENTS GRID ================= */
+/* ================= 3. UPCOMING EVENTS SECTION ================= */
 .eventsGridSection {
   padding: 60px 0 80px;
 }
 
 .secHeaderRow {
   display: flex;
-  align-items: flex-end;
   justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 40px;
   gap: 20px;
   flex-wrap: wrap;
-  margin-bottom: 40px;
 }
 
 .eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 12.5px;
-  font-weight: 700;
-  letter-spacing: 0.15em;
+  display: block;
+  font-size: 12px;
   text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 700;
   color: var(--gold);
-  margin-bottom: 10px;
-}
-
-.eyebrow::before {
-  content: '✦';
-  font-size: 11px;
+  margin-bottom: 8px;
 }
 
 .secTitle {
-  font-size: clamp(26px, 3.2vw, 36px);
-  font-weight: 700;
-  color: var(--navy);
+  font-size: clamp(26px, 3vw, 36px);
+  color: var(--ink);
+  margin: 0;
 }
 
 .tabsRow {
@@ -330,12 +340,12 @@
 }
 
 .tabBtn {
-  background: var(--white);
-  border: 1px solid var(--line);
   padding: 8px 16px;
   border-radius: 999px;
   font-size: 13px;
   font-weight: 600;
+  background: var(--white);
+  border: 1px solid var(--line);
   color: var(--slate);
   cursor: pointer;
   transition: all 0.2s ease;
@@ -343,7 +353,7 @@
 
 .tabBtn:hover {
   border-color: var(--gold);
-  color: var(--navy);
+  color: var(--gold);
 }
 
 .tabBtnActive {
@@ -373,55 +383,49 @@
 .eventCard {
   background: var(--white);
   border: 1px solid var(--line);
-  border-radius: 16px;
+  border-radius: 14px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  box-shadow: 0 4px 16px rgba(11, 27, 51, 0.04);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.03);
   transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
 .eventCard:hover {
   transform: translateY(-4px);
-  box-shadow: 0 16px 32px -10px rgba(11, 27, 51, 0.12);
-  border-color: var(--gold);
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.07);
 }
 
 .eventCardImgWrap {
   position: relative;
   height: 180px;
-  overflow: hidden;
+  background: var(--navy-deep);
 }
 
 .eventCardImg {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.5s ease;
-}
-
-.eventCard:hover .eventCardImg {
-  transform: scale(1.06);
 }
 
 .eventCategoryTag {
   position: absolute;
-  bottom: 12px;
+  top: 12px;
   left: 12px;
-  background: rgba(11, 27, 51, 0.85);
-  color: var(--gold-light);
-  padding: 4px 10px;
-  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.95);
+  color: var(--gold);
   font-size: 11px;
   font-weight: 700;
-  backdrop-filter: blur(6px);
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 6px;
 }
 
 .eventCardBody {
   padding: 24px;
   display: flex;
   flex-direction: column;
-  flex: 1;
+  flex-grow: 1;
 }
 
 .eventDateBlock {
@@ -432,11 +436,11 @@
 }
 
 .dateBox {
-  width: 48px;
-  height: 48px;
-  border-radius: 8px;
+  width: 46px;
+  height: 46px;
   background: var(--paper);
   border: 1px solid var(--line);
+  border-radius: 8px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -445,101 +449,105 @@
 }
 
 .dateDay {
-  font-size: 18px;
-  font-weight: 800;
-  color: var(--navy);
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--ink);
   line-height: 1;
 }
 
 .dateMonth {
-  font-size: 9.5px;
+  font-size: 10px;
   font-weight: 700;
   color: var(--gold);
-  letter-spacing: 0.05em;
+  text-transform: uppercase;
 }
 
 .eventTimeLocation {
   display: flex;
   flex-direction: column;
   font-size: 12px;
-  color: var(--slate);
+}
+
+.eventTime {
+  color: var(--ink);
+  font-weight: 600;
 }
 
 .eventLoc {
-  font-weight: 600;
-  color: var(--navy);
+  color: var(--slate);
 }
 
 .eventTitle {
   font-size: 17px;
   font-weight: 700;
   line-height: 1.35;
-  color: var(--navy);
-  margin-bottom: 8px;
+  color: var(--ink);
+  margin-bottom: 10px;
 }
 
 .eventSummary {
-  font-size: 13px;
-  line-height: 1.6;
+  font-size: 13.5px;
+  line-height: 1.55;
   color: var(--slate);
-  margin: 0 0 20px;
-  flex: 1;
+  margin-bottom: 20px;
+  flex-grow: 1;
 }
 
 .eventCardFooter {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-top: 14px;
   border-top: 1px solid var(--line);
+  padding-top: 14px;
 }
 
 .seatsBadge {
-  font-size: 12px;
-  font-weight: 600;
-  color: #2FA95C;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #2E7D32;
 }
 
 .seatsPulse {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: #2FA95C;
+  background: #2E7D32;
 }
 
 .registerEventBtn {
-  background: transparent;
+  background: none;
   border: none;
   color: var(--gold);
   font-size: 13px;
   font-weight: 700;
   cursor: pointer;
-  transition: color 0.2s ease;
+  padding: 0;
 }
 
 .registerEventBtn:hover {
-  color: var(--navy);
+  text-decoration: underline;
 }
 
-/* ================= 4. ARCHIVE ================= */
+/* ================= 4. PAST HIGHLIGHTS ARCHIVE ================= */
 .secHeaderCenter {
   text-align: center;
-  margin-bottom: 44px;
+  max-width: 600px;
+  margin: 0 auto 50px;
 }
 
 .secSub {
-  margin-top: 10px;
-  color: var(--slate);
   font-size: 15px;
+  color: var(--slate);
+  margin-top: 8px;
 }
 
 .archiveGrid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
+  gap: 28px;
 }
 
 @media (max-width: 900px) {
@@ -557,7 +565,8 @@
 
 .archiveImgWrap {
   position: relative;
-  height: 160px;
+  height: 180px;
+  background: var(--navy-deep);
 }
 
 .archiveImg {
@@ -569,48 +578,48 @@
 .archiveCityTag {
   position: absolute;
   top: 12px;
-  right: 12px;
-  background: rgba(11, 27, 51, 0.85);
-  color: #fff;
-  padding: 3px 8px;
-  border-radius: 4px;
+  left: 12px;
+  background: rgba(0, 0, 0, 0.7);
+  color: var(--white);
   font-size: 11px;
-  font-weight: 600;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 6px;
 }
 
 .archiveBody {
-  padding: 20px;
-}
-
-.archiveBody h3 {
-  font-size: 16px;
-  font-weight: 700;
-  color: var(--navy);
-  margin-bottom: 6px;
+  padding: 24px;
 }
 
 .archiveMeta {
+  display: flex;
+  gap: 8px;
   font-size: 12px;
+  font-weight: 700;
   color: var(--gold);
-  font-weight: 600;
-  margin-bottom: 10px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
 }
 
-.archiveKeynote {
-  font-size: 13px;
+.archiveBody h4 {
+  font-size: 17px;
+  color: var(--ink);
+  margin-bottom: 6px;
+}
+
+.archiveBody p {
+  font-size: 13.5px;
   color: var(--slate);
-  font-style: italic;
-  line-height: 1.5;
   margin: 0;
 }
 
-/* ================= 5. MODAL ================= */
+/* ================= REGISTRATION MODAL ================= */
 .modalBackdrop {
   position: fixed;
   inset: 0;
-  background: rgba(6, 19, 36, 0.75);
+  background: rgba(0, 0, 0, 0.65);
   backdrop-filter: blur(8px);
-  z-index: 9999;
+  z-index: 2000;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -618,181 +627,148 @@
 }
 
 .modalCard {
-  position: relative;
   background: var(--white);
-  border-radius: 20px;
+  border-radius: 16px;
+  max-width: 580px;
   width: 100%;
-  max-width: 540px;
-  padding: 32px;
-  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
-  animation: modalPop 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-@keyframes modalPop {
-  from { opacity: 0; transform: scale(0.92); }
-  to { opacity: 1; transform: scale(1); }
+  position: relative;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35);
+  overflow: hidden;
 }
 
 .modalCloseBtn {
   position: absolute;
-  top: 18px;
-  right: 18px;
-  background: var(--paper);
-  border: none;
+  top: 16px;
+  right: 16px;
   width: 32px;
   height: 32px;
   border-radius: 50%;
+  background: var(--paper);
+  color: var(--ink);
+  border: none;
+  font-size: 14px;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 14px;
-  color: var(--slate);
 }
 
-.modalCategoryTag {
+.modalHeader {
+  background: var(--paper);
+  border-bottom: 1px solid var(--line);
+  padding: 28px 32px;
+}
+
+.modalTag {
   font-size: 11px;
   font-weight: 700;
   color: var(--gold);
   text-transform: uppercase;
-  letter-spacing: 0.08em;
-  margin-bottom: 4px;
-  display: inline-block;
 }
 
-.regFormContent h2 {
+.modalHeader h2 {
   font-size: 20px;
-  font-weight: 700;
-  color: var(--navy);
-  margin-bottom: 4px;
+  color: var(--ink);
+  margin: 6px 0 10px;
 }
 
-.modalEventLoc {
+.modalEventMeta {
+  display: flex;
+  gap: 16px;
   font-size: 13px;
   color: var(--slate);
-  margin-bottom: 20px;
+}
+
+.modalBody {
+  padding: 32px;
 }
 
 .modalForm {
   display: flex;
   flex-direction: column;
-  gap: 14px;
-}
-
-.formGroup {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.formGroup label {
-  font-size: 12.5px;
-  font-weight: 600;
-  color: var(--navy);
-}
-
-.formGroup input,
-.formGroup select {
-  padding: 10px 12px;
-  border-radius: 6px;
-  border: 1px solid var(--line);
-  background: var(--paper);
-  font-size: 13.5px;
-  outline: none;
-  font-family: inherit;
-}
-
-.formGroup input:focus,
-.formGroup select:focus {
-  border-color: var(--gold);
-  background: #fff;
+  gap: 16px;
 }
 
 .formRow {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 12px;
+  gap: 16px;
 }
 
-.primaryGoldBtn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: linear-gradient(135deg, #D3AE5C 0%, #A9812E 100%);
-  color: #061324;
-  padding: 12px 24px;
-  border-radius: 6px;
-  font-size: 14px;
-  font-weight: 700;
+@media (max-width: 520px) {
+  .formRow {
+    grid-template-columns: 1fr;
+  }
+}
+
+.formGroup label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 6px;
+}
+
+.formGroup input {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  font-size: 13.5px;
+  color: var(--ink);
+  outline: none;
+}
+
+.formGroup input:focus {
+  border-color: var(--gold);
+}
+
+.submitRegistrationBtn {
+  background: var(--navy);
+  color: var(--white);
   border: none;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
   cursor: pointer;
-  box-shadow: 0 8px 18px rgba(169, 129, 46, 0.4);
+  transition: background 0.2s ease;
+  margin-top: 8px;
 }
 
-/* Success Modal */
-.regSuccessContent {
+.submitRegistrationBtn:hover {
+  background: var(--gold);
+}
+
+.successState {
   text-align: center;
-  padding: 20px 10px;
+  padding: 20px 0;
 }
 
-.regSuccessIcon {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  background: rgba(47, 169, 92, 0.15);
-  color: #2FA95C;
-  font-size: 28px;
-  font-weight: 800;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto 16px;
+.successIcon {
+  font-size: 44px;
+  margin-bottom: 12px;
 }
 
-.regSuccessContent h3 {
-  font-size: 22px;
-  font-weight: 700;
-  color: var(--navy);
+.successState h3 {
+  font-size: 20px;
+  color: var(--ink);
   margin-bottom: 8px;
 }
 
-.passCodeBox {
-  background: var(--paper);
-  border: 1px dashed var(--gold);
-  border-radius: 12px;
-  padding: 16px;
-  margin: 18px 0;
-}
-
-.passCodeBox span {
-  display: block;
-  font-size: 11px;
-  font-weight: 700;
-  color: var(--slate-light);
-  letter-spacing: 0.08em;
-}
-
-.passCodeBox strong {
-  font-size: 22px;
-  font-weight: 800;
-  color: var(--gold);
-  letter-spacing: 0.15em;
-  margin: 4px 0 8px;
-  display: block;
-}
-
-.passDetails {
-  display: flex;
-  justify-content: space-between;
-  font-size: 12px !important;
-  color: var(--navy) !important;
-  font-weight: 600;
-  padding-top: 8px;
-  border-top: 1px solid var(--line);
-}
-
-.passSubNote {
-  font-size: 12px;
+.successState p {
+  font-size: 14px;
   color: var(--slate);
-  margin-bottom: 22px;
+  margin-bottom: 20px;
+}
+
+.modalDoneBtn {
+  background: var(--navy);
+  color: var(--white);
+  border: none;
+  padding: 10px 24px;
+  border-radius: 8px;
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
 }

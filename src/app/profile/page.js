@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import Navbar from "@/components/layout/Navbar/Navbar";
 import Footer from "@/components/layout/Footer/Footer";
 import { useAuth } from "@/context/AuthContext";
+import { generateUniquePassKey, registerPassKey, ATTACHED_PLATFORMS } from "@/data/passkeyService";
 import styles from "./page.module.css";
 
 // Crisp Authentic SVG QR Code Component
@@ -107,6 +108,7 @@ export default function ProfilePage() {
     email: "amit.sharma@gmail.com",
     phone: "9876543210",
     citizenId: "SB-CIT-884920",
+    passKey: "SBPASS-8849-3105-2026",
     tier: "Gold Citizen",
     tierMultiplier: "1.5x Multiplier",
     joinDate: "August 2024",
@@ -132,7 +134,13 @@ export default function ProfilePage() {
         name: user.name || prev.name,
         email: user.email || prev.email,
         phone: user.phone || prev.phone,
-        swarnCoins: user.swarnPoints ? parseInt(user.swarnPoints.replace(/[^0-9]/g, "")) || 24850 : prev.swarnCoins,
+        passKey: user.passKey || prev.passKey,
+        citizenId: user.citizenId || prev.citizenId,
+        tier: user.tier || prev.tier,
+        profileImage: user.profileImage || prev.profileImage || null,
+        referralCode: user.referralCode || prev.referralCode,
+        joinDate: user.joinDate || prev.joinDate,
+        swarnCoins: user.swarnPoints ? parseInt(String(user.swarnPoints).replace(/[^0-9]/g, "")) || 1000 : prev.swarnCoins,
       }));
     }
   }, [user]);
@@ -141,6 +149,8 @@ export default function ProfilePage() {
   const [streakClaimed, setStreakClaimed] = useState(false);
   const [copiedId, setCopiedId] = useState(false);
   const [copiedRef, setCopiedRef] = useState(false);
+  const [copiedPasskey, setCopiedPasskey] = useState(false);
+
 
   // Redeem Coins Simulator State
   const [redeemOption, setRedeemOption] = useState("ecommerce");
@@ -165,6 +175,24 @@ export default function ProfilePage() {
     }
     setCopiedRef(true);
     setTimeout(() => setCopiedRef(false), 2000);
+  };
+
+  const handleCopyPasskey = () => {
+    if (typeof navigator !== "undefined" && navigator.clipboard) {
+      navigator.clipboard.writeText(profileData.passKey);
+    }
+    setCopiedPasskey(true);
+    setTimeout(() => setCopiedPasskey(false), 2000);
+  };
+
+  const handleRegeneratePasskey = () => {
+    const newKey = generateUniquePassKey("SBPASS");
+    setProfileData((prev) => ({ ...prev, passKey: newKey }));
+    registerPassKey(newKey, { ...profileData, passKey: newKey });
+    if (login) {
+      login({ ...user, passKey: newKey });
+    }
+    alert(`New Universal PassKey generated: ${newKey}\n\nThis PassKey is now activated across all attached platforms.`);
   };
 
   const handleClaimDaily = () => {
@@ -295,7 +323,15 @@ export default function ProfilePage() {
                 {/* Avatar Section */}
                 <div className={styles.avatarSection}>
                   <div className={styles.avatarWrapper}>
-                    <span>{initials}</span>
+                    {profileData.profileImage ? (
+                      <img
+                        src={profileData.profileImage}
+                        alt={profileData.name}
+                        style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "50%" }}
+                      />
+                    ) : (
+                      <span>{initials}</span>
+                    )}
                   </div>
                   <button
                     type="button"
@@ -850,92 +886,179 @@ export default function ProfilePage() {
               </div>
             )}
 
-            {/* TAB 3: CONNECTED VERTICALS */}
+            {/* TAB 3: CONNECTED VERTICALS & UNIVERSAL PASSKEY HUB */}
             {activeTab === "services" && (
-              <div className={styles.servicesGrid}>
-                <div className={styles.serviceCard}>
-                  <div className={styles.serviceCardHead}>
-                    <div className={styles.serviceTitleBadge}>
-                      <span className={styles.serviceIcon}>💼</span>
-                      <h3>Careers &amp; Job Applications</h3>
+              <div>
+                {/* 1. UNIVERSAL PASSKEY MANAGER */}
+                <div className={styles.passkeyManagerCard}>
+                  <div className={styles.passkeyCardGlow} />
+                  <div className={styles.passkeyTopMeta}>
+                    <div>
+                      <h3 className={styles.passkeyTitle}>
+                        <span>🔑</span> Universal Ecosystem PassKey
+                      </h3>
+                      <p style={{ color: "#94A3B8", fontSize: "13px", margin: "4px 0 0 0" }}>
+                        One key for passwordless &amp; OTP-free login across all attached Swarn Bharat platforms.
+                      </p>
                     </div>
-                    <span className={`${styles.serviceStatusPill} ${styles.pillActive}`}>1 Active</span>
+                    <span className={styles.passkeyStatusBadge}>
+                      <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#34D399" }}></span>
+                      Ecosystem Synced &bull; 6 Attached Platforms
+                    </span>
                   </div>
 
-                  <div className={styles.serviceItemList}>
-                    <div className={styles.serviceItemRow}>
-                      <div className={styles.serviceItemInfo}>
-                        <h5>Senior Cloud Architect</h5>
-                        <p>Swarn Cloud Technologies • Applied 09 Sep 2026</p>
+                  <div className={styles.passkeyDisplayRow}>
+                    <div>
+                      <div style={{ fontSize: "11px", color: "#94A3B8", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: "4px" }}>
+                        Your Active PassKey
                       </div>
-                      <span className={styles.serviceItemAction} style={{ color: "#059669" }}>Under Review</span>
+                      <div className={styles.passkeyValue}>{profileData.passKey}</div>
                     </div>
-                    <div className={styles.serviceItemRow}>
-                      <div className={styles.serviceItemInfo}>
-                        <h5>Lead Solutions Engineer</h5>
-                        <p>Swarn Digital Infrastructure • Saved</p>
-                      </div>
-                      <Link href="/careers" className={styles.serviceItemAction}>Apply Now &rarr;</Link>
+                    <div className={styles.passkeyActionsRow}>
+                      <button
+                        type="button"
+                        className={styles.btnCopyPasskeyGold}
+                        onClick={handleCopyPasskey}
+                      >
+                        {copiedPasskey ? "✓ Copied!" : "📋 Copy PassKey"}
+                      </button>
+                      <button
+                        type="button"
+                        className={styles.btnRegenPasskey}
+                        onClick={handleRegeneratePasskey}
+                      >
+                        🔄 Re-issue Key
+                      </button>
                     </div>
+                  </div>
+
+                  <div style={{ fontSize: "12px", color: "#CBD5E1", background: "rgba(255,255,255,0.06)", padding: "10px 14px", borderRadius: "8px", border: "1px solid rgba(255,255,255,0.1)" }}>
+                    💡 <strong>How it works:</strong> Whenever you open Swarn E-Commerce, Real Estate, Foundation, Matrimonial or Careers, select <em>"Sign in with PassKey"</em> and paste this key. You will be authenticated immediately without entering passwords or receiving mobile OTPs.
                   </div>
                 </div>
 
-                <div className={styles.serviceCard}>
-                  <div className={styles.serviceCardHead}>
-                    <div className={styles.serviceTitleBadge}>
-                      <span className={styles.serviceIcon}>💍</span>
-                      <h3>Swarn Matrimonial Profile</h3>
-                    </div>
-                    <span className={`${styles.serviceStatusPill} ${styles.pillActive}`}>Active &amp; Verified</span>
+                {/* 2. ATTACHED PLATFORMS GRID */}
+                <div className={styles.cardBox} style={{ marginBottom: "24px" }}>
+                  <div className={styles.cardBoxHeader}>
+                    <h3 className={styles.cardBoxTitle}>
+                      <span>🌐</span> Attached Ecosystem Platforms
+                    </h3>
+                    <span style={{ fontSize: "12px", color: "#059669", fontWeight: 700 }}>
+                      ✓ All 6 Connected with 1-Click PassKey
+                    </span>
                   </div>
 
-                  <div className={styles.serviceItemList}>
-                    <div className={styles.serviceItemRow}>
-                      <div className={styles.serviceItemInfo}>
-                        <h5>Profile ID #MTM-88921</h5>
-                        <p>Gold Spotlight Pass • 12 Matches Available</p>
-                      </div>
-                      <Link href="/#businesses" className={styles.serviceItemAction}>View Matches &rarr;</Link>
-                    </div>
-                  </div>
-                </div>
-
-                <div className={styles.serviceCard}>
-                  <div className={styles.serviceCardHead}>
-                    <div className={styles.serviceTitleBadge}>
-                      <span className={styles.serviceIcon}>🏢</span>
-                      <h3>Real Estate &amp; Site Visits</h3>
-                    </div>
-                    <span className={`${styles.serviceStatusPill} ${styles.pillActive}`}>Pass Active</span>
-                  </div>
-
-                  <div className={styles.serviceItemList}>
-                    <div className={styles.serviceItemRow}>
-                      <div className={styles.serviceItemInfo}>
-                        <h5>Swarn Grand Aurum Residency</h5>
-                        <p>Tower C, 3BHK Luxury Suite • Scheduled Site Visit</p>
-                      </div>
-                      <span className={styles.serviceItemAction} style={{ color: "#B3822A" }}>12 Sep 2026</span>
-                    </div>
+                  <div className={styles.attachedGrid}>
+                    {ATTACHED_PLATFORMS.map((platform) => (
+                      <Link
+                        key={platform.id}
+                        href={platform.url}
+                        className={styles.attachedCard}
+                        target={platform.url.startsWith("http") ? "_blank" : undefined}
+                        rel={platform.url.startsWith("http") ? "noopener noreferrer" : undefined}
+                      >
+                        <div>
+                          <div className={styles.attachedHead}>
+                            <span className={styles.attachedIconBadge}>{platform.icon}</span>
+                            <span className={styles.attachedStatusPill}>✓ {platform.badge}</span>
+                          </div>
+                          <h4 className={styles.attachedTitle}>{platform.name}</h4>
+                          <p className={styles.attachedDesc}>{platform.description}</p>
+                        </div>
+                        <div className={styles.attachedLaunchBtn}>
+                          Launch Platform with PassKey &rarr;
+                        </div>
+                      </Link>
+                    ))}
                   </div>
                 </div>
 
-                <div className={styles.serviceCard}>
-                  <div className={styles.serviceCardHead}>
-                    <div className={styles.serviceTitleBadge}>
-                      <span className={styles.serviceIcon}>🎓</span>
-                      <h3>Students Learning &amp; Upskilling</h3>
+                {/* 3. ORIGINAL VERTICAL ACTIVITIES */}
+                <div className={styles.servicesGrid}>
+                  <div className={styles.serviceCard}>
+                    <div className={styles.serviceCardHead}>
+                      <div className={styles.serviceTitleBadge}>
+                        <span className={styles.serviceIcon}>💼</span>
+                        <h3>Careers &amp; Job Applications</h3>
+                      </div>
+                      <span className={`${styles.serviceStatusPill} ${styles.pillActive}`}>1 Active</span>
                     </div>
-                    <span className={`${styles.serviceStatusPill} ${styles.pillActive}`}>Enrolled</span>
+
+                    <div className={styles.serviceItemList}>
+                      <div className={styles.serviceItemRow}>
+                        <div className={styles.serviceItemInfo}>
+                          <h5>Senior Cloud Architect</h5>
+                          <p>Swarn Cloud Technologies • Applied 09 Sep 2026</p>
+                        </div>
+                        <span className={styles.serviceItemAction} style={{ color: "#059669" }}>Under Review</span>
+                      </div>
+                      <div className={styles.serviceItemRow}>
+                        <div className={styles.serviceItemInfo}>
+                          <h5>Lead Solutions Engineer</h5>
+                          <p>Swarn Digital Infrastructure • Saved</p>
+                        </div>
+                        <Link href="/careers" className={styles.serviceItemAction}>Apply Now &rarr;</Link>
+                      </div>
+                    </div>
                   </div>
 
-                  <div className={styles.serviceItemList}>
-                    <div className={styles.serviceItemRow}>
-                      <div className={styles.serviceItemInfo}>
-                        <h5>Full-Stack Cloud &amp; AI Engineering</h5>
-                        <p>Certificate Track • 78% Progress Completed</p>
+                  <div className={styles.serviceCard}>
+                    <div className={styles.serviceCardHead}>
+                      <div className={styles.serviceTitleBadge}>
+                        <span className={styles.serviceIcon}>💍</span>
+                        <h3>Swarn Matrimonial Profile</h3>
                       </div>
-                      <Link href="/#businesses" className={styles.serviceItemAction}>Resume &rarr;</Link>
+                      <span className={`${styles.serviceStatusPill} ${styles.pillActive}`}>Active &amp; Verified</span>
+                    </div>
+
+                    <div className={styles.serviceItemList}>
+                      <div className={styles.serviceItemRow}>
+                        <div className={styles.serviceItemInfo}>
+                          <h5>Profile ID #MTM-88921</h5>
+                          <p>Gold Spotlight Pass • 12 Matches Available</p>
+                        </div>
+                        <Link href="/#businesses" className={styles.serviceItemAction}>View Matches &rarr;</Link>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className={styles.serviceCard}>
+                    <div className={styles.serviceCardHead}>
+                      <div className={styles.serviceTitleBadge}>
+                        <span className={styles.serviceIcon}>🏢</span>
+                        <h3>Real Estate &amp; Site Visits</h3>
+                      </div>
+                      <span className={`${styles.serviceStatusPill} ${styles.pillActive}`}>Pass Active</span>
+                    </div>
+
+                    <div className={styles.serviceItemList}>
+                      <div className={styles.serviceItemRow}>
+                        <div className={styles.serviceItemInfo}>
+                          <h5>Swarn Grand Aurum Residency</h5>
+                          <p>Tower C, 3BHK Luxury Suite • Scheduled Site Visit</p>
+                        </div>
+                        <span className={styles.serviceItemAction} style={{ color: "#B3822A" }}>12 Sep 2026</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className={styles.serviceCard}>
+                    <div className={styles.serviceCardHead}>
+                      <div className={styles.serviceTitleBadge}>
+                        <span className={styles.serviceIcon}>🎓</span>
+                        <h3>Students Learning &amp; Upskilling</h3>
+                      </div>
+                      <span className={`${styles.serviceStatusPill} ${styles.pillActive}`}>Enrolled</span>
+                    </div>
+
+                    <div className={styles.serviceItemList}>
+                      <div className={styles.serviceItemRow}>
+                        <div className={styles.serviceItemInfo}>
+                          <h5>Full-Stack Cloud &amp; AI Engineering</h5>
+                          <p>Certificate Track • 78% Progress Completed</p>
+                        </div>
+                        <Link href="/#businesses" className={styles.serviceItemAction}>Resume &rarr;</Link>
+                      </div>
                     </div>
                   </div>
                 </div>
