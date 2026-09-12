@@ -264,8 +264,8 @@ export default function RewardsPage() {
     }
   ];
 
-  const filteredCatalog = activeTab === "all" 
-    ? catalogItems 
+  const filteredCatalog = activeTab === "all"
+    ? catalogItems
     : catalogItems.filter(item => item.category === activeTab);
 
   const activities = [
@@ -371,9 +371,9 @@ export default function RewardsPage() {
         {/* ================= 1. HERO SECTION ================= */}
         <section className={styles.heroSection}>
           <div className={styles.heroBackdrop}>
-            <img 
-              src="/images/h2.png" 
-              alt="Swarn Bharat Rewards" 
+            <img
+              src="/images/h2.png"
+              alt="Swarn Bharat Rewards"
               className={styles.heroBackdropImg}
             />
             <div className={styles.heroOverlay} />
@@ -382,7 +382,7 @@ export default function RewardsPage() {
 
           <div className={styles.container}>
             <div className={styles.heroGrid}>
-              
+
               {/* Left Column: Headline & Information */}
               <div className={styles.heroContentCol}>
                 <div className={styles.heroPillBadge}>
@@ -427,52 +427,63 @@ export default function RewardsPage() {
                 </div>
               </div>
 
-              {/* Right Column: 3D Interactive Coin Showcase & Daily Checkin */}
+              {/* Right Column: Free-Floating Pure 3D Holographic Coin */}
               <div className={styles.heroVisualCol}>
-                <div className={styles.coinShowcaseCard}>
-                  <div className={styles.coinShowcaseGlow} />
+                <div className={styles.freeFloatingCoinStage}>
+                  {/* Volumetric Radial Aura */}
+                  <div className={styles.coinVolumetricGlow} />
+                  <div className={styles.ambientRayBeam} />
 
-                  {/* Floating Chips */}
-                  <div className={`${styles.floatingPill} ${styles.fp1}`}>
-                    <span>✨</span>
-                    <span>1 SP = ₹1.00 Value</span>
-                  </div>
-                  <div className={`${styles.floatingPill} ${styles.fp2}`}>
-                    <span>🌐</span>
-                    <span>Accepted in 7 Worlds</span>
+                  {/* 3D Dynamic Orbital Rings */}
+                  <div className={styles.orbitSystem}>
+                    <div className={`${styles.orbitRing} ${styles.orbitRingOuter}`} />
+                    <div className={`${styles.orbitRing} ${styles.orbitRingMid}`} />
+                    <div className={`${styles.orbitRing} ${styles.orbitRingInner}`} />
+                    <div className={styles.orbitalParticle1} />
+                    <div className={styles.orbitalParticle2} />
+                    <div className={styles.orbitalParticle3} />
                   </div>
 
-                  {/* 3D Medal Coin */}
-                  <div className={styles.coinContainer}>
-                    <div className={styles.animatedCoin}>
-                      <div className={`${styles.coinFace} ${styles.coinFront}`}>
-                        <span className={styles.coinLetter}>S</span>
-                        <span className={styles.coinBrandSub}>SWARN BHARAT</span>
-                      </div>
-                      <div className={`${styles.coinFace} ${styles.coinBack}`}>
-                        <span className={styles.coinBackTitle}>UNIVERSAL REWARDS</span>
-                        <span className={styles.coinBackLogo}>BHARAT</span>
+                  {/* 3D Minted Gold Coin System */}
+                  <div className={styles.coin3DWrapper}>
+                    <div className={styles.coin3DFloater}>
+                      <div className={styles.mintedGoldCoin}>
+                        {/* Coin Front Face */}
+                        <div className={`${styles.coinSide} ${styles.coinSideFront}`}>
+                          <div className={styles.coinRimBevel} />
+                          <div className={styles.coinRidgePattern} />
+                          <div className={styles.coinShineSweep} />
+
+                          <div className={styles.coinInnerCrest}>
+                            <div className={styles.coinStarArray}>✦ ✦ ✦</div>
+                            <div className={styles.coinEmbossLetter}>S</div>
+                            <div className={styles.coinArchText}>SWARN BHARAT</div>
+                            <div className={styles.coinSubTag}>UNIVERSAL REWARDS</div>
+                          </div>
+                        </div>
+
+                        {/* Coin Back Face */}
+                        <div className={`${styles.coinSide} ${styles.coinSideBack}`}>
+                          <div className={styles.coinRimBevel} />
+                          <div className={styles.coinRidgePattern} />
+                          <div className={styles.coinShineSweep} />
+
+                          <div className={styles.coinInnerCrest}>
+                            <div className={styles.coinBackShield}>
+                              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                                <polygon points="12 8 13.5 11 17 11.5 14 14 15 17.5 12 16 9 17.5 9.5 14 7 11.5 10.5 11 12 8" />
+                              </svg>
+                            </div>
+                            <div className={styles.coinBackCurrency}>1 SP = ₹1.00</div>
+                            <div className={styles.coinBackSub}>BHARAT ONE LEDGER</div>
+                          </div>
+                        </div>
+
+                        {/* Coin Realistic Extrusion Thickness */}
+                        <div className={styles.coinEdge3D} />
                       </div>
                     </div>
-                  </div>
-
-                  {/* Daily Reward Claim Card */}
-                  <div className={styles.dailyClaimCard}>
-                    <div className={styles.dailyClaimInfo}>
-                      <div className={styles.dailyGiftIcon}>🎁</div>
-                      <div>
-                        <h4>Daily Citizen Check-In</h4>
-                        <p>{claimedDaily ? "You claimed +50 SP today!" : "Claim your free daily 50 Swarn Points"}</p>
-                      </div>
-                    </div>
-                    <button
-                      type="button"
-                      onClick={handleClaimDaily}
-                      disabled={claimedDaily}
-                      className={claimedDaily ? styles.claimedBtn : styles.claimBtn}
-                    >
-                      {claimedDaily ? "✓ Claimed" : "Claim +50 SP"}
-                    </button>
                   </div>
                 </div>
               </div>
@@ -555,13 +566,13 @@ export default function RewardsPage() {
 
             <div className={styles.tierCardsGrid}>
               {tiers.map((tier) => (
-                <div 
-                  key={tier.id} 
+                <div
+                  key={tier.id}
                   className={`${styles.tierCard} ${activeTier === tier.id ? styles.tierCardActive : ""}`}
                   onClick={() => setActiveTier(tier.id)}
                 >
                   {tier.isPopular && <div className={styles.popularRibbon}>MOST POPULAR</div>}
-                  
+
                   <div className={styles.tierCardHeader}>
                     <div className={styles.tierIconRing} style={{ borderColor: tier.color }}>
                       <span style={{ color: tier.color }}>✦</span>
@@ -584,8 +595,8 @@ export default function RewardsPage() {
                     ))}
                   </ul>
 
-                  <button 
-                    type="button" 
+                  <button
+                    type="button"
                     className={activeTier === tier.id ? styles.tierSelectedBtn : styles.tierSelectBtn}
                   >
                     {activeTier === tier.id ? "Your Active Tier" : "View Tier Details"}
@@ -749,13 +760,13 @@ export default function RewardsPage() {
                   <div className={styles.resultItem}>
                     <span className={styles.resultLabel}>Eligible Tier Privilege</span>
                     <div className={styles.resultTierVal}>
-                      {calculatorPoints >= 75000 
+                      {calculatorPoints >= 75000
                         ? "Swarn Kohinoor (3.0x Multiplier)"
                         : calculatorPoints >= 25000
-                        ? "Platinum Elite (2.0x Multiplier)"
-                        : calculatorPoints >= 5000
-                        ? "Gold Member (1.5x Multiplier)"
-                        : "Silver Citizen (1.0x Multiplier)"}
+                          ? "Platinum Elite (2.0x Multiplier)"
+                          : calculatorPoints >= 5000
+                            ? "Gold Member (1.5x Multiplier)"
+                            : "Silver Citizen (1.0x Multiplier)"}
                     </div>
                   </div>
                 </div>
@@ -773,9 +784,9 @@ export default function RewardsPage() {
                 <h2 className={styles.secTitle}>Recent Activity &amp; Points Movement</h2>
                 <p className={styles.secSub}>Every credited and redeemed point is permanently verified in your statement.</p>
               </div>
-              <button 
-                type="button" 
-                onClick={() => alert("Your official PDF rewards statement has been generated and sent to your registered email.")} 
+              <button
+                type="button"
+                onClick={() => alert("Your official PDF rewards statement has been generated and sent to your registered email.")}
                 className={styles.statementBtn}
               >
                 Download Statement (PDF) &rarr;
@@ -865,9 +876,9 @@ export default function RewardsPage() {
         {selectedReward && (
           <div className={styles.modalBackdrop} onClick={() => setSelectedReward(null)}>
             <div className={styles.modalCard} onClick={(e) => e.stopPropagation()}>
-              <button 
-                type="button" 
-                className={styles.modalCloseBtn} 
+              <button
+                type="button"
+                className={styles.modalCloseBtn}
                 onClick={() => setSelectedReward(null)}
               >
                 ✕
@@ -887,9 +898,9 @@ export default function RewardsPage() {
                   <p className={styles.modalSubNote}>
                     A copy has been sent to your registered phone &amp; email. Remaining balance: <strong>{availableBalance.toLocaleString()} SP</strong>.
                   </p>
-                  <button 
-                    type="button" 
-                    className={styles.primaryGoldBtn} 
+                  <button
+                    type="button"
+                    className={styles.primaryGoldBtn}
                     style={{ width: "100%", justifyContent: "center" }}
                     onClick={() => setSelectedReward(null)}
                   >
@@ -921,17 +932,17 @@ export default function RewardsPage() {
                   </div>
 
                   <div className={styles.modalActionButtons}>
-                    <button 
-                      type="button" 
-                      className={styles.primaryGoldBtn} 
+                    <button
+                      type="button"
+                      className={styles.primaryGoldBtn}
                       onClick={confirmRedemption}
                       style={{ flex: 1, justifyContent: "center" }}
                     >
                       Confirm Redemption
                     </button>
-                    <button 
-                      type="button" 
-                      className={styles.secondaryOutlineBtn} 
+                    <button
+                      type="button"
+                      className={styles.secondaryOutlineBtn}
                       onClick={() => setSelectedReward(null)}
                     >
                       Cancel

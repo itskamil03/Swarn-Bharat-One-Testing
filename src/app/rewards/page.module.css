@@ -142,21 +142,24 @@
 }
 
 @keyframes heroCinematicDrift {
-  0% { transform: scale(1) translate(0, 0); }
-  100% { transform: scale(1.08) translate(-1%, -1%); }
+  0% {
+    transform: scale(1) translate(0, 0);
+  }
+
+  100% {
+    transform: scale(1.08) translate(-1%, -1%);
+  }
 }
 
 .heroOverlay {
   position: absolute;
   inset: 0;
   z-index: 1;
-  background: linear-gradient(
-    90deg,
-    rgba(6, 19, 36, 0.94) 0%,
-    rgba(6, 19, 36, 0.85) 45%,
-    rgba(6, 19, 36, 0.6) 80%,
-    rgba(6, 19, 36, 0.45) 100%
-  );
+  background: linear-gradient(90deg,
+      rgba(6, 19, 36, 0.94) 0%,
+      rgba(6, 19, 36, 0.85) 45%,
+      rgba(6, 19, 36, 0.6) 80%,
+      rgba(6, 19, 36, 0.45) 100%);
 }
 
 .heroGoldGlow {
@@ -184,6 +187,7 @@
     padding-top: 140px;
     padding-bottom: 60px;
   }
+
   .heroGrid {
     grid-template-columns: 1fr;
     gap: 40px;
@@ -347,191 +351,410 @@
 }
 
 /* Visual Col Right */
-.coinShowcaseCard {
+/* ================= FREE-FLOATING 3D COIN STAGE ================= */
+.freeFloatingCoinStage {
   position: relative;
-  background: linear-gradient(145deg, #0F2340 0%, #061324 100%);
-  border-radius: 20px;
-  border: 1px solid rgba(211, 174, 92, 0.4);
-  padding: 40px 30px 24px;
-  text-align: center;
-  box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.7);
-}
-
-.coinShowcaseGlow {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 250px;
-  height: 250px;
-  background: radial-gradient(circle, rgba(211, 174, 92, 0.3) 0%, transparent 70%);
-  pointer-events: none;
-}
-
-.floatingPill {
-  position: absolute;
-  background: rgba(10, 24, 48, 0.9);
-  border: 1px solid rgba(211, 174, 92, 0.5);
-  padding: 6px 14px;
-  border-radius: 999px;
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--gold-light);
-  backdrop-filter: blur(10px);
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  z-index: 3;
-}
-
-.fp1 {
-  top: 20px;
-  left: 20px;
-}
-
-.fp2 {
-  top: 20px;
-  right: 20px;
-}
-
-/* 3D Coin */
-.coinContainer {
-  perspective: 800px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 200px;
-  margin-bottom: 20px;
-}
-
-.animatedCoin {
-  width: 140px;
-  height: 140px;
-  position: relative;
-  transform-style: preserve-3d;
-  animation: spinCoin 12s linear infinite;
-}
-
-@keyframes spinCoin {
-  0% { transform: rotateY(0deg); }
-  100% { transform: rotateY(360deg); }
-}
-
-.coinFace {
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  backface-visibility: hidden;
+  min-height: 440px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 0 25px rgba(211, 174, 92, 0.5), inset 0 0 15px rgba(255, 255, 255, 0.5);
-  border: 4px solid #E8C170;
+  padding: 20px 0;
+  perspective: 1200px;
 }
 
-.coinFront {
-  background: radial-gradient(circle at 35% 35%, #F9E7B9 0%, #D3AE5C 50%, #8A641A 100%);
+/* Volumetric Radiant Aura */
+.coinVolumetricGlow {
+  position: absolute;
+  top: 42%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 380px;
+  height: 380px;
+  background: radial-gradient(circle,
+      rgba(232, 193, 112, 0.32) 0%,
+      rgba(211, 174, 92, 0.16) 40%,
+      transparent 72%);
+  border-radius: 50%;
+  pointer-events: none;
+  filter: blur(35px);
+  z-index: 0;
+  animation: pulseVolumetricAura 5s ease-in-out infinite alternate;
+}
+
+@keyframes pulseVolumetricAura {
+  0% {
+    transform: translate(-50%, -50%) scale(0.92);
+    opacity: 0.75;
+  }
+
+  100% {
+    transform: translate(-50%, -50%) scale(1.12);
+    opacity: 1;
+  }
+}
+
+.ambientRayBeam {
+  position: absolute;
+  top: 42%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 440px;
+  height: 440px;
+  background: conic-gradient(from 0deg at 50% 50%,
+      rgba(211, 174, 92, 0) 0deg,
+      rgba(211, 174, 92, 0.1) 60deg,
+      rgba(211, 174, 92, 0) 120deg,
+      rgba(211, 174, 92, 0.15) 180deg,
+      rgba(211, 174, 92, 0) 240deg,
+      rgba(211, 174, 92, 0.1) 300deg,
+      rgba(211, 174, 92, 0) 360deg);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  animation: spinAmbientRays 28s linear infinite;
+}
+
+@keyframes spinAmbientRays {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+/* 3D Dynamic Orbital Rings System */
+.orbitSystem {
+  position: absolute;
+  top: 42%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 320px;
+  height: 320px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.orbitRing {
+  position: absolute;
+  border-radius: 50%;
+}
+
+.orbitRingOuter {
+  inset: 0;
+  border: 1.5px dashed rgba(211, 174, 92, 0.35);
+  animation: spinOrbitClockwise 20s linear infinite;
+}
+
+.orbitRingMid {
+  inset: 24px;
+  border: 1px solid rgba(232, 193, 112, 0.2);
+  border-top-color: rgba(232, 193, 112, 0.85);
+  border-bottom-color: rgba(232, 193, 112, 0.85);
+  animation: spinOrbitCounter 14s linear infinite;
+}
+
+.orbitRingInner {
+  inset: 48px;
+  border: 1px dotted rgba(255, 255, 255, 0.25);
+  animation: spinOrbitClockwise 10s linear infinite;
+}
+
+@keyframes spinOrbitClockwise {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spinOrbitCounter {
+  from {
+    transform: rotate(360deg);
+  }
+
+  to {
+    transform: rotate(0deg);
+  }
+}
+
+/* Orbital Sparkling Particles */
+.orbitalParticle1,
+.orbitalParticle2,
+.orbitalParticle3 {
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #FFF1C5;
+  box-shadow: 0 0 10px 2px rgba(232, 193, 112, 0.9);
+}
+
+.orbitalParticle1 {
+  top: 15px;
+  left: 50%;
+  animation: particleOrbit1 12s linear infinite;
+}
+
+.orbitalParticle2 {
+  bottom: 25px;
+  right: 25px;
+  animation: particleOrbit2 16s linear infinite;
+}
+
+.orbitalParticle3 {
+  top: 45%;
+  left: 10px;
+  width: 5px;
+  height: 5px;
+  animation: particleOrbit3 8s linear infinite;
+}
+
+@keyframes particleOrbit1 {
+  0% {
+    transform: rotate(0deg) translateX(150px) rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg) translateX(150px) rotate(-360deg);
+  }
+}
+
+@keyframes particleOrbit2 {
+  0% {
+    transform: rotate(180deg) translateX(130px) rotate(-180deg);
+  }
+
+  100% {
+    transform: rotate(-180deg) translateX(130px) rotate(180deg);
+  }
+}
+
+@keyframes particleOrbit3 {
+  0% {
+    transform: rotate(90deg) translateX(110px) rotate(-90deg);
+  }
+
+  100% {
+    transform: rotate(450deg) translateX(110px) rotate(-450deg);
+  }
+}
+
+/* ================= 3D MINTED GOLD COIN ================= */
+.coin3DWrapper {
+  position: relative;
+  width: 250px;
+  height: 250px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3;
+  margin: 20px auto;
+}
+
+.coin3DFloater {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  animation: coinLevitate 6s ease-in-out infinite alternate;
+}
+
+@keyframes coinLevitate {
+  0% {
+    transform: translateY(0px) rotateX(0deg);
+  }
+
+  50% {
+    transform: translateY(-16px) rotateX(4deg);
+  }
+
+  100% {
+    transform: translateY(0px) rotateX(0deg);
+  }
+}
+
+.mintedGoldCoin {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  animation: continuous3DSpin 12s linear infinite;
+  cursor: pointer;
+  filter: drop-shadow(0 25px 45px rgba(0, 0, 0, 0.8)) drop-shadow(0 0 30px rgba(211, 174, 92, 0.55));
+  transition: transform 0.3s ease;
+}
+
+.mintedGoldCoin:hover {
+  animation-play-state: paused;
+}
+
+@keyframes continuous3DSpin {
+  0% {
+    transform: rotateY(0deg);
+  }
+
+  100% {
+    transform: rotateY(360deg);
+  }
+}
+
+/* Coin Faces */
+.coinSide {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  backface-visibility: hidden;
+  overflow: hidden;
+  border: 5px solid #F5E1A4;
+  box-shadow:
+    inset 0 0 24px rgba(138, 100, 26, 0.85),
+    inset 0 0 8px rgba(255, 255, 255, 0.85),
+    0 0 20px rgba(211, 174, 92, 0.7);
+}
+
+.coinSideFront {
+  background: radial-gradient(circle at 35% 30%, #FFF4D0 0%, #E2BE6C 35%, #A87D25 75%, #6B4E12 100%);
   color: #061324;
 }
 
-.coinLetter {
-  font-size: 58px;
-  font-weight: 900;
-  line-height: 1;
-  font-family: var(--font-body-family, 'Poppins', sans-serif);
-}
-
-.coinBrandSub {
-  font-size: 9px;
-  font-weight: 800;
-  letter-spacing: 0.15em;
-  margin-top: 2px;
-}
-
-.coinBack {
-  background: radial-gradient(circle at 35% 35%, #F9E7B9 0%, #D3AE5C 50%, #8A641A 100%);
+.coinSideBack {
+  background: radial-gradient(circle at 35% 30%, #FFF4D0 0%, #E2BE6C 35%, #A87D25 75%, #6B4E12 100%);
   color: #061324;
   transform: rotateY(180deg);
+}
+
+/* Embossed Milled Bevel & Ridges */
+.coinRimBevel {
+  position: absolute;
+  inset: 6px;
+  border-radius: 50%;
+  border: 2px dashed rgba(255, 245, 210, 0.7);
+  pointer-events: none;
+}
+
+.coinRidgePattern {
+  position: absolute;
+  inset: 14px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(107, 78, 18, 0.5);
+  pointer-events: none;
+}
+
+/* Specular Light Sweep */
+.coinShineSweep {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg,
+      rgba(255, 255, 255, 0) 30%,
+      rgba(255, 255, 255, 0.5) 50%,
+      rgba(255, 255, 255, 0) 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  animation: shineReflection 4s ease-in-out infinite;
+}
+
+@keyframes shineReflection {
+  0% {
+    transform: rotate(0deg);
+    opacity: 0.3;
+  }
+
+  50% {
+    transform: rotate(180deg);
+    opacity: 0.85;
+  }
+
+  100% {
+    transform: rotate(360deg);
+    opacity: 0.3;
+  }
+}
+
+/* Inner Crest Typography */
+.coinInnerCrest {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   text-align: center;
-  padding: 10px;
+  z-index: 2;
+  user-select: none;
 }
 
-.coinBackTitle {
-  font-size: 10px;
-  font-weight: 800;
-  letter-spacing: 0.1em;
+.coinStarArray {
+  font-size: 13px;
+  color: #5C410E;
+  letter-spacing: 0.25em;
+  margin-bottom: -4px;
 }
 
-.coinBackLogo {
-  font-size: 18px;
+.coinEmbossLetter {
+  font-family: var(--font-display-family, 'Playfair Display', serif);
+  font-size: 92px;
   font-weight: 900;
+  line-height: 0.95;
+  color: #1A1204;
+  text-shadow:
+    1.5px 1.5px 0px rgba(255, 255, 255, 0.75),
+    -1.5px -1.5px 0px rgba(107, 78, 18, 0.85);
+}
+
+.coinArchText {
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.18em;
+  color: #2E1E05;
+  text-transform: uppercase;
   margin-top: 4px;
 }
 
-/* Daily Claim Card */
-.dailyClaimCard {
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 12px;
-  padding: 14px 18px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 14px;
-  text-align: left;
+.coinSubTag {
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  color: #5C410E;
 }
 
-.dailyClaimInfo {
-  display: flex;
-  align-items: center;
-  gap: 12px;
+/* Back Face Elements */
+.coinBackShield {
+  color: #2E1E05;
+  margin-bottom: 8px;
 }
 
-.dailyGiftIcon {
-  font-size: 24px;
+.coinBackCurrency {
+  font-family: var(--font-body-family, 'Inter', sans-serif);
+  font-size: 20px;
+  font-weight: 900;
+  color: #1A1204;
+  letter-spacing: -0.01em;
+  text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.7);
 }
 
-.dailyClaimInfo h4 {
-  font-size: 13.5px;
-  font-weight: 700;
-  color: var(--white);
-  margin-bottom: 2px;
+.coinBackSub {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  color: #5C410E;
+  margin-top: 4px;
 }
 
-.dailyClaimInfo p {
-  font-size: 11.5px;
-  color: var(--gold-light);
-  margin: 0;
-}
-
-.claimBtn {
-  background: linear-gradient(135deg, #D3AE5C 0%, #A9812E 100%);
-  color: #061324;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 6px;
-  font-size: 12px;
-  font-weight: 700;
-  cursor: pointer;
-  white-space: nowrap;
-  transition: transform 0.2s ease;
-}
-
-.claimBtn:hover {
-  transform: scale(1.05);
-}
-
-.claimedBtn {
-  background: rgba(47, 169, 92, 0.2);
-  border: 1px solid #2FA95C;
-  color: #2FA95C;
-  padding: 8px 16px;
-  border-radius: 6px;
-  font-size: 12px;
-  font-weight: 700;
-  cursor: default;
-  white-space: nowrap;
+/* 3D Realistic Coin Extrusion */
+.coinEdge3D {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  box-shadow:
+    0 0 0 2px #A87D25,
+    0 0 0 5px #8C661D,
+    0 0 0 8px #6B4E12;
+  transform: translateZ(-2px);
+  pointer-events: none;
 }
 
 /* ================= 2. LIVE METRICS STRIP ================= */
@@ -1440,8 +1663,15 @@
 }
 
 @keyframes modalPop {
-  from { opacity: 0; transform: scale(0.92); }
-  to { opacity: 1; transform: scale(1); }
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 .modalCloseBtn {
