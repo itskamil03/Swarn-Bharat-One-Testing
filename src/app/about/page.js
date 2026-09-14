@@ -4,15 +4,10 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Navbar from "@/components/layout/Navbar/Navbar";
 import Footer from "@/components/layout/Footer/Footer";
+import AboutHeroSlider from "@/features/about/AboutHeroSlider/AboutHeroSlider";
 import styles from "./page.module.css";
 
 export default function AboutPage() {
-  const [counts, setCounts] = useState({
-    platforms: 0,
-    users: 0,
-    cities: 0,
-    rewards: 0,
-  });
   const [walletCoins, setWalletCoins] = useState(0);
   const [activeStep, setActiveStep] = useState(0);
   const [timelineProgress, setTimelineProgress] = useState(0);
@@ -27,12 +22,6 @@ export default function AboutPage() {
     const frame = (now) => {
       const p = Math.min(1, (now - start) / dur);
       const eased = 1 - Math.pow(1 - p, 3);
-      setCounts({
-        platforms: Math.round(7 * eased),
-        users: Math.round(1 * eased),
-        cities: Math.round(18 * eased),
-        rewards: Math.round(50 * eased),
-      });
       setWalletCoins(Math.round(2450 * eased));
       if (p < 1) animId = requestAnimationFrame(frame);
     };
@@ -94,152 +83,8 @@ export default function AboutPage() {
       <Navbar />
 
       <main className={styles.aboutPage}>
-        {/* ================= HERO SECTION ================= */}
-        <section className={styles.heroSection}>
-          <div className={styles.heroBg}>
-            <img 
-              src="/images/h2.png" 
-              alt="Swarn Bharat Group" 
-              className={styles.heroBgImg}
-            />
-            <div className={styles.heroBackdropOverlay} />
-            <div className={styles.heroAmbientGlow} />
-          </div>
-
-          <div className={styles.heroContainer}>
-            <div className={styles.heroGrid}>
-              {/* Left Column - Content */}
-              <div className={styles.heroContent}>
-                <div className={styles.heroPillBadge}>
-                  <span className={styles.pillSparkle}>✦</span>
-                  <span>About Swarn Bharat Group · Shaping India&apos;s Tomorrow</span>
-                </div>
-
-                <h1 className={styles.heroHeading}>
-                  Architecting India&apos;s <br />
-                  <span className={styles.goldTextGradient}>Premier Connected Ecosystem</span>
-                </h1>
-
-                <p className={styles.heroLead}>
-                  Swarn Bharat unites technology, commerce, real estate, career pathways, matrimonial, and community growth under one interconnected platform. One single identity opens boundless opportunities for every Indian.
-                </p>
-
-                <div className={styles.heroActions}>
-                  <a href="#ecosystem" className={styles.primaryGoldBtn}>
-                    Explore Our Ecosystem
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4">
-                      <path d="M5 12h14M12 5l7 7-7 7" />
-                    </svg>
-                  </a>
-                  <a href="#story" className={styles.secondaryOutlineBtn}>
-                    Our Legacy &amp; Story
-                  </a>
-                </div>
-
-                <div className={styles.heroTrustPill}>
-                  <div className={styles.avatarGroup}>
-                    <span className={styles.avatarLetter}>S</span>
-                    <span className={styles.avatarLetter}>B</span>
-                    <span className={styles.avatarLetter}>G</span>
-                  </div>
-                  <div className={styles.trustText}>
-                    <strong>1,000,000+ Citizens</strong> growing across 18+ cities in India
-                  </div>
-                </div>
-              </div>
-
-              {/* Right Column - Visual Card */}
-              <div className={styles.heroVisualCol}>
-                <div className={styles.heroVisualCard}>
-                  <img 
-                    src="/images/real.png" 
-                    alt="Swarn Bharat Group Infrastructure" 
-                    className={styles.heroVisualImg}
-                  />
-                  <div className={styles.heroCardOverlay} />
-                  
-                  <div className={styles.floatingTopTag}>
-                    <span className={styles.livePulse} />
-                    <span>Nationwide Integrated Network</span>
-                  </div>
-
-                  <div className={styles.floatingVisionCard}>
-                    <div className={styles.goldLogoIcon}>S</div>
-                    <div className={styles.visionCardText}>
-                      <div className={styles.visionQuote}>
-                        &ldquo;Building businesses. Empowering people. Enriching lives.&rdquo;
-                      </div>
-                      <div className={styles.visionAuthor}>Swarn Bharat Group Vision</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ================= STAT BAR ================= */}
-        <section className={styles.statSection}>
-          <div className={styles.container}>
-            <div className={styles.statGrid}>
-              <div className={styles.statItem}>
-                <div className={styles.statIconWrap}>
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
-                    <rect x="3" y="3" width="7" height="7" rx="1.5" />
-                    <rect x="14" y="3" width="7" height="7" rx="1.5" />
-                    <rect x="3" y="14" width="7" height="7" rx="1.5" />
-                    <rect x="14" y="14" width="7" height="7" rx="1.5" />
-                  </svg>
-                </div>
-                <div>
-                  <div className={styles.statNumber}>{counts.platforms}+</div>
-                  <div className={styles.statLabel}>Core Digital Verticals</div>
-                </div>
-              </div>
-
-              <div className={styles.statItem}>
-                <div className={styles.statIconWrap}>
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
-                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-                    <circle cx="9" cy="7" r="4" />
-                    <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
-                    <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-                  </svg>
-                </div>
-                <div>
-                  <div className={styles.statNumber}>{counts.users}M+</div>
-                  <div className={styles.statLabel}>Active Community Users</div>
-                </div>
-              </div>
-
-              <div className={styles.statItem}>
-                <div className={styles.statIconWrap}>
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
-                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-                    <circle cx="12" cy="10" r="3" />
-                  </svg>
-                </div>
-                <div>
-                  <div className={styles.statNumber}>{counts.cities}+</div>
-                  <div className={styles.statLabel}>Metros &amp; Smart Cities</div>
-                </div>
-              </div>
-
-              <div className={styles.statItem}>
-                <div className={styles.statIconWrap}>
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
-                    <circle cx="12" cy="12" r="9" />
-                    <path d="M12 6v6l4 2" />
-                  </svg>
-                </div>
-                <div>
-                  <div className={styles.statNumber}>{counts.rewards}M+</div>
-                  <div className={styles.statLabel}>Swarn Coins Distributed</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+        {/* ================= CINEMATIC ANIMATED HERO SLIDER ================= */}
+        <AboutHeroSlider />
 
         {/* ================= WHO WE ARE / STORY ================= */}
         <section id="story" className={styles.section}>

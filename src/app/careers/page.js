@@ -23,6 +23,16 @@ const initialJobs = [
   { title: "Logistics Coordinator", category: "E-Commerce", location: "Bengaluru", type: "Full-time", desc: "Coordinate warehouse and last-mile delivery operations for marketplace orders.", posted: "6 days ago" }
 ];
 
+const defaultCareerVerticals = [
+  { name: "Technology", desc: "Product engineering, platforms and digital consulting powering every other vertical in the group.", img: "/images/ecm.png" },
+  { name: "Real Estate", desc: "Residential and commercial development, sales and project management across 18 cities.", img: "/images/real.png" },
+  { name: "Students Portal", desc: "Building the scholarship, mentorship and career-readiness platform for students nationwide.", img: "/images/std.png" },
+  { name: "Jobs", desc: "Running the group's own placement and recruitment marketplace connecting talent to opportunity.", img: "/images/h2.png" },
+  { name: "Matrimonial", desc: "Product, trust & safety and relationship-success teams behind the group's matchmaking platform.", img: "/images/mtm.png" },
+  { name: "Foundation", desc: "Community, education and healthcare programs — for people who want their work to be measured in impact.", img: "/images/ah2.png" },
+  { name: "E-Commerce", desc: "Marketplace, logistics and category teams running the group's consumer commerce business.", img: "/images/ah1.png" },
+];
+
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api";
 
 export default function CareersPage() {
@@ -36,6 +46,7 @@ export default function CareersPage() {
   const [isAutoPlayPaused, setIsAutoPlayPaused] = useState(false);
   const [counts, setCounts] = useState({ verticals: 7, positions: 120, members: 2400, cities: 18 });
   const [jobsList, setJobsList] = useState(initialJobs);
+  const [verticalsList, setVerticalsList] = useState(defaultCareerVerticals);
   const fileInputRef = useRef(null);
   const applyFormRef = useRef(null);
   const carouselRef = useRef(null);
@@ -104,21 +115,34 @@ export default function CareersPage() {
   }, [isAutoPlayPaused]);
 
   useEffect(() => {
-    const fetchLiveJobs = async () => {
+    const fetchLiveJobsAndVerticals = async () => {
       try {
-        const res = await fetch(`${API_BASE}/jobs?status=Active`);
-        if (res.ok) {
-          const json = await res.json();
+        const [jobsRes, verticalsRes] = await Promise.all([
+          fetch(`${API_BASE}/jobs?status=Active`),
+          fetch(`${API_BASE}/career-verticals?status=Active`).catch(() => fetch(`${API_BASE}/jobs/verticals?status=Active`)),
+        ]);
+
+        if (jobsRes.ok) {
+          const json = await jobsRes.json();
           const liveData = json.data || json.jobs;
           if (Array.isArray(liveData) && liveData.length > 0) {
             setJobsList(liveData);
+          }
+        }
+
+        if (verticalsRes && verticalsRes.ok) {
+          const vJson = await verticalsRes.json();
+          const vData = vJson.data;
+          if (Array.isArray(vData) && vData.length > 0) {
+            setVerticalsList(vData);
+            setCounts((prev) => ({ ...prev, verticals: vData.length }));
           }
         }
       } catch (err) {
         console.log("Using initial job postings dataset:", err.message);
       }
     };
-    fetchLiveJobs();
+    fetchLiveJobsAndVerticals();
   }, []);
 
   const filteredJobs = jobsList.filter(j => filter === "all" || j.category === filter);
@@ -357,7 +381,7 @@ export default function CareersPage() {
         <div className={styles.deptCarouselHeader}>
           <div>
             <div className={styles.kicker}>Explore by Vertical</div>
-            <h2>Seven businesses, one career home</h2>
+            <h2>{verticalsList.length} businesses, one career home</h2>
             <p style={{ marginTop: '8px', color: 'var(--slate)', fontSize: '14px', fontWeight: 300, maxWidth: '480px' }}>
               Every card links to live openings in that vertical — filtered instantly in the section below.
             </p>
@@ -396,17 +420,9 @@ export default function CareersPage() {
             onTouchStart={() => setIsAutoPlayPaused(true)}
             onTouchEnd={() => setIsAutoPlayPaused(false)}
           >
-            {[
-              { name: "Technology", desc: "Product engineering, platforms and digital consulting powering every other vertical in the group.", img: "/images/ecm.png" },
-              { name: "Real Estate", desc: "Residential and commercial development, sales and project management across 18 cities.", img: "/images/real.png" },
-              { name: "Students Portal", desc: "Building the scholarship, mentorship and career-readiness platform for students nationwide.", img: "/images/std.png" },
-              { name: "Jobs", desc: "Running the group's own placement and recruitment marketplace connecting talent to opportunity.", img: "/images/h2.png" },
-              { name: "Matrimonial", desc: "Product, trust & safety and relationship-success teams behind the group's matchmaking platform.", img: "/images/mtm.png" },
-              { name: "Foundation", desc: "Community, education and healthcare programs — for people who want their work to be measured in impact.", img: "/images/ah2.png" },
-              { name: "E-Commerce", desc: "Marketplace, logistics and category teams running the group's consumer commerce business.", img: "/images/ah1.png" },
-            ].map((dept, idx) => (
+            {verticalsList.map((dept, idx) => (
               <div
-                key={idx}
+                key={dept._id || dept.id || idx}
                 className={styles.deptCard}
                 onClick={() => {
                   handleFilterClick(dept.name);
@@ -414,7 +430,13 @@ export default function CareersPage() {
                 }}
               >
                 <div className={styles.deptCardPhoto}>
-                  <img src={dept.img} alt={dept.name} />
+                  <img
+                    src={dept.img || dept.image || "/images/ecm.png"}
+                    alt={dept.name}
+                    onError={(e) => {
+                      e.target.src = "/images/ecm.png";
+                    }}
+                  />
                   <div className={styles.deptTag}>{dept.name}</div>
                 </div>
                 <div className={styles.deptBody}>
