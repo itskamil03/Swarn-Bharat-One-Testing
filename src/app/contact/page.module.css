@@ -181,69 +181,282 @@
   margin: 0 auto 44px;
 }
 
-/* Quick Info Strip */
+/* ================= EXECUTIVE QUICK INFO CARDS ================= */
 .quickInfoStrip {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
+  gap: 20px;
   text-align: left;
+  margin-top: 10px;
 }
 
-@media (max-width: 960px) {
+@media (max-width: 1080px) {
   .quickInfoStrip {
     grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
   }
 }
 
-@media (max-width: 540px) {
+@media (max-width: 580px) {
   .quickInfoStrip {
     grid-template-columns: 1fr;
+    gap: 14px;
   }
 }
 
 .quickInfoCard {
-  background: var(--white);
-  border: 1px solid var(--line);
-  padding: 16px 18px;
-  border-radius: 12px;
+  position: relative;
+  background: #ffffff;
+  border: 1px solid rgba(226, 221, 210, 0.95);
+  padding: 22px 20px 18px;
+  border-radius: 16px;
   display: flex;
-  align-items: center;
-  gap: 14px;
-  box-shadow: 0 4px 12px rgba(11, 27, 51, 0.03);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 4px 16px -4px rgba(11, 27, 51, 0.04);
+  transition: all 0.38s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+/* Shimmer Top Beam */
+.quickInfoCard::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #d3ae5c 0%, #a9812e 50%, #e8c170 100%);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  z-index: 2;
+}
+
+.quickInfoCard:hover::before {
+  transform: scaleX(1);
+}
+
+/* Ambient Radial Glow on Hover */
+.quickCardGlow {
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(211, 174, 92, 0.2) 0%, transparent 70%);
+  pointer-events: none;
+  opacity: 0;
+  transform: scale(0.6);
+  transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 0;
+}
+
+.quickInfoCard:hover .quickCardGlow {
+  opacity: 1;
+  transform: scale(1);
 }
 
 .quickInfoCard:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 20px rgba(11, 27, 51, 0.08);
-  border-color: var(--gold-light);
+  transform: translateY(-6px);
+  box-shadow: 0 20px 42px -10px rgba(11, 27, 51, 0.12), 0 0 20px rgba(211, 174, 92, 0.1);
+  border-color: rgba(211, 174, 92, 0.55);
+}
+
+.quickCardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  position: relative;
+  z-index: 1;
 }
 
 .quickIconWrap {
-  width: 42px;
-  height: 42px;
-  border-radius: 10px;
+  width: 44px;
+  height: 44px;
+  border-radius: 11px;
   background: var(--paper);
   color: var(--gold);
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.quickInfoCard:hover .quickIconWrap {
+  background: linear-gradient(135deg, rgba(211, 174, 92, 0.22), rgba(169, 129, 46, 0.32));
+  color: #a9812e;
+  transform: translateY(-2px) scale(1.08);
+  box-shadow: 0 6px 14px rgba(169, 129, 46, 0.15);
+}
+
+.iconGold {
+  background: rgba(211, 174, 92, 0.14);
+  color: #a9812e;
+}
+
+.iconGreen {
+  background: rgba(47, 169, 92, 0.12);
+  color: #2fa95c;
+}
+
+.quickInfoCard:hover .iconGreen {
+  background: linear-gradient(135deg, rgba(47, 169, 92, 0.2), rgba(34, 197, 94, 0.3));
+  color: #15803d;
+  box-shadow: 0 6px 14px rgba(47, 169, 92, 0.18);
+}
+
+.quickBadge {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #64748b;
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  padding: 3px 9px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  transition: all 0.25s ease;
+}
+
+.quickInfoCard:hover .quickBadge {
+  background: #0b1b33;
+  color: #ffffff;
+  border-color: #0b1b33;
+}
+
+.badgeLive {
+  background: #eff6ff;
+  border-color: #bfdbfe;
+  color: #1d4ed8;
+}
+
+.livePulseDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #2563eb;
+  box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.7);
+  animation: pulseDot 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.badgeGreen {
+  background: #ecfdf5;
+  border-color: #a7f3d0;
+  color: #065f46;
+}
+
+.greenPulseDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+  animation: pulseDot 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulseDot {
+  0% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 6px rgba(16, 185, 129, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+  }
+}
+
+.quickCardBody {
+  margin-bottom: 14px;
+  position: relative;
+  z-index: 1;
 }
 
 .quickLabel {
-  font-size: 11.5px;
+  font-size: 11px;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
   color: var(--slate-light);
-  font-weight: 600;
+  font-weight: 700;
+  margin-bottom: 4px;
 }
 
 .quickValue {
-  font-size: 13.5px;
-  font-weight: 700;
+  font-size: 15px;
+  font-weight: 800;
   color: var(--navy);
-  margin-top: 2px;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+  transition: color 0.25s ease;
+}
+
+.valGold {
+  color: #926615;
+}
+
+.valGreen {
+  color: #047857;
+}
+
+.quickInfoCard:hover .quickValue {
+  color: #0b1b33;
+}
+
+.quickSubtext {
+  display: block;
+  font-size: 12px;
+  color: #64748b;
+  margin-top: 4px;
+  line-height: 1.4;
+}
+
+.quickCardFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 12px;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  margin-top: auto;
+  position: relative;
+  z-index: 1;
+  transition: border-color 0.25s ease;
+}
+
+.quickInfoCard:hover .quickCardFooter {
+  border-top-color: rgba(211, 174, 92, 0.25);
+}
+
+.quickLinkText {
+  font-size: 12px;
+  font-weight: 700;
+  color: #64748b;
+  transition: color 0.25s ease;
+}
+
+.quickInfoCard:hover .quickLinkText {
+  color: #a9812e;
+}
+
+.quickArrow {
+  color: #94a3b8;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), color 0.25s ease;
+}
+
+.quickInfoCard:hover .quickArrow {
+  transform: translateX(4px);
+  color: #a9812e;
 }
 
 /* ================= 2. MAIN CONTACT SECTION ================= */

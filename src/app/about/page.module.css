@@ -161,6 +161,7 @@
   0% {
     transform: scale(1) translate(0, 0);
   }
+
   100% {
     transform: scale(1.08) translate(-1%, -1%);
   }
@@ -170,13 +171,11 @@
   position: absolute;
   inset: 0;
   z-index: 1;
-  background: linear-gradient(
-    90deg,
-    rgba(6, 19, 36, 0.94) 0%,
-    rgba(6, 19, 36, 0.85) 45%,
-    rgba(6, 19, 36, 0.6) 80%,
-    rgba(6, 19, 36, 0.4) 100%
-  );
+  background: linear-gradient(90deg,
+      rgba(6, 19, 36, 0.94) 0%,
+      rgba(6, 19, 36, 0.85) 45%,
+      rgba(6, 19, 36, 0.6) 80%,
+      rgba(6, 19, 36, 0.4) 100%);
 }
 
 .heroAmbientGlow {
@@ -211,6 +210,7 @@
     padding-top: 140px;
     padding-bottom: 60px;
   }
+
   .heroGrid {
     grid-template-columns: 1fr;
     gap: 40px;
@@ -613,14 +613,17 @@
     padding: 40px 20px 60px;
     background: var(--navy-deep);
   }
+
   .statGrid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 24px;
   }
+
   .statDivider {
     display: none;
   }
+
   .statCardGlass {
     padding: 28px 24px;
   }
@@ -631,13 +634,16 @@
     grid-template-columns: 1fr;
     gap: 20px;
   }
+
   .statItem {
     padding: 10px 8px;
   }
+
   .statIconWrap {
     width: 46px;
     height: 46px;
   }
+
   .statNumber {
     font-size: 32px;
   }
@@ -771,78 +777,216 @@
 .ecosystemGrid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
+  gap: 24px;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1100px) {
   .ecosystemGrid {
     grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
   }
 }
 
-@media (max-width: 580px) {
+@media (max-width: 600px) {
   .ecosystemGrid {
     grid-template-columns: 1fr;
+    gap: 16px;
   }
 }
 
 .ecoCard {
-  background: var(--white);
-  padding: 30px 24px;
-  border-radius: 14px;
-  border: 1px solid var(--line);
-  transition: all 0.3s ease;
+  position: relative;
+  background: #ffffff;
+  padding: 30px 26px 24px;
+  border-radius: 16px;
+  border: 1px solid rgba(231, 226, 214, 0.95);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   display: flex;
   flex-direction: column;
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  box-shadow: 0 4px 16px -4px rgba(11, 27, 51, 0.04);
+}
+
+/* Ambient Radial Glow on Hover */
+.ecoCardGlow {
+  position: absolute;
+  top: -80px;
+  right: -80px;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(211, 174, 92, 0.22) 0%, transparent 70%);
+  pointer-events: none;
+  opacity: 0;
+  transform: scale(0.6);
+  transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 0;
+}
+
+.ecoCard:hover .ecoCardGlow {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Top Shimmer Beam */
+.ecoCard::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3.5px;
+  background: linear-gradient(90deg, #d3ae5c 0%, #a9812e 50%, #e8c170 100%);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  z-index: 2;
+}
+
+.ecoCard:hover::before {
+  transform: scaleX(1);
 }
 
 .ecoCard:hover {
-  background: var(--navy);
-  transform: translateY(-4px);
-  box-shadow: 0 20px 36px -12px rgba(11, 27, 51, 0.3);
-  border-color: var(--navy);
+  background: #0b1b33;
+  transform: translateY(-7px);
+  border-color: rgba(211, 174, 92, 0.45);
+  box-shadow: 0 24px 50px -12px rgba(11, 27, 51, 0.35), 0 0 25px rgba(211, 174, 92, 0.12);
+}
+
+.ecoCardTopRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+  position: relative;
+  z-index: 1;
 }
 
 .ecoIconWrap {
-  width: 44px;
-  height: 44px;
-  border-radius: 10px;
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
   background: var(--paper);
   color: var(--gold);
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 20px;
-  transition: all 0.3s ease;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .ecoCard:hover .ecoIconWrap {
-  background: rgba(255, 255, 255, 0.1);
+  background: linear-gradient(135deg, rgba(211, 174, 92, 0.22), rgba(169, 129, 46, 0.32));
+  color: #ffd700;
+  transform: translateY(-2px) scale(1.08);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+}
+
+.ecoNumber {
+  font-family: var(--font-display-family, 'Playfair Display', serif);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--gold);
+  background: rgba(169, 129, 46, 0.08);
+  border: 1px solid rgba(169, 129, 46, 0.2);
+  padding: 3px 10px;
+  border-radius: 999px;
+  letter-spacing: 0.05em;
+  transition: all 0.3s ease;
+}
+
+.ecoCard:hover .ecoNumber {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(211, 174, 92, 0.45);
+  color: var(--gold-light);
+  transform: scale(1.04);
+}
+
+.ecoCategoryTag {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 6px;
+  transition: color 0.3s ease;
+  position: relative;
+  z-index: 1;
+}
+
+.ecoCard:hover .ecoCategoryTag {
   color: var(--gold-light);
 }
 
-.ecoCard h3 {
-  font-size: 17px;
+.ecoCardTitle {
+  font-size: 18px;
   font-weight: 700;
   color: var(--navy);
   margin-bottom: 10px;
-  transition: color 0.3s ease;
+  line-height: 1.3;
+  transition: color 0.3s ease, transform 0.3s ease;
+  position: relative;
+  z-index: 1;
 }
 
-.ecoCard:hover h3 {
-  color: var(--white);
+.ecoCard:hover .ecoCardTitle {
+  color: #ffffff;
+  transform: translateX(2px);
 }
 
-.ecoCard p {
+.ecoCardDesc {
   font-size: 13.5px;
-  line-height: 1.6;
+  line-height: 1.62;
   color: var(--slate);
-  margin: 0;
+  margin: 0 0 20px 0;
+  transition: color 0.3s ease;
+  position: relative;
+  z-index: 1;
+}
+
+.ecoCard:hover .ecoCardDesc {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.ecoFooterRow {
+  margin-top: auto;
+  padding-top: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+  transition: border-color 0.3s ease;
+  position: relative;
+  z-index: 1;
+}
+
+.ecoCard:hover .ecoFooterRow {
+  border-top-color: rgba(255, 255, 255, 0.12);
+}
+
+.ecoActionText {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #64748b;
   transition: color 0.3s ease;
 }
 
-.ecoCard:hover p {
-  color: rgba(255, 255, 255, 0.7);
+.ecoCard:hover .ecoActionText {
+  color: var(--gold-light);
+}
+
+.ecoArrowIcon {
+  color: var(--gold);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s ease;
+}
+
+.ecoCard:hover .ecoArrowIcon {
+  transform: translateX(5px);
+  color: #ffd700;
 }
 
 /* ================= 5. LEADERSHIP TEAM ================= */
@@ -927,203 +1071,770 @@
   margin: 0;
 }
 
-/* ================= 6. HOW IT WORKS & WALLET ================= */
-.howItWorksLayout {
-  display: grid;
-  grid-template-columns: 1.15fr 0.85fr;
-  gap: 50px;
-  align-items: center;
+/* ================= 6. HOW THE ECOSYSTEM WORKS: CIRCULAR VALUE LOOP ================= */
+.loopSection {
+  position: relative;
+  background: linear-gradient(180deg, #FFFFFF 0%, #FAF8F5 50%, #F5F1E8 100%);
+  border-top: 1px solid rgba(231, 226, 214, 0.9);
+  border-bottom: 1px solid rgba(231, 226, 214, 0.9);
+  padding: 100px 0;
+  overflow: hidden;
 }
 
-@media (max-width: 960px) {
-  .howItWorksLayout {
-    grid-template-columns: 1fr;
-    gap: 40px;
+.loopBgPattern {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(169, 129, 46, 0.09) 1px, transparent 1px);
+  background-size: 28px 28px;
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.loopAmbientGlow {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 700px;
+  height: 700px;
+  background: radial-gradient(circle, rgba(211, 174, 92, 0.14) 0%, transparent 68%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.loopEyebrowBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #FFFFFF;
+  border: 1px solid rgba(211, 174, 92, 0.35);
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 11.5px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: #0B1B33;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 8px rgba(169, 129, 46, 0.08);
+}
+
+.loopSparkle {
+  color: #D3AE5C;
+  font-size: 12px;
+}
+
+.loopPill {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  background: rgba(211, 174, 92, 0.18);
+  color: #8C6718;
+  padding: 2px 8px;
+  border-radius: 999px;
+  text-transform: uppercase;
+}
+
+.loopSecTitle {
+  font-size: clamp(28px, 3.2vw, 42px);
+  font-weight: 700;
+  line-height: 1.22;
+  color: #0B1B33;
+  letter-spacing: -0.015em;
+}
+
+.loopTitleHighlight {
+  background: linear-gradient(135deg, #0B1B33 10%, #A9812E 70%, #D3AE5C 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline;
+}
+
+/* ================= STEPPER NAVIGATOR PIPELINE ================= */
+.stepperNavWrapper {
+  position: relative;
+  z-index: 2;
+  max-width: 1140px;
+  margin: 40px auto 30px;
+  background: #FFFFFF;
+  border: 1px solid rgba(211, 174, 92, 0.35);
+  border-radius: 20px;
+  padding: 10px 14px;
+  box-shadow: 0 10px 30px -8px rgba(11, 27, 51, 0.06);
+}
+
+.stepperTrack {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+}
+
+@media (max-width: 860px) {
+  .stepperTrack {
+    display: flex;
+    overflow-x: auto;
+    padding-bottom: 6px;
+    gap: 10px;
   }
 }
 
-.timelineCol {
-  position: relative;
-  padding-left: 36px;
-}
-
-.timelineTrack {
-  position: absolute;
-  top: 15px;
-  bottom: 15px;
-  left: 17px;
-  width: 2px;
-  background: var(--line);
-}
-
-.timelineFill {
-  position: absolute;
-  top: 15px;
-  left: 17px;
-  width: 2px;
-  background: var(--gold);
-  transition: height 0.3s ease;
-}
-
-.stepItem {
-  position: relative;
-  display: flex;
-  gap: 20px;
-  margin-bottom: 30px;
-}
-
-.stepItem:last-child {
-  margin-bottom: 0;
-}
-
-.stepNumberBadge {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background: var(--white);
-  border: 2px solid var(--line);
-  color: var(--slate);
-  font-size: 12px;
-  font-weight: 700;
+.stepperTabBtn {
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 14px;
+  padding: 12px 14px;
   display: flex;
   align-items: center;
   justify-content: center;
-  position: absolute;
-  left: -36px;
-  top: 0;
+  gap: 10px;
+  cursor: pointer;
+  transition: all 0.28s ease;
+  position: relative;
+  white-space: nowrap;
+}
+
+.stepperTabBtn:hover {
+  background: #FAF8F5;
+  border-color: rgba(211, 174, 92, 0.3);
+}
+
+.stepperTabActive {
+  background: linear-gradient(135deg, #FAF4E8 0%, #FFFDF9 100%) !important;
+  border-color: rgba(211, 174, 92, 0.6) !important;
+  box-shadow: 0 4px 14px rgba(169, 129, 46, 0.12);
+}
+
+.stepperNum {
+  font-family: var(--font-display-family, 'Playfair Display', serif);
+  font-size: 15px;
+  font-weight: 800;
+  color: #A9812E;
+  background: rgba(211, 174, 92, 0.14);
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.25s ease;
+}
+
+.stepperTabActive .stepperNum {
+  background: linear-gradient(135deg, #D3AE5C, #A9812E);
+  color: #061324;
+}
+
+.stepperLabel {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #334155;
+  letter-spacing: 0.01em;
+}
+
+.stepperTabActive .stepperLabel {
+  color: #0B1B33;
+  font-weight: 800;
+}
+
+.stepperActiveDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #10B981;
+  box-shadow: 0 0 6px #10B981;
+}
+
+.stepperProgressTrack {
+  position: relative;
+  height: 3px;
+  background: rgba(231, 226, 214, 0.8);
+  border-radius: 999px;
+  margin: 8px 6px 4px;
+  overflow: hidden;
+}
+
+.stepperProgressBar {
+  height: 100%;
+  background: linear-gradient(90deg, #D3AE5C 0%, #A9812E 100%);
+  border-radius: 999px;
+  transition: width 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ================= EXECUTIVE STUDIO CANVAS ================= */
+.studioCanvas {
+  position: relative;
+  z-index: 2;
+  max-width: 1140px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.08fr 0.92fr;
+  gap: 28px;
+  align-items: stretch;
+}
+
+@media (max-width: 1024px) {
+  .studioCanvas {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+}
+
+/* Left Column: Spotlight Card */
+.studioSpotlightCol {
+  display: flex;
+}
+
+.spotlightCard {
+  width: 100%;
+  background: #FFFFFF;
+  border: 1px solid rgba(211, 174, 92, 0.4);
+  border-radius: 24px;
+  padding: 34px 36px;
+  box-shadow: 0 16px 40px -12px rgba(11, 27, 51, 0.07), 0 0 20px rgba(211, 174, 92, 0.05);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   transition: all 0.3s ease;
 }
 
-.stepItemActive .stepNumberBadge {
-  background: var(--gold);
-  border-color: var(--gold);
-  color: var(--white);
-  box-shadow: 0 0 14px rgba(169, 129, 46, 0.4);
+.spotlightHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
 }
 
-.stepTitle {
-  font-size: 16px;
-  font-weight: 700;
-  color: var(--navy);
-  margin-bottom: 4px;
-}
-
-.stepDesc {
-  font-size: 13.5px;
-  color: var(--slate);
-  line-height: 1.55;
-  margin: 0;
-}
-
-/* Wallet Card */
-.walletCol {
-  position: relative;
-}
-
-.walletCard {
-  background: linear-gradient(145deg, #0F2340 0%, #061324 100%);
-  border-radius: 20px;
-  padding: 34px 30px;
-  color: var(--white);
-  border: 1px solid rgba(211, 174, 92, 0.35);
-  box-shadow: 0 24px 48px -12px rgba(6, 19, 36, 0.4);
-}
-
-.walletHeader {
+.spotlightBadgeRow {
   display: flex;
   align-items: center;
-  gap: 14px;
-  margin-bottom: 24px;
+  gap: 8px;
+  flex-wrap: wrap;
 }
 
-.walletGoldMark {
+.spotlightStageTag {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  background: rgba(211, 174, 92, 0.18);
+  color: #8C6718;
+  padding: 4px 10px;
+  border-radius: 999px;
+  text-transform: uppercase;
+}
+
+.spotlightCategoryPill {
+  font-size: 11px;
+  font-weight: 700;
+  color: #0B1B33;
+  background: #FAF8F5;
+  border: 1px solid rgba(231, 226, 214, 0.9);
+  padding: 3px 10px;
+  border-radius: 999px;
+  text-transform: uppercase;
+}
+
+.spotlightIconWrapper {
   width: 44px;
   height: 44px;
   border-radius: 12px;
   background: linear-gradient(135deg, #D3AE5C, #A9812E);
-  color: var(--navy-deep);
+  color: #061324;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 20px;
+  box-shadow: 0 4px 12px rgba(169, 129, 46, 0.28);
+  flex-shrink: 0;
+}
+
+.spotlightTitle {
+  font-size: clamp(22px, 2.2vw, 28px);
   font-weight: 800;
+  color: #0B1B33;
+  line-height: 1.25;
+  margin: 0 0 10px;
+  letter-spacing: -0.01em;
 }
 
-.walletTitle {
-  font-size: 16px;
-  font-weight: 700;
-  color: var(--white);
+.spotlightLead {
+  font-size: 14.5px;
+  color: #475569;
+  line-height: 1.6;
+  margin: 0 0 20px;
 }
 
-.walletStatus {
-  font-size: 12px;
-  color: #2FA95C;
-}
-
-.walletBalanceLabel {
-  font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: rgba(255, 255, 255, 0.6);
-  margin-bottom: 4px;
-}
-
-.walletBalanceAmount {
-  font-size: 38px;
-  font-weight: 800;
-  color: var(--gold-light);
-  line-height: 1.1;
+.spotlightBullets {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
   margin-bottom: 24px;
 }
 
-.walletBalanceAmount span {
-  font-size: 14px;
+.spotlightBulletRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 13.5px;
+  color: #1E293B;
+  line-height: 1.5;
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.75);
-  margin-left: 6px;
 }
 
-.walletChipsRow {
+.spotlightCheckIcon {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: rgba(16, 185, 129, 0.14);
+  color: #059669;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+/* Stage Metrics Bar */
+.spotlightMetricRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 26px;
+  padding: 14px 16px;
+  background: #FAF8F5;
+  border: 1px solid rgba(231, 226, 214, 0.95);
+  border-radius: 16px;
+}
+
+.spotlightMetricCard {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  margin-bottom: 26px;
+  gap: 2px;
 }
 
-.walletChip {
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 10px 14px;
-  border-radius: 8px;
-  font-size: 12.5px;
-  color: rgba(255, 255, 255, 0.85);
+.metricVal {
+  font-family: var(--font-display-family, 'Playfair Display', serif);
+  font-size: 20px;
+  font-weight: 800;
+  color: #A9812E;
+  line-height: 1.2;
 }
 
-.walletChip strong {
-  color: var(--gold-light);
-  margin-right: 6px;
+.metricSubVal {
+  font-size: 14px;
+  font-weight: 800;
+  color: #0B1B33;
+  line-height: 1.2;
 }
 
-.walletActionRow {
-  text-align: center;
+.metricLbl {
+  font-size: 10.5px;
+  font-weight: 700;
+  color: #64748B;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
-.walletCtaBtn {
-  display: block;
-  width: 100%;
+/* Navigation & Controls */
+.spotlightControls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+  padding-top: 8px;
+  border-top: 1px solid rgba(231, 226, 214, 0.8);
+}
+
+.stepBtnGroup {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.prevStepBtn,
+.nextStepBtn {
+  background: #FFFFFF;
+  border: 1px solid rgba(211, 174, 92, 0.4);
+  color: #0B1B33;
+  padding: 8px 14px;
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.prevStepBtn:hover,
+.nextStepBtn:hover {
+  background: #FAF8F5;
+  border-color: #A9812E;
+  color: #A9812E;
+}
+
+.spotlightCta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   background: linear-gradient(135deg, #D3AE5C 0%, #A9812E 100%);
   color: #061324;
-  padding: 12px 20px;
-  border-radius: 8px;
-  font-size: 13.5px;
-  font-weight: 700;
+  padding: 10px 18px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 800;
   text-decoration: none;
-  text-align: center;
-  transition: transform 0.25s ease;
+  box-shadow: 0 4px 14px rgba(169, 129, 46, 0.35);
+  transition: all 0.25s ease;
 }
 
-.walletCtaBtn:hover {
+.spotlightCta:hover {
   transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(169, 129, 46, 0.48);
+  gap: 11px;
+}
+
+/* Right Column: Ledger Hub Card */
+.studioLedgerCol {
+  display: flex;
+}
+
+.ledgerHubCard {
+  width: 100%;
+  background: #FFFFFF;
+  border: 1px solid rgba(211, 174, 92, 0.4);
+  border-radius: 24px;
+  padding: 26px;
+  box-shadow: 0 16px 40px -12px rgba(11, 27, 51, 0.07);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+/* The Swarn Sovereign Gold Card */
+.swarnSovereignCard {
+  position: relative;
+  background: linear-gradient(135deg, #10233F 0%, #0B1B33 45%, #050D1A 100%);
+  border: 1.5px solid rgba(211, 174, 92, 0.5);
+  border-radius: 18px;
+  padding: 22px 24px;
+  color: #FFFFFF;
+  box-shadow: 0 14px 30px -6px rgba(11, 27, 51, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.2);
+  overflow: hidden;
+}
+
+.cardShimmerOverlay {
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(211, 174, 92, 0.12) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.cardTopRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.cardBrand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.cardLogoBox {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #D3AE5C, #A9812E);
+  color: #061324;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  font-size: 15px;
+  box-shadow: 0 2px 8px rgba(169, 129, 46, 0.4);
+}
+
+.cardBrandName {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: #FFFFFF;
+}
+
+.cardBrandSub {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: #D3AE5C;
+}
+
+.cardChipBox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.chipCircuit {
+  width: 32px;
+  height: 24px;
+  border-radius: 4px;
+  background: linear-gradient(135deg, #D3AE5C 0%, #A9812E 100%);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.cardContactless {
+  color: #D3AE5C;
+  display: flex;
+  align-items: center;
+}
+
+.cardNumber {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: rgba(255, 255, 255, 0.85);
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.cardBottomRow {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.cardMetaLbl {
+  font-size: 8.5px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #94A3B8;
+  margin-bottom: 2px;
+}
+
+.cardBalanceAmount {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.cardCoinIcon {
+  font-size: 16px;
+}
+
+.cardBalanceAmount strong {
+  font-family: var(--font-display-family, 'Playfair Display', serif);
+  font-size: 24px;
+  font-weight: 800;
+  color: #FFFFFF;
+  line-height: 1;
+}
+
+.cardCoinsUnit {
+  font-size: 12px;
+  font-weight: 700;
+  color: #D3AE5C;
+}
+
+.cardTierBadge {
+  background: rgba(211, 174, 92, 0.2);
+  border: 1px solid rgba(211, 174, 92, 0.4);
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 9.5px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: #D3AE5C;
+}
+
+/* Live Ecosystem Ledger Terminal */
+.liveLedgerTerminal {
+  background: #FAF8F5;
+  border: 1px solid rgba(231, 226, 214, 0.95);
+  border-radius: 18px;
+  padding: 16px;
+}
+
+.terminalHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(231, 226, 214, 0.8);
+}
+
+.terminalStatusDot {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10.5px;
+  font-weight: 800;
+  color: #0B1B33;
+  letter-spacing: 0.06em;
+}
+
+.pulseDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #10B981;
+  box-shadow: 0 0 6px #10B981;
+  animation: pulseDotGlow 1.8s infinite;
+}
+
+@keyframes pulseDotGlow {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.3);
+    opacity: 0.6;
+  }
+}
+
+.terminalSyncBadge {
+  font-size: 9.5px;
+  font-weight: 800;
+  color: #059669;
+  background: rgba(16, 185, 129, 0.12);
+  padding: 2px 7px;
+  border-radius: 999px;
+}
+
+.activeLedgerEvent {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  background: #FFFFFF;
+  border: 1px solid rgba(211, 174, 92, 0.35);
+  border-radius: 12px;
+  padding: 10px 12px;
+  margin-bottom: 12px;
+  box-shadow: 0 2px 8px rgba(169, 129, 46, 0.06);
+}
+
+.eventLeft {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.eventIcon {
+  font-size: 14px;
+}
+
+.eventTitle {
+  font-size: 12px;
+  font-weight: 700;
+  color: #0B1B33;
+  line-height: 1.25;
+}
+
+.eventSub {
+  font-size: 10.5px;
+  color: #64748B;
+  margin-top: 1px;
+}
+
+.eventTime {
+  color: #A9812E;
+  font-weight: 600;
+}
+
+.eventStatusBadge {
+  font-size: 10px;
+  font-weight: 800;
+  color: #059669;
+  background: rgba(16, 185, 129, 0.15);
+  padding: 3px 8px;
+  border-radius: 6px;
+  white-space: nowrap;
+}
+
+.verticalsRow {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.vertChip {
+  font-size: 10px;
+  font-weight: 700;
+  color: #475569;
+  background: #FFFFFF;
+  border: 1px solid rgba(231, 226, 214, 0.9);
+  padding: 3px 8px;
+  border-radius: 6px;
+}
+
+/* Loop Flow Status Ribbon */
+.loopRibbonWrap {
+  position: relative;
+  z-index: 2;
+  max-width: 1140px;
+  margin: 28px auto 0;
+  background: #FFFFFF;
+  border: 1px solid rgba(211, 174, 92, 0.35);
+  border-radius: 16px;
+  padding: 14px 20px;
+  box-shadow: 0 6px 20px -4px rgba(11, 27, 51, 0.05);
+  overflow-x: auto;
+}
+
+.loopRibbonTrack {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-width: 760px;
+}
+
+.loopRibbonItem {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #64748B;
+  white-space: nowrap;
+  transition: all 0.25s ease;
+}
+
+.ribbonItemActive {
+  color: #0B1B33 !important;
+  font-weight: 800 !important;
+}
+
+.loopRibbonItem strong {
+  font-family: var(--font-display-family, 'Playfair Display', serif);
+  color: #A9812E;
+  font-size: 13px;
+}
+
+.loopRibbonArrow {
+  color: #D3AE5C;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.loopRibbonLoopTag {
+  background: rgba(211, 174, 92, 0.16);
+  color: #8C6718;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 11.5px;
+  font-weight: 700;
 }
 
 /* ================= 7. MISSION, VISION & COMPARISON ================= */
@@ -1378,4 +2089,20 @@
 
 .d4 {
   transition-delay: 0.32s;
+}
+
+.d5 {
+  transition-delay: 0.40s;
+}
+
+.d6 {
+  transition-delay: 0.48s;
+}
+
+.d7 {
+  transition-delay: 0.56s;
+}
+
+.d8 {
+  transition-delay: 0.64s;
 }

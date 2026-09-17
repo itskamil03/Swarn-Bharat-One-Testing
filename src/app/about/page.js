@@ -7,12 +7,250 @@ import Footer from "@/components/layout/Footer/Footer";
 import AboutHeroSlider from "@/features/about/AboutHeroSlider/AboutHeroSlider";
 import styles from "./page.module.css";
 
+const ecosystemJourney = [
+  {
+    step: "01",
+    tag: "Instant SSO",
+    badgeTitle: "STAGE 01 • UNIFIED ONBOARDING",
+    title: "Create Your Unified Account",
+    shortTitle: "Instant SSO",
+    lead: "Sign up in 30 seconds to receive your unique Swarn ID and welcome Swarn Coins.",
+    bullets: [
+      "Instant 30-sec identity verification with zero friction or paperwork",
+      "+250 Welcome Swarn Coins automatically credited on signup",
+      "One master credential securely unlocking all 7+ partner portals"
+    ],
+    metricValue: "+250",
+    metricLabel: "Welcome Coins",
+    subMetric: "0 Passwords Needed",
+    logEvent: "Ledger Grant: +250 Welcome Coins Dispatched",
+    logHash: "TXN #SB-9021-SSO",
+    logStatus: "Verified",
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+        <circle cx="9" cy="7" r="4" />
+        <line x1="19" y1="8" x2="19" y2="14" />
+        <line x1="22" y1="11" x2="16" y2="11" />
+      </svg>
+    )
+  },
+  {
+    step: "02",
+    tag: "7+ Portals",
+    badgeTitle: "STAGE 02 • MULTI-PORTAL SYNC",
+    title: "Explore Across Connected Verticals",
+    shortTitle: "7+ Verticals",
+    lead: "Access jobs, properties, shopping, matchmaking, and education without re-registering.",
+    bullets: [
+      "Seamless single-click transitions between independent ecosystems",
+      "Unified profile sync: preferences and member tier carry over instantly",
+      "Live cross-navigation between Real Estate, Mart, Jobs, Matrimony & Academy"
+    ],
+    metricValue: "7 Portals",
+    metricLabel: "Unified Access",
+    subMetric: "100% Shared Identity",
+    logEvent: "Ecosystem Sync: 7 Verticals Handshake Confirmed",
+    logHash: "TXN #SB-9022-PORTALS",
+    logStatus: "Active",
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <circle cx="12" cy="12" r="10" />
+        <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76" />
+      </svg>
+    )
+  },
+  {
+    step: "03",
+    tag: "Auto Rewards",
+    badgeTitle: "STAGE 03 • AUTOMATED ACCRUAL",
+    title: "Earn Swarn Rewards Automatically",
+    shortTitle: "Auto Rewards",
+    lead: "Every purchase, subscription, and verified milestone credits coins straight to your wallet.",
+    bullets: [
+      "Real-time cashpoint accruals on shopping, courses, & asset bookings",
+      "Milestone loyalty multipliers as your cross-platform engagement expands",
+      "No manual claims or vouchers required—fully automated attribution"
+    ],
+    metricValue: "Up to 5%",
+    metricLabel: "Cashback Rate",
+    subMetric: "Instant Ledger Accrual",
+    logEvent: "Smart Contract: Auto Cashpoint +120 Coins Accrued",
+    logHash: "TXN #SB-9023-REWARD",
+    logStatus: "Credited",
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+      </svg>
+    )
+  },
+  {
+    step: "04",
+    tag: "Encrypted Vault",
+    badgeTitle: "STAGE 04 • CENTRAL SECURITY",
+    title: "Centralized Ledger Security",
+    shortTitle: "Encrypted Vault",
+    lead: "All your earned coins are protected and safely tracked in your central profile.",
+    bullets: [
+      "Bank-grade 256-bit cryptographic encryption on all asset balances",
+      "Immutable transaction history accessible 24/7 across all devices",
+      "Multi-factor biometric verification & enterprise fraud prevention"
+    ],
+    metricValue: "256-Bit",
+    metricLabel: "Vault Encryption",
+    subMetric: "Immutable Ledger Guard",
+    logEvent: "Vault Audit: Cryptographic Ledger Signature Validated",
+    logHash: "TXN #SB-9024-VAULT",
+    logStatus: "Protected",
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+        <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+      </svg>
+    )
+  },
+  {
+    step: "05",
+    tag: "1:1 Value Utility",
+    badgeTitle: "STAGE 05 • UNIVERSAL UTILITY",
+    title: "Redeem Across the Universe",
+    shortTitle: "Universal Utility",
+    lead: "Spend coins on real estate tokenization discounts, e-commerce vouchers, or career courses.",
+    bullets: [
+      "Guaranteed 1:1 true utility valuation across all group businesses",
+      "Redeem on real asset investments, lifestyle retail, or tuition fees",
+      "Compounding loop: every redemption unlocks new tier multiplier perks"
+    ],
+    metricValue: "1:1 Utility",
+    metricLabel: "Redemption Value",
+    subMetric: "Universal Acceptance",
+    logEvent: "Redemption Ready: 1:1 Asset Voucher Exchange Enabled",
+    logHash: "TXN #SB-9025-REDEEM",
+    logStatus: "Active",
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+      </svg>
+    )
+  }
+];
+
+const ecosystemCards = [
+  {
+    number: "01",
+    tag: "Cloud & Enterprise",
+    title: "Technology & Cloud",
+    description: "Enterprise cloud solutions, high-scale software architectures, and AI-driven innovations for modern businesses.",
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+        <rect x="2" y="3" width="20" height="14" rx="2" />
+        <line x1="8" y1="21" x2="16" y2="21" />
+        <line x1="12" y1="17" x2="12" y2="21" />
+      </svg>
+    ),
+    link: "/#businesses"
+  },
+  {
+    number: "02",
+    tag: "Urban & Spaces",
+    title: "Real Estate & Infrastructure",
+    description: "Premium commercial spaces, township residential ventures, and transparent land investments across India.",
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+        <path d="M3 21h18" />
+        <path d="M5 21V7l8-4v18" />
+        <path d="M19 21V11l-6-4" />
+        <line x1="9" y1="9" x2="9" y2="9.01" />
+        <line x1="9" y1="13" x2="9" y2="13.01" />
+        <line x1="9" y1="17" x2="9" y2="17.01" />
+      </svg>
+    ),
+    link: "/#businesses"
+  },
+  {
+    number: "03",
+    tag: "Youth & Learning",
+    title: "Students Portal & EdTech",
+    description: "Skill certifications, competitive preparation, scholarships, and career counseling for India's youth.",
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+        <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
+        <path d="M6 12v5c3 3 9 3 12 0v-5" />
+      </svg>
+    ),
+    link: "/#businesses"
+  },
+  {
+    number: "04",
+    tag: "Talent & ATS",
+    title: "Jobs & Talent Marketplace",
+    description: "Connecting verified talent with leading enterprises, startups, and public sector opportunities.",
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+        <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
+        <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+      </svg>
+    ),
+    link: "/careers"
+  },
+  {
+    number: "05",
+    tag: "Heritage & Bonds",
+    title: "Matrimonial Network",
+    description: "Trusted, secure, and meaningful matchmaking services honoring cultural heritage with modern safety.",
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+      </svg>
+    ),
+    link: "/#businesses"
+  },
+  {
+    number: "06",
+    tag: "CSR & Community",
+    title: "Foundation & Impact",
+    description: "Philanthropic initiatives in healthcare, grassroots education, women empowerment, and sustainability.",
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+        <circle cx="12" cy="12" r="9" />
+        <path d="M12 7v5l3 3" />
+      </svg>
+    ),
+    link: "/#impact"
+  },
+  {
+    number: "07",
+    tag: "Retail & Rewards",
+    title: "E-Commerce & Retail",
+    description: "Curated lifestyle shopping, local artisan goods, and value-packed offers with instant Swarn Rewards.",
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+        <circle cx="9" cy="21" r="1" />
+        <circle cx="20" cy="21" r="1" />
+        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+      </svg>
+    ),
+    link: "/offers"
+  },
+  {
+    number: "08",
+    tag: "Fintech & Future",
+    title: "Innovation & Future Tech",
+    description: "Incubating cutting-edge fintech, decentralized ledgers, and sustainable green technology initiatives.",
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+        <circle cx="12" cy="12" r="3" />
+        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" />
+      </svg>
+    ),
+    link: "/#businesses"
+  }
+];
+
 export default function AboutPage() {
   const [walletCoins, setWalletCoins] = useState(0);
   const [activeStep, setActiveStep] = useState(0);
-  const [timelineProgress, setTimelineProgress] = useState(0);
-
-  const timelineRef = useRef(null);
+  const [isLoopPaused, setIsLoopPaused] = useState(false);
 
   // Numbers Count-up
   useEffect(() => {
@@ -36,6 +274,15 @@ export default function AboutPage() {
     };
   }, []);
 
+  // Circular loop auto-cycle
+  useEffect(() => {
+    if (isLoopPaused) return;
+    const timer = setInterval(() => {
+      setActiveStep((prev) => (prev + 1) % 5);
+    }, 3800);
+    return () => clearInterval(timer);
+  }, [isLoopPaused]);
+
   // Reveal observer
   useEffect(() => {
     const revealEls = document.querySelectorAll(`.${styles.reveal}`);
@@ -52,30 +299,6 @@ export default function AboutPage() {
     );
     revealEls.forEach((el) => io.observe(el));
     return () => io.disconnect();
-  }, []);
-
-  // Timeline Scroll Handler
-  useEffect(() => {
-    const handleScroll = () => {
-      if (!timelineRef.current) return;
-      const rect = timelineRef.current.getBoundingClientRect();
-      const vh = window.innerHeight;
-      const total = rect.height;
-      let progress = (vh * 0.75 - rect.top) / total;
-      progress = Math.max(0, Math.min(1, progress));
-      setTimelineProgress(progress * 100);
-      const activeIdx = Math.floor(progress * 5);
-      setActiveStep(activeIdx);
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    window.addEventListener("resize", handleScroll);
-    handleScroll();
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      window.removeEventListener("resize", handleScroll);
-    };
   }, []);
 
   return (
@@ -176,87 +399,35 @@ export default function AboutPage() {
               </Link>
             </div>
 
-            <div className={`${styles.ecosystemGrid} ${styles.reveal} ${styles.d2}`}>
-              <div className={styles.ecoCard}>
-                <div className={styles.ecoIconWrap}>
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
-                    <rect x="3" y="4" width="18" height="12" rx="2" /><path d="M8 20h8M12 16v4" />
-                  </svg>
-                </div>
-                <h3>Technology &amp; Cloud</h3>
-                <p>Enterprise cloud solutions, high-scale software architectures, and AI-driven innovations for modern businesses.</p>
-              </div>
+            <div className={styles.ecosystemGrid}>
+              {ecosystemCards.map((card, idx) => (
+                <Link
+                  key={card.number}
+                  href={card.link}
+                  className={`${styles.ecoCard} ${styles.reveal} ${styles[`d${(idx % 4) + 1}`]}`}
+                  style={{ "--card-idx": idx }}
+                >
+                  <div className={styles.ecoCardGlow} aria-hidden="true" />
+                  <div className={styles.ecoCardTopRow}>
+                    <div className={styles.ecoIconWrap}>
+                      {card.icon}
+                    </div>
+                    <span className={styles.ecoNumber}>{card.number}</span>
+                  </div>
 
-              <div className={styles.ecoCard}>
-                <div className={styles.ecoIconWrap}>
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
-                    <path d="M3 11 12 4l9 7" /><path d="M5 10v10h14V10" />
-                  </svg>
-                </div>
-                <h3>Real Estate &amp; Infrastructure</h3>
-                <p>Premium commercial spaces, township residential ventures, and transparent land investments across India.</p>
-              </div>
+                  <div className={styles.ecoCategoryTag}>{card.tag}</div>
+                  <h3 className={styles.ecoCardTitle}>{card.title}</h3>
+                  <p className={styles.ecoCardDesc}>{card.description}</p>
 
-              <div className={styles.ecoCard}>
-                <div className={styles.ecoIconWrap}>
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
-                    <path d="M2 9l10-5 10 5-10 5-10-5Z" /><path d="M6 12v5c0 1.5 3 3 6 3s6-1.5 6-3v-5" />
-                  </svg>
-                </div>
-                <h3>Students Portal &amp; EdTech</h3>
-                <p>Skill certifications, competitive preparation, scholarships, and career counseling for India&apos;s youth.</p>
-              </div>
-
-              <div className={styles.ecoCard}>
-                <div className={styles.ecoIconWrap}>
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
-                    <rect x="3" y="8" width="18" height="12" rx="2" /><path d="M8 8V6a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
-                  </svg>
-                </div>
-                <h3>Jobs &amp; Talent Marketplace</h3>
-                <p>Connecting verified talent with leading enterprises, startups, and public sector opportunities.</p>
-              </div>
-
-              <div className={styles.ecoCard}>
-                <div className={styles.ecoIconWrap}>
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
-                    <path d="M12 21s-8-4.6-8-11a4.6 4.6 0 0 1 8-3 4.6 4.6 0 0 1 8 3c0 6.4-8 11-8 11Z" />
-                  </svg>
-                </div>
-                <h3>Matrimonial Network</h3>
-                <p>Trusted, secure, and meaningful matchmaking services honoring cultural heritage with modern safety.</p>
-              </div>
-
-              <div className={styles.ecoCard}>
-                <div className={styles.ecoIconWrap}>
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
-                    <circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 3" />
-                  </svg>
-                </div>
-                <h3>Foundation &amp; Impact</h3>
-                <p>Philanthropic initiatives in healthcare, grassroots education, women empowerment, and sustainability.</p>
-              </div>
-
-              <div className={styles.ecoCard}>
-                <div className={styles.ecoIconWrap}>
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
-                    <circle cx="9" cy="20" r="1.2" /><circle cx="18" cy="20" r="1.2" /><path d="M2 3h2l2.6 12.4a2 2 0 0 0 2 1.6h8.8a2 2 0 0 0 2-1.6L21 7H6" />
-                  </svg>
-                </div>
-                <h3>E-Commerce &amp; Retail</h3>
-                <p>Curated lifestyle shopping, local artisan goods, and value-packed offers with instant Swarn Rewards.</p>
-              </div>
-
-              <div className={styles.ecoCard}>
-                <div className={styles.ecoIconWrap}>
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
-                    <circle cx="12" cy="12" r="3" />
-                    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" />
-                  </svg>
-                </div>
-                <h3>Innovation &amp; Future Tech</h3>
-                <p>Incubating cutting-edge fintech, decentralized ledgers, and sustainable green technology initiatives.</p>
-              </div>
+                  <div className={styles.ecoFooterRow}>
+                    <span className={styles.ecoActionText}>Explore Vertical</span>
+                    <svg className={styles.ecoArrowIcon} width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                      <line x1="5" y1="12" x2="19" y2="12" />
+                      <polyline points="12 5 19 12 12 19" />
+                    </svg>
+                  </div>
+                </Link>
+              ))}
             </div>
           </div>
         </section>
@@ -323,76 +494,272 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* ================= HOW IT WORKS TIMELINE & WALLET ================= */}
-        <section className={`${styles.section} ${styles.bgPaper}`}>
+        {/* ================= HOW IT WORKS: CIRCULAR VALUE LOOP ================= */}
+        <section id="journey" className={`${styles.section} ${styles.loopSection}`}>
+          <div className={styles.loopBgPattern} aria-hidden="true" />
+          <div className={styles.loopAmbientGlow} aria-hidden="true" />
+
           <div className={styles.container}>
             <div className={styles.secHeaderCenter}>
-              <div className={`${styles.eyebrow} ${styles.reveal}`}>The Connected Journey</div>
-              <h2 className={`${styles.secTitle} ${styles.reveal} ${styles.d1}`}>
-                How the Swarn Bharat Ecosystem Works for You
+              <div className={`${styles.loopEyebrowBadge} ${styles.reveal}`}>
+                <span className={styles.loopSparkle}>✦</span>
+                <span>HOW IT WORKS</span>
+                <span className={styles.loopPill}>CIRCULAR VALUE LOOP</span>
+              </div>
+              <h2 className={`${styles.secTitle} ${styles.loopSecTitle} ${styles.reveal} ${styles.d1}`}>
+                How Rewards &amp; Value <span className={styles.loopTitleHighlight}>Continuously Compound</span>
               </h2>
               <p className={`${styles.secSub} ${styles.reveal} ${styles.d2}`}>
-                One seamless account creates an amplifying cycle of value across every life moment.
+                From unified signup to continuous auto-accrual and universal redemption—an interconnected cycle designed to reward you across every touchpoint.
               </p>
             </div>
 
-            <div className={styles.howItWorksLayout}>
-              <div className={styles.timelineCol} ref={timelineRef}>
-                <div className={styles.timelineTrack} />
-                <div className={styles.timelineFill} style={{ height: `${timelineProgress}%` }} />
-
-                {[
-                  { title: "Create Your Unified Account", desc: "Sign up in 30 seconds to receive your unique Swarn ID and welcome Swarn Coins." },
-                  { title: "Explore Across Verticals", desc: "Access jobs, properties, shopping, matchmaking, and education without re-registering." },
-                  { title: "Earn Swarn Rewards Automatically", desc: "Every purchase, subscription, and verified milestone credits coins straight to your wallet." },
-                  { title: "Centralized Ledger Security", desc: "All your earned coins are protected and safely tracked in your central profile." },
-                  { title: "Redeem Across the Universe", desc: "Spend coins on real estate tokenization discounts, e-commerce vouchers, or career courses." }
-                ].map((step, idx) => (
-                  <div key={idx} className={`${styles.stepItem} ${idx <= activeStep ? styles.stepItemActive : ""}`}>
-                    <div className={styles.stepNumberBadge}>0{idx + 1}</div>
-                    <div>
-                      <h4 className={styles.stepTitle}>{step.title}</h4>
-                      <p className={styles.stepDesc}>{step.desc}</p>
-                    </div>
-                  </div>
-                ))}
+            {/* Interactive Step Navigator Pipeline */}
+            <div
+              className={`${styles.stepperNavWrapper} ${styles.reveal} ${styles.d1}`}
+              onMouseEnter={() => setIsLoopPaused(true)}
+              onMouseLeave={() => setIsLoopPaused(false)}
+            >
+              <div className={styles.stepperTrack}>
+                {ecosystemJourney.map((item, idx) => {
+                  const isActive = activeStep === idx;
+                  return (
+                    <button
+                      key={item.step}
+                      type="button"
+                      className={`${styles.stepperTabBtn} ${isActive ? styles.stepperTabActive : ""}`}
+                      onClick={() => setActiveStep(idx)}
+                      aria-label={`Step ${item.step}: ${item.title}`}
+                    >
+                      <span className={styles.stepperNum}>{item.step}</span>
+                      <span className={styles.stepperLabel}>{item.shortTitle}</span>
+                      {isActive && <span className={styles.stepperActiveDot} />}
+                    </button>
+                  );
+                })}
               </div>
+              <div className={styles.stepperProgressTrack}>
+                <div
+                  className={styles.stepperProgressBar}
+                  style={{ width: `${((activeStep + 1) / 5) * 100}%` }}
+                />
+              </div>
+            </div>
 
-              <div className={`${styles.walletCol} ${styles.reveal} ${styles.d2}`}>
-                <div className={styles.walletCard}>
-                  <div className={styles.walletHeader}>
-                    <div className={styles.walletGoldMark}>S</div>
-                    <div>
-                      <div className={styles.walletTitle}>Central Swarn Wallet</div>
-                      <div className={styles.walletStatus}>Active · Verified Identity</div>
+            {/* Executive Studio 2-Column Split Canvas */}
+            <div
+              className={`${styles.studioCanvas} ${styles.reveal} ${styles.d2}`}
+              onMouseEnter={() => setIsLoopPaused(true)}
+              onMouseLeave={() => setIsLoopPaused(false)}
+            >
+              {/* Left Column: Spotlight Active Stage Details */}
+              <div className={styles.studioSpotlightCol}>
+                <div className={styles.spotlightCard}>
+                  <div className={styles.spotlightHeader}>
+                    <div className={styles.spotlightBadgeRow}>
+                      <span className={styles.spotlightStageTag}>
+                        {ecosystemJourney[activeStep].badgeTitle}
+                      </span>
+                      <span className={styles.spotlightCategoryPill}>
+                        {ecosystemJourney[activeStep].tag}
+                      </span>
+                    </div>
+                    <div className={styles.spotlightIconWrapper}>
+                      {ecosystemJourney[activeStep].icon}
                     </div>
                   </div>
 
-                  <div className={styles.walletBalanceLabel}>Total Available Balance</div>
-                  <div className={styles.walletBalanceAmount}>
-                    {walletCoins.toLocaleString()} <span>Swarn Coins</span>
+                  <h3 className={styles.spotlightTitle}>
+                    {ecosystemJourney[activeStep].title}
+                  </h3>
+                  <p className={styles.spotlightLead}>
+                    {ecosystemJourney[activeStep].lead}
+                  </p>
+
+                  <div className={styles.spotlightBullets}>
+                    {ecosystemJourney[activeStep].bullets.map((b, i) => (
+                      <div key={i} className={styles.spotlightBulletRow}>
+                        <div className={styles.spotlightCheckIcon}>
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
+                            <polyline points="20 6 9 17 4 12" />
+                          </svg>
+                        </div>
+                        <span>{b}</span>
+                      </div>
+                    ))}
                   </div>
 
-                  <div className={styles.walletChipsRow}>
-                    <div className={styles.walletChip}>
-                      <strong>Earn</strong> Across 7+ Verticals
+                  {/* Stage Metrics Bar */}
+                  <div className={styles.spotlightMetricRow}>
+                    <div className={styles.spotlightMetricCard}>
+                      <span className={styles.metricVal}>
+                        {ecosystemJourney[activeStep].metricValue}
+                      </span>
+                      <span className={styles.metricLbl}>
+                        {ecosystemJourney[activeStep].metricLabel}
+                      </span>
                     </div>
-                    <div className={styles.walletChip}>
-                      <strong>Spend</strong> Universal Acceptance
-                    </div>
-                    <div className={styles.walletChip}>
-                      <strong>Save</strong> Exclusive Member Tier
+                    <div className={styles.spotlightMetricCard}>
+                      <span className={styles.metricSubVal}>
+                        {ecosystemJourney[activeStep].subMetric}
+                      </span>
+                      <span className={styles.metricLbl}>Frictionless Delivery</span>
                     </div>
                   </div>
 
-                  <div className={styles.walletActionRow}>
-                    <Link href="/register" className={styles.walletCtaBtn}>
-                      Activate Your Wallet Now
+                  {/* Navigation & CTA Controls */}
+                  <div className={styles.spotlightControls}>
+                    <div className={styles.stepBtnGroup}>
+                      <button
+                        type="button"
+                        className={styles.prevStepBtn}
+                        onClick={() => setActiveStep((prev) => (prev === 0 ? 4 : prev - 1))}
+                        title="Previous Stage"
+                        aria-label="Previous Stage"
+                      >
+                        ← Prev
+                      </button>
+                      <button
+                        type="button"
+                        className={styles.nextStepBtn}
+                        onClick={() => setActiveStep((prev) => (prev === 4 ? 0 : prev + 1))}
+                        title="Next Stage"
+                        aria-label="Next Stage"
+                      >
+                        Next →
+                      </button>
+                    </div>
+
+                    <Link href="/register" className={styles.spotlightCta}>
+                      <span>Activate Swarn ID</span>
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                        <line x1="5" y1="12" x2="19" y2="12" />
+                        <polyline points="12 5 19 12 12 19" />
+                      </svg>
                     </Link>
                   </div>
                 </div>
               </div>
+
+              {/* Right Column: Live Swarn Digital Pass & Real-Time Ledger Hub */}
+              <div className={styles.studioLedgerCol}>
+                <div className={styles.ledgerHubCard}>
+                  {/* The Swarn Sovereign Gold Card */}
+                  <div className={styles.swarnSovereignCard}>
+                    <div className={styles.cardShimmerOverlay} />
+                    <div className={styles.cardTopRow}>
+                      <div className={styles.cardBrand}>
+                        <div className={styles.cardLogoBox}>S</div>
+                        <div>
+                          <div className={styles.cardBrandName}>SWARN BHARAT</div>
+                          <div className={styles.cardBrandSub}>SOVEREIGN PASS</div>
+                        </div>
+                      </div>
+                      <div className={styles.cardChipBox}>
+                        <div className={styles.chipCircuit} />
+                        <span className={styles.cardContactless}>
+                          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                            <path d="M8.5 16.5a5 5 0 0 1 0-9" />
+                            <path d="M12 19a8.5 8.5 0 0 0 0-14" />
+                            <path d="M15.5 21.5a12 12 0 0 0 0-19" />
+                          </svg>
+                        </span>
+                      </div>
+                    </div>
+
+                    <div className={styles.cardNumber}>
+                      <span>SB-8829</span>
+                      <span>••••</span>
+                      <span>••••</span>
+                      <span>4091</span>
+                    </div>
+
+                    <div className={styles.cardBottomRow}>
+                      <div>
+                        <div className={styles.cardMetaLbl}>TOTAL AVAILABLE BALANCE</div>
+                        <div className={styles.cardBalanceAmount}>
+                          <span className={styles.cardCoinIcon}>🪙</span>
+                          <strong>{walletCoins.toLocaleString()}</strong>
+                          <span className={styles.cardCoinsUnit}>Swarn Coins</span>
+                        </div>
+                      </div>
+                      <div className={styles.cardTierBadge}>
+                        <span>GOLD SOVEREIGN</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Live Ecosystem Ledger Terminal */}
+                  <div className={styles.liveLedgerTerminal}>
+                    <div className={styles.terminalHeader}>
+                      <div className={styles.terminalStatusDot}>
+                        <span className={styles.pulseDot} />
+                        <span>LIVE CENTRAL LEDGER AUDIT</span>
+                      </div>
+                      <span className={styles.terminalSyncBadge}>7/7 PORTALS SYNCED</span>
+                    </div>
+
+                    {/* Active Stage Simulated Ledger Event */}
+                    <div className={styles.activeLedgerEvent}>
+                      <div className={styles.eventLeft}>
+                        <span className={styles.eventIcon}>⚡</span>
+                        <div>
+                          <div className={styles.eventTitle}>
+                            {ecosystemJourney[activeStep].logEvent}
+                          </div>
+                          <div className={styles.eventSub}>
+                            {ecosystemJourney[activeStep].logHash} · <span className={styles.eventTime}>Just Now</span>
+                          </div>
+                        </div>
+                      </div>
+                      <span className={styles.eventStatusBadge}>
+                        {ecosystemJourney[activeStep].logStatus}
+                      </span>
+                    </div>
+
+                    {/* Quick Verticals Micro-Grid */}
+                    <div className={styles.verticalsRow}>
+                      <span className={styles.vertChip}>🏢 Real Estate</span>
+                      <span className={styles.vertChip}>🛍️ Mart</span>
+                      <span className={styles.vertChip}>💼 Jobs</span>
+                      <span className={styles.vertChip}>🎓 Academy</span>
+                      <span className={styles.vertChip}>💍 Matrimony</span>
+                      <span className={styles.vertChip}>🤝 Foundation</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
+
+            {/* Loop Flow Status Ribbon */}
+            <div className={`${styles.loopRibbonWrap} ${styles.reveal} ${styles.d3}`}>
+              <div className={styles.loopRibbonTrack}>
+                <div className={`${styles.loopRibbonItem} ${activeStep === 0 ? styles.ribbonItemActive : ""}`}>
+                  <strong>01</strong> Instant SSO
+                </div>
+                <div className={styles.loopRibbonArrow}>➔</div>
+                <div className={`${styles.loopRibbonItem} ${activeStep === 1 ? styles.ribbonItemActive : ""}`}>
+                  <strong>02</strong> 7+ Verticals
+                </div>
+                <div className={styles.loopRibbonArrow}>➔</div>
+                <div className={`${styles.loopRibbonItem} ${activeStep === 2 ? styles.ribbonItemActive : ""}`}>
+                  <strong>03</strong> Auto Rewards
+                </div>
+                <div className={styles.loopRibbonArrow}>➔</div>
+                <div className={`${styles.loopRibbonItem} ${activeStep === 3 ? styles.ribbonItemActive : ""}`}>
+                  <strong>04</strong> Encrypted Vault
+                </div>
+                <div className={styles.loopRibbonArrow}>➔</div>
+                <div className={`${styles.loopRibbonItem} ${activeStep === 4 ? styles.ribbonItemActive : ""}`}>
+                  <strong>05</strong> 1:1 Value Utility
+                </div>
+                <div className={styles.loopRibbonArrow}>➔</div>
+                <div className={`${styles.loopRibbonItem} ${styles.loopRibbonLoopTag}`}>
+                  <span>🔁 Continuous Compounding Loop</span>
+                </div>
+              </div>
+            </div>
+
           </div>
         </section>
 
