@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
+import { createPortal } from "react-dom";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { navLinks } from "@/data/homeData";
@@ -39,6 +40,7 @@ const defaultServicesMegaMenu = [
 
 export default function Navbar() {
   const pathname = usePathname();
+  const [mounted, setMounted] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -54,6 +56,10 @@ export default function Navbar() {
   const profileDropdownRef = useRef(null);
   const appDropdownRef = useRef(null);
   const searchInputRef = useRef(null);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   // Fetch live active business verticals for mega-menu
   useEffect(() => {
@@ -530,260 +536,270 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Mobile Drawer Menu */}
-      <div className={`${styles.mobileMenu} ${isMenuOpen ? styles.mobileMenuOpen : ""}`} aria-hidden={!isMenuOpen}>
-        <div className={styles.mobileMenuBackdrop} onClick={() => setIsMenuOpen(false)}></div>
-        <div className={styles.mobileMenuPanel}>
-          <div className={styles.mobileMenuHead}>
-            <Link href="/" onClick={() => setIsMenuOpen(false)} className={styles.mobileLogoLink}>
-              <img src="/images/logoch.png" alt="Swarn Bharat Group" className={styles.mobileLogo} />
-            </Link>
-            <button 
-              className={styles.mobileCloseBtn} 
-              onClick={() => setIsMenuOpen(false)}
-              aria-label="Close Navigation Menu"
-            >
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <line x1="18" y1="6" x2="6" y2="18"></line>
-                <line x1="6" y1="6" x2="18" y2="18"></line>
-              </svg>
-            </button>
-          </div>
-
-          <div className={styles.mobileScrollContainer}>
-            {/* Direct Drawer Search */}
-            <div className={styles.mobileSearchSection}>
-              <div className={styles.mobileSearchBar}>
-                <svg className={styles.mobileSearchIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <circle cx="11" cy="11" r="8"></circle>
-                  <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+      {/* Mobile Drawer Menu (Portaled to document.body for clean stacking & backdrop) */}
+      {mounted && typeof document !== "undefined" && createPortal(
+        <div 
+          className={`${styles.mobileMenu} ${isMenuOpen ? styles.mobileMenuOpen : ""}`} 
+          aria-hidden={!isMenuOpen}
+        >
+          <div 
+            className={styles.mobileMenuBackdrop} 
+            onClick={() => setIsMenuOpen(false)}
+            onTouchEnd={() => setIsMenuOpen(false)}
+          ></div>
+          <div className={styles.mobileMenuPanel}>
+            <div className={styles.mobileMenuHead}>
+              <Link href="/" onClick={() => setIsMenuOpen(false)} className={styles.mobileLogoLink}>
+                <img src="/images/logoch.png" alt="Swarn Bharat Group" className={styles.mobileLogo} />
+              </Link>
+              <button 
+                className={styles.mobileCloseBtn} 
+                onClick={() => setIsMenuOpen(false)}
+                aria-label="Close Navigation Menu"
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                  <line x1="6" y1="6" x2="18" y2="18"></line>
                 </svg>
-                <input
-                  type="text"
-                  placeholder="Search Swarn Bharat..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className={styles.mobileSearchField}
-                />
-                {searchQuery && (
-                  <button 
-                    className={styles.mobileSearchClear} 
-                    onClick={() => setSearchQuery("")}
-                    type="button"
-                  >
-                    ✕
-                  </button>
-                )}
-              </div>
+              </button>
             </div>
 
-            {/* Mobile Nav Items */}
-            <nav aria-label="Mobile" className={styles.mobileNav}>
-              {navLinks.map((link) => {
-                const active = isActiveLink(link.href);
+            <div className={styles.mobileScrollContainer}>
+              {/* Direct Drawer Search */}
+              <div className={styles.mobileSearchSection}>
+                <div className={styles.mobileSearchBar}>
+                  <svg className={styles.mobileSearchIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                  </svg>
+                  <input
+                    type="text"
+                    placeholder="Search Swarn Bharat..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className={styles.mobileSearchField}
+                  />
+                  {searchQuery && (
+                    <button 
+                      className={styles.mobileSearchClear} 
+                      onClick={() => setSearchQuery("")}
+                      type="button"
+                    >
+                      ✕
+                    </button>
+                  )}
+                </div>
+              </div>
 
-                if (link.label === "Businesses") {
-                  return (
-                    <div key={link.href} className={styles.mobileAccordionWrapper}>
-                      <button
-                        type="button"
-                        className={`${styles.mobileNavLink} ${styles.mobileAccordionHeader} ${isMobileServicesOpen ? styles.mobileNavLinkActive : ""}`}
-                        onClick={() => setIsMobileServicesOpen(!isMobileServicesOpen)}
-                        aria-expanded={isMobileServicesOpen}
+              {/* Mobile Nav Items */}
+              <nav aria-label="Mobile" className={styles.mobileNav}>
+                {navLinks.map((link) => {
+                  const active = isActiveLink(link.href);
+
+                  if (link.label === "Businesses") {
+                    return (
+                      <div key={link.href} className={styles.mobileAccordionWrapper}>
+                        <button
+                          type="button"
+                          className={`${styles.mobileNavLink} ${styles.mobileAccordionHeader} ${isMobileServicesOpen ? styles.mobileNavLinkActive : ""}`}
+                          onClick={() => setIsMobileServicesOpen(!isMobileServicesOpen)}
+                          aria-expanded={isMobileServicesOpen}
+                        >
+                          <span className={styles.mobileNavLinkInner}>
+                            <span className={styles.mobileNavDot}></span>
+                            {link.label}
+                          </span>
+                          <svg className={`${styles.mobileChevron} ${isMobileServicesOpen ? styles.mobileChevronOpen : ""}`} viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z" fill="currentColor" />
+                          </svg>
+                        </button>
+
+                        <div className={`${styles.mobileAccordionContent} ${isMobileServicesOpen ? styles.mobileAccordionContentOpen : ""}`}>
+                          <div className={styles.mobileAccordionContentInner}>
+                            {servicesMegaMenu.map((column, colIndex) => (
+                              <div key={colIndex} className={styles.mobileSubCategory}>
+                                <div className={styles.mobileSubHeading}>{column.title}</div>
+                                <div className={styles.mobileSubLinksList}>
+                                  {column.links.map((subLink, subIndex) => (
+                                    <Link
+                                      key={subIndex}
+                                      href={subLink.href}
+                                      className={styles.mobileSubLink}
+                                      onClick={() => setIsMenuOpen(false)}
+                                      target={subLink.external ? "_blank" : undefined}
+                                      rel={subLink.external ? "noopener noreferrer" : undefined}
+                                    >
+                                      <span className={styles.mobileSubLinkTitle}>{subLink.label}</span>
+                                      <span className={styles.mobileSubLinkArrow}>→</span>
+                                    </Link>
+                                  ))}
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  }
+
+                  if (link.external) {
+                    return (
+                      <a
+                        key={link.href}
+                        href={link.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={styles.mobileNavLink}
+                        onClick={() => setIsMenuOpen(false)}
                       >
                         <span className={styles.mobileNavLinkInner}>
                           <span className={styles.mobileNavDot}></span>
                           {link.label}
                         </span>
-                        <svg className={`${styles.mobileChevron} ${isMobileServicesOpen ? styles.mobileChevronOpen : ""}`} viewBox="0 0 24 24" aria-hidden="true">
-                          <path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z" fill="currentColor" />
+                        <svg className={styles.externalIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                          <polyline points="15 3 21 3 21 9"></polyline>
+                          <line x1="10" y1="14" x2="21" y2="3"></line>
                         </svg>
-                      </button>
+                      </a>
+                    );
+                  }
 
-                      <div className={`${styles.mobileAccordionContent} ${isMobileServicesOpen ? styles.mobileAccordionContentOpen : ""}`}>
-                        <div className={styles.mobileAccordionContentInner}>
-                          {servicesMegaMenu.map((column, colIndex) => (
-                            <div key={colIndex} className={styles.mobileSubCategory}>
-                              <div className={styles.mobileSubHeading}>{column.title}</div>
-                              <div className={styles.mobileSubLinksList}>
-                                {column.links.map((subLink, subIndex) => (
-                                  <Link
-                                    key={subIndex}
-                                    href={subLink.href}
-                                    className={styles.mobileSubLink}
-                                    onClick={() => setIsMenuOpen(false)}
-                                    target={subLink.external ? "_blank" : undefined}
-                                    rel={subLink.external ? "noopener noreferrer" : undefined}
-                                  >
-                                    <span className={styles.mobileSubLinkTitle}>{subLink.label}</span>
-                                    <span className={styles.mobileSubLinkArrow}>→</span>
-                                  </Link>
-                                ))}
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                  );
-                }
-
-                if (link.external) {
                   return (
-                    <a
+                    <Link
                       key={link.href}
                       href={link.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={styles.mobileNavLink}
+                      className={`${styles.mobileNavLink} ${active ? styles.mobileNavLinkActive : ""}`}
                       onClick={() => setIsMenuOpen(false)}
                     >
                       <span className={styles.mobileNavLinkInner}>
                         <span className={styles.mobileNavDot}></span>
                         {link.label}
                       </span>
-                      <svg className={styles.externalIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                        <polyline points="15 3 21 3 21 9"></polyline>
-                        <line x1="10" y1="14" x2="21" y2="3"></line>
-                      </svg>
-                    </a>
-                  );
-                }
-
-                return (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    className={`${styles.mobileNavLink} ${active ? styles.mobileNavLinkActive : ""}`}
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    <span className={styles.mobileNavLinkInner}>
-                      <span className={styles.mobileNavDot}></span>
-                      {link.label}
-                    </span>
-                    {active && <span className={styles.activePill}>ACTIVE</span>}
-                  </Link>
-                );
-              })}
-
-              {/* Mobile Quick Utilities */}
-              <div className={styles.mobileUtilityHeading}>Quick Ecosystem</div>
-              <div className={styles.mobileUtilityLinks}>
-                <a 
-                  href="#app" 
-                  className={styles.mobileUtilItem} 
-                  onClick={(e) => { 
-                    e.preventDefault(); 
-                    setIsAppModalOpen(true); 
-                    setIsMenuOpen(false); 
-                  }}
-                >
-                  <span className={styles.mobileUtilIcon}>📱</span>
-                  <span>Swarn App</span>
-                </a>
-                <Link href="/news" className={styles.mobileUtilItem} onClick={() => setIsMenuOpen(false)}>
-                  <span className={styles.mobileUtilIcon}>📰</span>
-                  <span>Newsroom</span>
-                </Link>
-                <Link href="/events" className={styles.mobileUtilItem} onClick={() => setIsMenuOpen(false)}>
-                  <span className={styles.mobileUtilIcon}>📅</span>
-                  <span>Events</span>
-                </Link>
-                <Link href="/blog" className={styles.mobileUtilItem} onClick={() => setIsMenuOpen(false)}>
-                  <span className={styles.mobileUtilIcon}>💡</span>
-                  <span>Insights</span>
-                </Link>
-                <Link href="/contact" className={styles.mobileUtilItem} onClick={() => setIsMenuOpen(false)}>
-                  <span className={styles.mobileUtilIcon}>📞</span>
-                  <span>Support</span>
-                </Link>
-                <Link href="/offers" className={styles.mobileUtilItem} onClick={() => setIsMenuOpen(false)}>
-                  <span className={styles.mobileUtilIcon}>🛍️</span>
-                  <span>Offers</span>
-                </Link>
-              </div>
-
-              {/* Mobile Auth Area */}
-              <div className={styles.mobileAuthArea}>
-                {user ? (
-                  <div className={styles.mobileUserCard}>
-                    <div className={styles.mobileUserCardHead}>
-                      <div className={styles.mobileUserAvatar}>
-                        {user.profileImage ? (
-                          <img src={user.profileImage} alt={user.name || "User"} />
-                        ) : (
-                          (() => {
-                            const n = user.name || user.email || "User";
-                            const parts = n.trim().split(/[\s@._-]+/);
-                            if (parts.length >= 2 && parts[0] && parts[1]) {
-                              return (parts[0][0] + parts[1][0]).toUpperCase();
-                            }
-                            return n.slice(0, 2).toUpperCase();
-                          })()
-                        )}
-                      </div>
-                      <div className={styles.mobileUserInfo}>
-                        <h4>{user.name || "Swarn Member"}</h4>
-                        <p>{user.email || (user.phone ? `+91 ${user.phone}` : "Active Member")}</p>
-                      </div>
-                    </div>
-
-                    <div className={styles.mobileRewardsPill}>
-                      <span>✨ Swarn Points</span>
-                      <strong>{user.swarnPoints || "1,000"} Pts</strong>
-                    </div>
-
-                    <div className={styles.mobileUserLinks}>
-                      <Link 
-                        href="/profile" 
-                        onClick={() => setIsMenuOpen(false)} 
-                        className={styles.mobileUserActionLink}
-                      >
-                        <span>👤 My Profile & Dashboard</span>
-                        <span>→</span>
-                      </Link>
-                      <Link 
-                        href="/rewards" 
-                        onClick={() => setIsMenuOpen(false)} 
-                        className={styles.mobileUserActionLink}
-                      >
-                        <span>🎁 Swarn Rewards</span>
-                        <span>→</span>
-                      </Link>
-                    </div>
-
-                    <button 
-                      type="button"
-                      onClick={() => { logout(); setIsMenuOpen(false); }} 
-                      className={styles.mobileSignOutBtn}
-                    >
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/>
-                      </svg>
-                      Sign Out
-                    </button>
-                  </div>
-                ) : (
-                  <div className={styles.mobileGuestCard}>
-                    <Link 
-                      href="/login" 
-                      onClick={() => setIsMenuOpen(false)} 
-                      className={styles.mobileAuthBtn}
-                    >
-                      <span>LOGIN &amp; REGISTER</span>
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                        <line x1="5" y1="12" x2="19" y2="12"></line>
-                        <polyline points="12 5 19 12 12 19"></polyline>
-                      </svg>
+                      {active && <span className={styles.activePill}>ACTIVE</span>}
                     </Link>
-                  </div>
-                )}
-              </div>
-            </nav>
+                  );
+                })}
+
+                {/* Mobile Quick Utilities */}
+                <div className={styles.mobileUtilityHeading}>Quick Ecosystem</div>
+                <div className={styles.mobileUtilityLinks}>
+                  <a 
+                    href="#app" 
+                    className={styles.mobileUtilItem} 
+                    onClick={(e) => { 
+                      e.preventDefault(); 
+                      setIsAppModalOpen(true); 
+                      setIsMenuOpen(false); 
+                    }}
+                  >
+                    <span className={styles.mobileUtilIcon}>📱</span>
+                    <span>Swarn App</span>
+                  </a>
+                  <Link href="/news" className={styles.mobileUtilItem} onClick={() => setIsMenuOpen(false)}>
+                    <span className={styles.mobileUtilIcon}>📰</span>
+                    <span>Newsroom</span>
+                  </Link>
+                  <Link href="/events" className={styles.mobileUtilItem} onClick={() => setIsMenuOpen(false)}>
+                    <span className={styles.mobileUtilIcon}>📅</span>
+                    <span>Events</span>
+                  </Link>
+                  <Link href="/blog" className={styles.mobileUtilItem} onClick={() => setIsMenuOpen(false)}>
+                    <span className={styles.mobileUtilIcon}>💡</span>
+                    <span>Insights</span>
+                  </Link>
+                  <Link href="/contact" className={styles.mobileUtilItem} onClick={() => setIsMenuOpen(false)}>
+                    <span className={styles.mobileUtilIcon}>📞</span>
+                    <span>Support</span>
+                  </Link>
+                  <Link href="/offers" className={styles.mobileUtilItem} onClick={() => setIsMenuOpen(false)}>
+                    <span className={styles.mobileUtilIcon}>🛍️</span>
+                    <span>Offers</span>
+                  </Link>
+                </div>
+
+                {/* Mobile Auth Area */}
+                <div className={styles.mobileAuthArea}>
+                  {user ? (
+                    <div className={styles.mobileUserCard}>
+                      <div className={styles.mobileUserCardHead}>
+                        <div className={styles.mobileUserAvatar}>
+                          {user.profileImage ? (
+                            <img src={user.profileImage} alt={user.name || "User"} />
+                          ) : (
+                            (() => {
+                              const n = user.name || user.email || "User";
+                              const parts = n.trim().split(/[\s@._-]+/);
+                              if (parts.length >= 2 && parts[0] && parts[1]) {
+                                return (parts[0][0] + parts[1][0]).toUpperCase();
+                              }
+                              return n.slice(0, 2).toUpperCase();
+                            })()
+                          )}
+                        </div>
+                        <div className={styles.mobileUserInfo}>
+                          <h4>{user.name || "Swarn Member"}</h4>
+                          <p>{user.email || (user.phone ? `+91 ${user.phone}` : "Active Member")}</p>
+                        </div>
+                      </div>
+
+                      <div className={styles.mobileRewardsPill}>
+                        <span>✨ Swarn Points</span>
+                        <strong>{user.swarnPoints || "1,000"} Pts</strong>
+                      </div>
+
+                      <div className={styles.mobileUserLinks}>
+                        <Link 
+                          href="/profile" 
+                          onClick={() => setIsMenuOpen(false)} 
+                          className={styles.mobileUserActionLink}
+                        >
+                          <span>👤 My Profile & Dashboard</span>
+                          <span>→</span>
+                        </Link>
+                        <Link 
+                          href="/rewards" 
+                          onClick={() => setIsMenuOpen(false)} 
+                          className={styles.mobileUserActionLink}
+                        >
+                          <span>🎁 Swarn Rewards</span>
+                          <span>→</span>
+                        </Link>
+                      </div>
+
+                      <button 
+                        type="button"
+                        onClick={() => { logout(); setIsMenuOpen(false); }} 
+                        className={styles.mobileSignOutBtn}
+                      >
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                          <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/>
+                        </svg>
+                        Sign Out
+                      </button>
+                    </div>
+                  ) : (
+                    <div className={styles.mobileGuestCard}>
+                      <Link 
+                        href="/login" 
+                        onClick={() => setIsMenuOpen(false)} 
+                        className={styles.mobileAuthBtn}
+                      >
+                        <span>LOGIN &amp; REGISTER</span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                          <line x1="5" y1="12" x2="19" y2="12"></line>
+                          <polyline points="12 5 19 12 12 19"></polyline>
+                        </svg>
+                      </Link>
+                    </div>
+                  )}
+                </div>
+              </nav>
+            </div>
           </div>
-        </div>
-      </div>
+        </div>,
+        document.body
+      )}
 
       <LoginModal isOpen={isLoginModalOpen} onClose={() => setIsLoginModalOpen(false)} />
       <RegisterModal isOpen={isRegisterModalOpen} onClose={() => setIsRegisterModalOpen(false)} />

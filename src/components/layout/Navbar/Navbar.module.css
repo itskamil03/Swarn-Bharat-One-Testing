@@ -755,18 +755,23 @@
   gap: 5px;
   width: 38px;
   height: 38px;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: 10px;
   padding: 8px;
   cursor: pointer;
-  z-index: 110;
+  z-index: 120;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
   transition: all 0.25s ease;
 }
 
-.menuButton:hover {
-  background: rgba(255, 255, 255, 0.12);
-  border-color: rgba(246, 206, 114, 0.4);
+.menuButton:hover,
+.menuButton:active {
+  background: rgba(255, 255, 255, 0.16);
+  border-color: rgba(246, 206, 114, 0.5);
+  box-shadow: 0 0 12px rgba(246, 206, 114, 0.2);
 }
 
 .bar {
@@ -774,6 +779,7 @@
   height: 2px;
   background: #ffffff;
   border-radius: 2px;
+  pointer-events: none;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   transform-origin: center;
 }
@@ -797,25 +803,32 @@
 .mobileMenu {
   position: fixed;
   inset: 0;
-  z-index: 1050;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  z-index: 999999;
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.3s ease, visibility 0.3s ease;
+  transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.3s ease;
   pointer-events: none;
 }
 
 .mobileMenuOpen {
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
 }
 
 .mobileMenuBackdrop {
   position: absolute;
   inset: 0;
-  background: rgba(4, 11, 22, 0.75);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  width: 100%;
+  height: 100%;
+  background: rgba(3, 9, 20, 0.78);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  cursor: pointer;
+  touch-action: auto;
 }
 
 .mobileMenuPanel {
@@ -824,9 +837,11 @@
   right: 0;
   bottom: 0;
   width: min(340px, 86vw);
-  background: linear-gradient(180deg, #09182d 0%, #061121 100%);
-  border-left: 1px solid rgba(246, 206, 114, 0.2);
-  box-shadow: -10px 0 40px rgba(0, 0, 0, 0.6);
+  height: 100%;
+  height: 100dvh;
+  background: linear-gradient(180deg, #09182d 0%, #050d1a 100%);
+  border-left: 1px solid rgba(246, 206, 114, 0.25);
+  box-shadow: -15px 0 50px rgba(0, 0, 0, 0.8);
   display: flex;
   flex-direction: column;
   transform: translateX(100%);
@@ -835,7 +850,7 @@
 }
 
 .mobileMenuOpen .mobileMenuPanel {
-  transform: translateX(0);
+  transform: translateX(0) !important;
 }
 
 /* MOBILE DRAWER HEADER */
