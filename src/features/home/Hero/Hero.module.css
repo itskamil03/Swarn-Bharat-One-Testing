@@ -291,7 +291,10 @@
 
 @media (max-width: 900px) {
   .hero {
-    min-height: 600px;
+    height: 100vh;
+    height: 100svh;
+    min-height: 560px;
+    max-height: none;
   }
 
   .arrowButton {
@@ -300,37 +303,124 @@
   }
 
   .arrowPrev {
-    left: 1rem;
+    left: 0.75rem;
   }
 
   .arrowNext {
-    right: 1rem;
+    right: 0.75rem;
   }
 
   .navContainerCenter {
-    bottom: 2rem;
+    bottom: 1.75rem;
   }
 
+  .headline {
+    font-size: clamp(2rem, 5vw, 3.2rem);
+  }
 
+  .description {
+    font-size: 0.95rem;
+    max-width: 440px;
+  }
 }
 
 @media (max-width: 640px) {
+  .hero {
+    height: 100vh;
+    height: 100svh;
+    min-height: 520px;
+  }
+
   .arrowButton {
     display: none;
   }
 
-  .dashButton {
-    width: 40px;
+  .overlay {
+    background: linear-gradient(180deg,
+        rgba(6, 19, 36, 0.72) 0%,
+        rgba(6, 19, 36, 0.52) 35%,
+        rgba(6, 19, 36, 0.92) 100%);
+  }
+
+  .content {
+    padding-top: 75px;
+    padding-bottom: 60px;
+    align-items: center;
+  }
+
+  .textBlock {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .eyebrow {
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    margin-bottom: 0.75rem;
+    gap: 0.5rem;
+  }
+
+  .eyebrowLine {
+    width: 20px;
+  }
+
+  .headline {
+    font-size: clamp(1.8rem, 7.5vw, 2.45rem);
+    line-height: 1.16;
+    margin-bottom: 0.85rem;
+  }
+
+  .description {
+    font-size: 0.88rem;
+    line-height: 1.55;
+    margin-bottom: 1.35rem;
+    max-width: 100%;
+    color: rgba(255, 255, 255, 0.88);
   }
 
   .ctaRow {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: stretch;
     width: 100%;
+    max-width: 300px;
+    gap: 0.65rem;
   }
 
   .ctaRow a {
     width: 100%;
     justify-content: center;
+    padding: 0.8rem 1.25rem;
+    font-size: 0.82rem;
+  }
+
+  .navContainerCenter {
+    bottom: 1.15rem;
+  }
+
+  .dashButton {
+    width: 32px;
+    height: 18px;
+  }
+
+  .dashTrack {
+    height: 2.5px;
+  }
+
+  .indicatorsDash {
+    gap: 0.35rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .headline {
+    font-size: 1.65rem;
+  }
+
+  .description {
+    font-size: 0.84rem;
+  }
+
+  .ctaRow {
+    max-width: 100%;
   }
 }
