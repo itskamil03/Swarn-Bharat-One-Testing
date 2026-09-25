@@ -431,9 +431,32 @@
   .valueGrid { grid-template-columns: repeat(2, 1fr); }
   .hubSide { margin-top: 20px; }
 }
+@media (max-width: 768px) {
+  .heroCtas {
+    justify-content: center;
+  }
+}
 @media (max-width: 640px) {
-  .wrap { padding: 0 22px; }
+  .wrap { padding: 0 20px; }
   .valueGrid { grid-template-columns: 1fr; }
+  .heroCtas {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    width: 100%;
+    margin-top: 28px;
+  }
+  .btnPrimary,
+  .btnSecondary {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+    text-align: center;
+    padding: 14px 20px;
+    font-size: 14px;
+  }
 }
 @media (prefers-reduced-motion: reduce) {
   .hero * { animation: none !important; transition: none !important; }
