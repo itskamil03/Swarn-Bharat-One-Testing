@@ -21,7 +21,7 @@
 
 /* TOP UTILITY BAR */
 .topUtilityBar {
-  padding: 0.45rem 0;
+  padding: 0.25rem 0;
   background: rgba(4, 11, 22, 0.5);
   font-size: 0.75rem;
   transition: max-height 0.3s ease, opacity 0.3s ease;
@@ -90,8 +90,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-top: 0.85rem;
-  padding-bottom: 0.85rem;
+  padding-top: 0.45rem;
+  padding-bottom: 0.45rem;
   gap: 1.5rem;
   position: relative;
 }
@@ -109,7 +109,7 @@
 }
 
 .brandLogo {
-  height: 64px;
+  height: 58px;
   width: auto;
   object-fit: contain;
   transition: transform 0.3s ease;
